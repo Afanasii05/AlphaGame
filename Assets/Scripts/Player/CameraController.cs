@@ -1,55 +1,60 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 namespace Alpha.Player
 {
     public class CameraController : MonoBehaviour
     {
 
-        // Update is called once per frame
+        
         [SerializeField] private float mouseSensitivity = 0.1f;
         [SerializeField] private float distance = 5f;
         [SerializeField] private Transform playerTransform;
         [SerializeField] private InputHandler inputHandler;
+        [SerializeField] private float lookAroundAngle = 20f;
+
         public bool is3D { get; private set; } = true;
         private float xAngle = 0f;
         private float yAngle = 0f;
         private float yShoulder = 1.5f;
         private float maxDownAngleDown= 80f;
+
         void Start()
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+            UnityEngine.Cursor.visible = false;
         }
-        void Update()
+        private void OnEnable()
         {
-            if (Keyboard.current.pKey.wasReleasedThisFrame)
-                toggleCameraPerspective();
-            if (Mouse.current != null)
-            {
-                Vector2 mouseDelta = Mouse.current.delta.ReadValue();
-                xAngle += mouseDelta.x * mouseSensitivity;
-                yAngle -= mouseDelta.y * mouseSensitivity;
-                if (is3D)
-                    maxDownAngleDown = 89f;
-                else
-                    maxDownAngleDown = 70f;
-                yAngle = Mathf.Clamp(yAngle, -89.9f, maxDownAngleDown); 
-
-            }
+            inputHandler.onMouseMoveUpdate += HandleMouseRotation;
+            inputHandler.onTogglePerspective += HandlePerspective;
         }
+        private void OnDisable()
+        {
+            inputHandler.onMouseMoveUpdate -= HandleMouseRotation;
+            inputHandler.onTogglePerspective -= HandlePerspective;
+        }
+
         private void LateUpdate()
         {
-            if(playerTransform == null) return;
-            
+            Vector3 target = playerTransform.position + Vector3.up * yShoulder;
+            transform.position = -transform.forward * distance + target;
+        }
+        
+        private void HandleMouseRotation(Vector2 mouseVector) {
+            xAngle += mouseVector.x * mouseSensitivity;
+            yAngle -= mouseVector.y * mouseSensitivity;
+            if (is3D)
+                maxDownAngleDown = 89f;
+            else
+                maxDownAngleDown = 70f;
+            yAngle = Mathf.Clamp(yAngle, -89.9f, maxDownAngleDown);
             Quaternion rotation = Quaternion.Euler(yAngle, xAngle, 0f); // toata rotatia camerei pe ambele axe in quaternion
-            Vector3 target = playerTransform.position + new Vector3(0,yShoulder, 0);
-            Vector3 backDirection = rotation * Vector3.back; // extrag forward si il inversez apoi din pozitia camerei extrag invers pentru o rotatie in jurul playerului a camerei
-            transform.position = target + backDirection * distance;
             transform.rotation = rotation; //rotatia in sine a camerei
         }
-        private void toggleCameraPerspective()
+        private void HandlePerspective()
         {
             is3D = !is3D;
             if (is3D)
@@ -63,6 +68,7 @@ namespace Alpha.Player
                 yShoulder = 1f;
             }
         }
+        
 
     }
 

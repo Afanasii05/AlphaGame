@@ -306,6 +306,7 @@ MonoBehaviour:
   distance: 5
   playerTransform: {fileID: 579590968}
   inputHandler: {fileID: 579590969}
+  lookAroundAngle: 8
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,7 +683,7 @@ MonoBehaviour:
   moveSpeed: 5
   sprintMultiplier: 2.5
   crouchMultiplier: 0.2
-  jumpForce: 8
+  jumpForce: 13
   gravityMultiplier: 2
   cameraController: {fileID: 330585549}
   cameraTransform: {fileID: 330585546}

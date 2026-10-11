@@ -23,6 +23,7 @@ namespace Alpha.Player
         private bool isJumping = false;
         private bool isSprinting = false;
         private bool isCrouching = false;
+        private Vector2 moveInput = Vector2.zero;
         InputHandler inputHandler;
         Rigidbody rb;
         Animator anim;
@@ -42,6 +43,7 @@ namespace Alpha.Player
             inputHandler.onCrouchHold += HandleCrouch;
             inputHandler.onSprintHold += HandleSprint;
             inputHandler.onJumpTriggered += HandleJump;
+            inputHandler.onMoveUpdate += HandleMovementUpdate;
 
         }
         private void OnDisable()
@@ -49,19 +51,22 @@ namespace Alpha.Player
             inputHandler.onCrouchHold -= HandleCrouch;
             inputHandler.onSprintHold -= HandleSprint;
             inputHandler.onJumpTriggered -= HandleJump;
+            inputHandler.onMoveUpdate -= HandleMovementUpdate;
 
         }
         void FixedUpdate()
         {
 
-            Vector3 moveDirection = GetMoveDirection();
-            if (moveDirection != Vector3.zero || !cameraController.is3D)
+            Vector3 moveDirectionAndMagnitude = GetMoveDirectionAndMagnitude();
+            if (moveDirectionAndMagnitude != Vector3.zero || !cameraController.is3D)
                 RotatePlayer();
-            rb.linearVelocity = new Vector3(moveDirection.x * moveSpeed, rb.linearVelocity.y, moveDirection.z * moveSpeed);
+            rb.linearVelocity = new Vector3(moveDirectionAndMagnitude.x * moveSpeed, rb.linearVelocity.y, moveDirectionAndMagnitude.z * moveSpeed);
             if(rb.linearVelocity.y < 0)
                 handleFall();
 
         }
+        
+        private void HandleMovementUpdate(Vector2 moveVector){ moveInput = moveVector;}
         private void HandleSprint(bool sprintPressed){isSprinting = sprintPressed;}
         private void HandleCrouch(bool crouchPressed)
         {
@@ -69,10 +74,7 @@ namespace Alpha.Player
             anim.SetBool("Crouch", isCrouching);
         }
         
-        private void handleFall()
-        {
-            rb.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);
-        }
+        private void handleFall(){rb.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);}
         private void HandleJump()
         {
             if (isGrounded && !isCrouching && !isJumping)
@@ -92,29 +94,29 @@ namespace Alpha.Player
 
         }
         
-        private Vector3 GetMoveDirection()
+        private Vector3 GetMoveDirectionAndMagnitude()
         {
-            Vector2 moveInput = inputHandler.move;//Inputul de la tastatura 
             if (moveInput.magnitude == 0)//Daca stau pe loc
             { anim.SetFloat("Speed", 0f);
                 return Vector3.zero;
-            }
-            moveInput.Normalize();
+            } 
+
             Vector3 cameraForward = cameraTransform.forward;//Directia camerei pentru a misca playerul relativ la rotatia camerei
             Vector3 cameraRight = cameraTransform.right;
             cameraForward.y = 0;
             cameraRight.y = 0;
             cameraForward.Normalize();
             cameraRight.Normalize();
+            float speedMultiplier = 1f;
             if (isSprinting && !isCrouching)
-                moveInput *= sprintMultiplier;
+                speedMultiplier *= sprintMultiplier;
             else if(isCrouching)
-                moveInput *= crouchMultiplier;
+                speedMultiplier *= crouchMultiplier;
 
-            Vector3 moveDirection = cameraForward * moveInput.y + cameraRight * moveInput.x;
-            anim.SetFloat("Speed", moveInput.magnitude * moveSpeed);
-            Debug.Log($"Speed: {moveInput.magnitude * moveSpeed}");
-            return moveDirection;
+            Vector3 moveDirection = cameraForward * moveInput.y + cameraRight*moveInput.x;
+            anim.SetFloat("Speed", moveInput.magnitude * moveSpeed * speedMultiplier);
+            Debug.Log($"Speed: {moveInput.magnitude * moveSpeed * speedMultiplier}");
+            return moveDirection * speedMultiplier;
 
         }
 
@@ -132,13 +134,10 @@ namespace Alpha.Player
             if (rb.linearVelocity.y > 0.1f || isJumping) return; //Daca abia am sarit nu updatez starea grounded
             foreach (ContactPoint contact in collision.contacts)
             {
-                if (contact.normal.y >= marginError)
+                if (contact.normal.y >= marginError && ! isGrounded)
                 {
-                    if (!isGrounded)
-                    {
-                        anim.SetBool("IsGrounded", true);
-                        isGrounded = true;
-                    }
+                    anim.SetBool("IsGrounded", true);
+                    isGrounded = true;
                     break;
                 }
             }
