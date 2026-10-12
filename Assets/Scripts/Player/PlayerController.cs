@@ -115,7 +115,6 @@ namespace Alpha.Player
 
             Vector3 moveDirection = cameraForward * moveInput.y + cameraRight*moveInput.x;
             anim.SetFloat("Speed", moveInput.magnitude * moveSpeed * speedMultiplier);
-            Debug.Log($"Speed: {moveInput.magnitude * moveSpeed * speedMultiplier}");
             return moveDirection * speedMultiplier;
 
         }
@@ -124,8 +123,8 @@ namespace Alpha.Player
         {  
             float yAngle = cameraTransform.eulerAngles.y;
             Quaternion targetRotation = Quaternion.Euler(0f, yAngle, 0f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.1f);
-            
+            rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, 0.1f));
+
         }
         
         

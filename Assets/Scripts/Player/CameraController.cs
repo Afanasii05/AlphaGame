@@ -20,6 +20,8 @@ namespace Alpha.Player
         private float yAngle = 0f;
         private float yShoulder = 1.5f;
         private float maxDownAngleDown= 80f;
+        private Vector2 lookDelta;          // miscarea mouse-ului din frame-ul curent
+        private int lookFrame = -1;
 
         void Start()
         {
@@ -39,11 +41,17 @@ namespace Alpha.Player
 
         private void LateUpdate()
         {
+            if (lookFrame == Time.frameCount)   // rotatia din mouse se aplica o singura data pe frame
+                ApplyMouseRotation(lookDelta);
             Vector3 target = playerTransform.position + Vector3.up * yShoulder;
             transform.position = -transform.forward * distance + target;
         }
         
         private void HandleMouseRotation(Vector2 mouseVector) {
+            lookDelta = mouseVector;            // ultimul apel din frame contine totalul miscarii mouse-ului
+            lookFrame = Time.frameCount;
+        }
+        private void ApplyMouseRotation(Vector2 mouseVector) {
             xAngle += mouseVector.x * mouseSensitivity;
             yAngle -= mouseVector.y * mouseSensitivity;
             if (is3D)
