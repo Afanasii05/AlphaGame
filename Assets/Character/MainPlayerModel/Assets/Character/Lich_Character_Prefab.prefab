@@ -1,5 +1,80 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1930403024633513988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3324807538633085190}
+  m_Layer: 0
+  m_Name: Socket_Weapon_L
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3324807538633085190
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1930403024633513988}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.01, y: 0.062, z: 0.012}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3466357598581938215}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8439531534214169976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3573394032803792357}
+  - component: {fileID: 2575816747554194021}
+  m_Layer: 0
+  m_Name: Socket_Weapon_R
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3573394032803792357
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8439531534214169976}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.01, y: 0.062, z: 0.012}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5482013991924511158}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2575816747554194021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8439531534214169976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62354278d46be4a6a8271e2c3d6deb0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.WeaponSocket
 --- !u!1001 &7885153505212267934
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54,6 +129,45 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6734931530170869177, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3324807538633085190}
+    - targetCorrespondingSourceObject: {fileID: 2412161367050800168, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3573394032803792357}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1864887313556036215}
   m_SourcePrefab: {fileID: 100100000, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
+--- !u!4 &3466357598581938215 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6734931530170869177, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
+  m_PrefabInstance: {fileID: 7885153505212267934}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5482013991924511158 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2412161367050800168, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
+  m_PrefabInstance: {fileID: 7885153505212267934}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7038238379281432783 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
+  m_PrefabInstance: {fileID: 7885153505212267934}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1864887313556036215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7038238379281432783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 099214bd2d93f42c59458e03de23cd16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.DebugEquip
+  socket: {fileID: 2575816747554194021}
+  weaponPrefab: {fileID: 7111046321891618909, guid: 35b1862f3bf8f4aec8f4fd380a4dc743, type: 3}
+  equipOnStart: 0
