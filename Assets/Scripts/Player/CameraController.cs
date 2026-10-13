@@ -27,6 +27,11 @@ namespace Alpha.Player
         {
             UnityEngine.Cursor.lockState = CursorLockMode.Locked;
             UnityEngine.Cursor.visible = false;
+            Vector3 target = playerTransform.position + Vector3.up * yShoulder;
+            Quaternion playerRor = playerTransform.rotation;
+            transform.rotation = playerRor;
+            transform.position = -transform.forward * distance + target;
+            xAngle = playerTransform.eulerAngles.y;
         }
         private void OnEnable()
         {

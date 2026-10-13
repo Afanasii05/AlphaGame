@@ -122,7 +122,7 @@ Material:
     - _ReceiveShadows: 1
     - _ScreenSpaceReflections: 1
     - _ScreenSpaceReflectionsContributeTransparent: 1
-    - _Smoothness: 0.65
+    - _Smoothness: 0.664
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -132,9 +132,9 @@ Material:
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.09985279, g: 0.15170369, b: 0.18974826, a: 1}
-    - _Color: {r: 0.09985276, g: 0.15170366, b: 0.18974823, a: 1}
-    - _EmissionColor: {r: 3.5, g: 3.5, b: 3.5, a: 3.5}
+    - _BaseColor: {r: 0.45440966, g: 0.90188676, b: 0.2977927, a: 1}
+    - _Color: {r: 0.4544096, g: 0.90188676, b: 0.29779267, a: 1}
+    - _EmissionColor: {r: 0.96514475, g: 3.9321835, b: 0.25967196, a: 3.5}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

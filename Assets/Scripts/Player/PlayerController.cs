@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 namespace Alpha.Player
 {
+    [SelectionBase] // click pe caracter in Scene selecteaza Player-ul (cel cu coliderul)
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(InputHandler))]
     [RequireComponent(typeof(CapsuleCollider))]
@@ -20,12 +21,16 @@ namespace Alpha.Player
         
         private float marginError = 0.5f;
         private bool isGrounded = false;
+        private Vector3 wallNormal = Vector3.zero;
+        private float maxVelocityY = 0f;
         private bool isJumping = false;
         private bool isSprinting = false;
         private bool isCrouching = false;
         private Vector2 moveInput = Vector2.zero;
         InputHandler inputHandler;
         Rigidbody rb;
+        CapsuleCollider capsule;
+        [SerializeField] private float groundSnapDistance = 0.35f; //Trepte mai mici de atat le cobor lipit de sol; peste, cad normal
         Animator anim;
 
 
@@ -33,6 +38,7 @@ namespace Alpha.Player
         {
             anim = GetComponentInChildren<Animator>();
             inputHandler = GetComponent<InputHandler>();
+            capsule = GetComponent<CapsuleCollider>();
             rb = GetComponent<Rigidbody>();
             if (Camera.main != null)
                 cameraTransform = Camera.main.transform;
@@ -60,7 +66,30 @@ namespace Alpha.Player
             Vector3 moveDirectionAndMagnitude = GetMoveDirectionAndMagnitude();
             if (moveDirectionAndMagnitude != Vector3.zero || !cameraController.is3D)
                 RotatePlayer();
-            rb.linearVelocity = new Vector3(moveDirectionAndMagnitude.x * moveSpeed, rb.linearVelocity.y, moveDirectionAndMagnitude.z * moveSpeed);
+            Vector3 velocity = new Vector3(moveDirectionAndMagnitude.x * moveSpeed, rb.linearVelocity.y, moveDirectionAndMagnitude.z * moveSpeed);
+            if (Vector3.Dot(velocity, wallNormal) < 0) //Nu imping in perete, altfel fizica ma urca pe el
+                velocity -= wallNormal * Vector3.Dot(velocity, wallNormal);
+            bool hasGround = CheckGround(out RaycastHit groundHit, out float groundGap);
+            if (!isJumping && hasGround != isGrounded) //Grounded = am sol sub picioare acum, nu doar o coliziune veche
+            {
+                isGrounded = hasGround;
+                anim.SetBool("IsGrounded", isGrounded);
+            }
+            if (isGrounded && !isJumping)
+            {
+                velocity = Vector3.ProjectOnPlane(velocity, groundHit.normal); //La coborare urmaresc panta
+                if (groundGap > 0.02f) //Am coborat de pe o treapta mica: lipesc playerul de sol, nu-l las sa pluteasca
+                    velocity.y = Mathf.Min(velocity.y, -groundGap / Time.fixedDeltaTime * 0.5f);
+            }
+            if (isGrounded && !isJumping && velocity.y > 0) //Nu decolez de pe varful pantelor
+                velocity.y = 0;
+            if (!isGrounded) //In aer viteza in sus doar scade, nu ma mai ridica obiectele atinse
+            {
+                velocity.y = Mathf.Min(velocity.y, maxVelocityY);
+                maxVelocityY = Mathf.Max(velocity.y, 0f);
+            }
+            rb.linearVelocity = velocity;
+            wallNormal = Vector3.zero;
             if(rb.linearVelocity.y < 0)
                 handleFall();
 
@@ -74,6 +103,20 @@ namespace Alpha.Player
             anim.SetBool("Crouch", isCrouching);
         }
         
+        private bool CheckGround(out RaycastHit hit, out float gap) //Sol sub capsula, la cel mult groundSnapDistance de baza ei
+        {
+            gap = 0f;
+            float castRadius = capsule.radius * 0.9f;
+            Vector3 center = transform.TransformPoint(capsule.center);
+            float restDistance = capsule.height * 0.5f - castRadius; //cat se deplaseaza sfera pana atinge solul cand stau pe el
+            if (Physics.SphereCast(center, castRadius, Vector3.down, out hit, restDistance + groundSnapDistance, ~0, QueryTriggerInteraction.Ignore)
+                && hit.normal.y >= marginError)
+            {
+                gap = Mathf.Max(0f, hit.distance - restDistance);
+                return true;
+            }
+            return false;
+        }
         private void handleFall(){rb.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);}
         private void HandleJump()
         {
@@ -88,8 +131,9 @@ namespace Alpha.Player
             isGrounded = false;
             isJumping = true;
             yield return new WaitForSeconds(0.15f);
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            yield return new WaitForSeconds(0.05f);
+            maxVelocityY = jumpForce / rb.mass;
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, maxVelocityY, rb.linearVelocity.z); //Acelasi efect ca impulsul, dar fara viteza adunata de pe panta
+            yield return new WaitForSeconds(0.2f);
             isJumping = false;
 
         }
@@ -126,25 +170,25 @@ namespace Alpha.Player
             rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, 0.1f));
 
         }
-        
+             
         
         private void OnCollisionStay(Collision collision)
         {
-            if (rb.linearVelocity.y > 0.1f || isJumping) return; //Daca abia am sarit nu updatez starea grounded
-            foreach (ContactPoint contact in collision.contacts)
+            for (int i = 0; i < collision.contactCount; i++)
             {
-                if (contact.normal.y >= marginError && ! isGrounded)
-                {
-                    anim.SetBool("IsGrounded", true);
-                    isGrounded = true;
-                    break;
-                }
+                ContactPoint contact = collision.GetContact(i);
+                if (contact.normal.y < marginError) //Perete sau panta prea abrupta
+                    wallNormal = new Vector3(contact.normal.x, 0, contact.normal.z).normalized;
+                //Starea grounded se decide in CheckGround (FixedUpdate), nu aici
             }
         }
         private void OnCollisionExit(Collision collision)
         {
-            isGrounded = false;
-            anim.SetBool("IsGrounded", false); 
+            if (isJumping)
+            {
+                isGrounded = false;
+                anim.SetBool("IsGrounded", false);
+            }
            
         }
      

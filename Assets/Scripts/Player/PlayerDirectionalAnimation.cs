@@ -47,12 +47,12 @@ namespace Alpha.Player
                 else if (isBackward)
                 {
                     targetYRotation = Mathf.Clamp(Mathf.Atan2(-dir.x, -dir.y) * Mathf.Rad2Deg, -backTurnAngle, backTurnAngle);
-                    target = 1;
+                    target = -1;
                 }
                 else
                 {
                     targetYRotation = Mathf.Clamp(Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg, -sideTurnAngle, sideTurnAngle);
-                    target = -1;
+                    target = 1;
                 }
             }
             yRotation = Mathf.SmoothDampAngle(yRotation, targetYRotation, ref yawVelocity, turnSmoothTime);
