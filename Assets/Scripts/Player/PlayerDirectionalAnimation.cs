@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Alpha.Input;
 namespace Alpha.Player
 {
     [RequireComponent(typeof(InputHandler))]
@@ -16,7 +16,6 @@ namespace Alpha.Player
         private Animator anim;
         private Vector2 moveInput;
         private bool isBackward;
-        private bool wasMoving;
         private float yRotation;
         private float yawVelocity;
         private float targetYRotation=0f;

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using Alpha.Input;
 namespace Alpha.Player
 {
     [SelectionBase] // click pe caracter in Scene selecteaza Player-ul (cel cu coliderul)

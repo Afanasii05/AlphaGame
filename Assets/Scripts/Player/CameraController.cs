@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
+using Alpha.Input;
 
 namespace Alpha.Player
 {
@@ -46,7 +44,7 @@ namespace Alpha.Player
 
         private void LateUpdate()
         {
-            if (lookFrame == Time.frameCount)   // rotatia din mouse se aplica o singura data pe frame
+            if (lookFrame == Time.frameCount)   // rotatia din mouse se aplica o singura data pe frame( altfel am bug de flicker)
                 ApplyMouseRotation(lookDelta);
             Vector3 target = playerTransform.position + Vector3.up * yShoulder;
             transform.position = -transform.forward * distance + target;

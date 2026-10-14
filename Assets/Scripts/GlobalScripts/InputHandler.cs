@@ -1,0 +1,59 @@
+using System;
+using UnityEngine;
+namespace Alpha.Input
+{
+    public class InputHandler : MonoBehaviour
+    {
+        //KEY EVENTS
+        public event Action<bool> onCrouchHold;             //LEFT CTRL  CROUCH
+        public event Action<bool> onSprintHold;             //LEFT SHIFT SPRINT
+        public event Action onJumpTriggered;                //SPACE      JUMP
+        public event Action onTogglePerspective;            //P          CAMERA PERSPECTIVE
+        public event Action onToggleWeapon;                 //E          TOGGLE WEAPON
+        public event Action<Vector2> onMouseMoveUpdate;     //MOUSE      LOOK
+        public event Action<Vector2> onMoveUpdate;            //WASD       MOVE
+        private ActionsHandler inputActions;
+
+
+        private void Awake()
+        {
+            inputActions = new ActionsHandler();
+        }
+        //INPUT SYSTEM EVENTS
+        private void OnEnable()
+        {
+            inputActions.Enable();
+            //PLAYER
+            // JUMP
+            inputActions.Player.Jump.performed += ctx => onJumpTriggered?.Invoke();
+
+            // CROUCH
+            inputActions.Player.Crouch.started += ctx => onCrouchHold?.Invoke(true);
+            inputActions.Player.Crouch.canceled += ctx => onCrouchHold?.Invoke(false);
+
+            // SPRINT
+            inputActions.Player.Sprint.started += ctx => onSprintHold?.Invoke(true);
+            inputActions.Player.Sprint.canceled += ctx => onSprintHold?.Invoke(false);
+
+            // MOVE (WASD)
+            inputActions.Player.MovePlayer.performed += ctx => onMoveUpdate?.Invoke(ctx.ReadValue<Vector2>());
+            inputActions.Player.MovePlayer.canceled += ctx => onMoveUpdate?.Invoke(Vector2.zero);
+
+            // LOOK (MOUSE)
+            inputActions.Player.Look.performed += ctx => onMouseMoveUpdate?.Invoke(ctx.ReadValue<Vector2>());
+            inputActions.Player.Look.canceled += ctx => onMouseMoveUpdate?.Invoke(Vector2.zero);
+
+            // PERSPECTIVE
+            inputActions.Player.TogglePerspective.performed += ctx => onTogglePerspective?.Invoke();
+            //WEAPON
+            inputActions.Weapon.Toggle.performed += ctx => onToggleWeapon?.Invoke();
+
+
+        }
+
+        private void OnDisable()
+        {
+            inputActions.Disable();
+        }
+    }
+}

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 namespace Alpha.Combat
 {
@@ -9,7 +10,6 @@ namespace Alpha.Combat
         [SerializeField] private Transform impactPoint;
         [SerializeField] private Collider[] worldColliders; //Colidere solide, active doar cat arma sta in lume
         [SerializeField] private Collider headHitbox; //Trigger folosit de atacuri
-
         public Transform GripRight { get { return gripRight; } }
         public Transform GripLeft { get { return gripLeft; } }
         public Transform ImpactPoint { get { return impactPoint; } }
@@ -17,6 +17,7 @@ namespace Alpha.Combat
 
         private void Awake()
         {
+
             if (headHitbox != null)
             {
                 headHitbox.isTrigger = true;
@@ -41,7 +42,9 @@ namespace Alpha.Combat
                 {
                     body.linearVelocity = Vector3.zero; //Se reseteaza inainte de kinematic, altfel nu mai e permis
                     body.angularVelocity = Vector3.zero;
+                   
                 }
+           
                 body.isKinematic = held;
                 body.detectCollisions = !held;
             }
