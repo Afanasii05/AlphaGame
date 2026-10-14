@@ -47,11 +47,20 @@ namespace Alpha.Input
             inputActions.Player.TogglePerspective.performed += ctx => onTogglePerspective?.Invoke();
             //WEAPON
             inputActions.Weapon.Toggle.performed += ctx => onToggleWeapon?.Invoke();
+            
 
 
         }
 
         private void OnDisable()
+        {
+            inputActions.Disable();
+        }
+        public void enableInputs()
+        {
+            inputActions.Enable();
+        }
+        public void disableInputs()
         {
             inputActions.Disable();
         }
