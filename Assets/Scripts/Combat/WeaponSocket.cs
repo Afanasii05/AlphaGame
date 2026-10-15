@@ -11,6 +11,8 @@ namespace Alpha.Combat
         {
             if (weapon == null)
                 return;
+            if (CurrentWeapon != null && CurrentWeapon != weapon)
+                Detach();
             Snap(weapon);
             weapon.SetHeld(true);
             CurrentWeapon = weapon;

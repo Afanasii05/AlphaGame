@@ -5,12 +5,15 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 using System.Collections;
+using Alpha.Combat;
 
 public class PlayCutscene : MonoBehaviour
 {
     [SerializeField] private Transform startingPoint;
     [SerializeField] private CinemachineCamera cam;
     [SerializeField] private PlayableDirector timelineDirector;
+    [SerializeField] private Transform Sword;
+    [SerializeField] private Weapon UnlockedWeapon;
     private TriggerCutscene trigger;
 
     void Awake()
@@ -30,8 +33,6 @@ public class PlayCutscene : MonoBehaviour
     private void Begin(Transform player)
     {
         StartCoroutine(playCutscene(player));
-        
-
     }
     private IEnumerator playCutscene(Transform player)
     {
@@ -51,13 +52,17 @@ public class PlayCutscene : MonoBehaviour
 
         yield return new WaitUntil(() => timelineDirector.time >= timelineDirector.duration - 1.8f);
         yield return FadeTransitionScript.Instance.FadeOut(1.8f);
+        timelineDirector.Stop();
+        timelineDirector.enabled = false;
         input.enableInputs();
-        player.position = Vector3.up;
+        Destroy(Sword.gameObject);
+        EnquipWeapon wp = player.GetComponentInChildren<EnquipWeapon>();
+        wp.UnlockAndEnquip(UnlockedWeapon);
         rb.isKinematic = false;
         cam.enabled = false;
-        timelineDirector.enabled = false;
+        
         yield return FadeTransitionScript.Instance.FadeIn(0.8f);
-
+        
 
     }
 

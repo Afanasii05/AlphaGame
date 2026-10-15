@@ -66380,6 +66380,8 @@ MonoBehaviour:
   startingPoint: {fileID: 868655527}
   cam: {fileID: 615733233}
   timelineDirector: {fileID: 940007408}
+  Sword: {fileID: 808986497}
+  UnlockedWeapon: {fileID: 7111046321891618909, guid: 35b1862f3bf8f4aec8f4fd380a4dc743, type: 3}
 --- !u!1 &1828763945
 GameObject:
   m_ObjectHideFlags: 0

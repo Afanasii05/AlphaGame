@@ -1,22 +1,14 @@
 using UnityEngine;
 using System;
+using Alpha.Input;
 public class TriggerCutscene : MonoBehaviour
 {
     private bool hasBeenUsed = false;
     public event Action<Transform> onTrigger;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
     private void OnTriggerEnter(Collider other)
     {
-        if (hasBeenUsed)
+        if (hasBeenUsed || other.GetComponentInParent<InputHandler>()==null)
             return;
         Debug.Log("Is Triggered");
         hasBeenUsed = true;

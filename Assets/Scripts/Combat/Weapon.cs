@@ -14,7 +14,6 @@ namespace Alpha.Combat
         public Transform GripLeft { get { return gripLeft; } }
         public Transform ImpactPoint { get { return impactPoint; } }
         public bool IsHeld { get; private set; }
-
         private void Awake()
         {
 
