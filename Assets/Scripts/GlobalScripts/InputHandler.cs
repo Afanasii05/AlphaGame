@@ -10,6 +10,7 @@ namespace Alpha.Input
         public event Action onJumpTriggered;                //SPACE      JUMP
         public event Action onTogglePerspective;            //P          CAMERA PERSPECTIVE
         public event Action onToggleWeapon;                 //E          TOGGLE WEAPON
+        public event Action onClick;
         public event Action<Vector2> onMouseMoveUpdate;     //MOUSE      LOOK
         public event Action<Vector2> onMoveUpdate;            //WASD       MOVE
         private ActionsHandler inputActions;
@@ -46,7 +47,10 @@ namespace Alpha.Input
             // PERSPECTIVE
             inputActions.Player.TogglePerspective.performed += ctx => onTogglePerspective?.Invoke();
             //WEAPON
+            //TOGGLE WEAPON
             inputActions.Weapon.Toggle.performed += ctx => onToggleWeapon?.Invoke();
+            //CLICK(ATTACK)
+            inputActions.Weapon.Click.performed += cth => onClick?.Invoke();
             
 
 

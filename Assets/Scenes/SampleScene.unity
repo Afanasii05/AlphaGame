@@ -2659,6 +2659,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 1864887313556036215, guid: 5725f497428e64549a35b1f7fc7d759c, type: 3}
+      propertyPath: playerTr
+      value: 
+      objectReference: {fileID: 579590968}
     - target: {fileID: 4325466632238055439, guid: 5725f497428e64549a35b1f7fc7d759c, type: 3}
       propertyPath: m_Controller
       value: 
@@ -27766,6 +27770,9 @@ GameObject:
   - component: {fileID: 579590971}
   - component: {fileID: 579590972}
   - component: {fileID: 579590973}
+  - component: {fileID: 579590974}
+  - component: {fileID: 579590975}
+  - component: {fileID: 579590976}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -27975,6 +27982,44 @@ MonoBehaviour:
   backTurnAngle: 40
   turnSmoothTime: 0.12
   directionBlendTime: 0.1
+--- !u!114 &579590974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579590964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 819a79ddb01310446b6b5d7e63f52acd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerAttack
+--- !u!114 &579590975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579590964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8850cc27cd8c6f74aa3977fd0520c326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DebugingScript
+  weaponP: {fileID: 7111046321891618909, guid: 35b1862f3bf8f4aec8f4fd380a4dc743, type: 3}
+  enquipAtStart: 1
+--- !u!114 &579590976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579590964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc230bca7b8f9684db77700cae494163, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.PlayerInAttackAnimation
 --- !u!1 &581135265
 GameObject:
   m_ObjectHideFlags: 0
@@ -32924,7 +32969,7 @@ MonoBehaviour:
       Size: {x: 0.8, y: 0.8}
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
-  TargetOffset: {x: -0.005686579, y: 0.009350531, z: -0.1707737}
+  TargetOffset: {x: -0.008291062, y: 0.4393537, z: 0.02961938}
   Damping: {x: 0, y: 0}
   Lookahead:
     Enabled: 0
@@ -32989,7 +33034,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 44
+    FieldOfView: 39.20703
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 400
@@ -40437,7 +40482,7 @@ Transform:
   m_GameObject: {fileID: 935377485}
   serializedVersion: 2
   m_LocalRotation: {x: -0.051241808, y: -0.059876952, z: -0.0058167116, w: 0.9968727}
-  m_LocalPosition: {x: -8.484047, y: 0.25189066, z: -11.171526}
+  m_LocalPosition: {x: -7.45, y: 0.25, z: -11.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -43415,7 +43460,7 @@ Transform:
   m_GameObject: {fileID: 1030236948}
   serializedVersion: 2
   m_LocalRotation: {x: 0.02079681, y: 0.32025984, z: -0.00436213, w: 0.9470914}
-  m_LocalPosition: {x: -11.897418, y: 0.31154585, z: -9.926888}
+  m_LocalPosition: {x: -12.13, y: 0.28, z: -8.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

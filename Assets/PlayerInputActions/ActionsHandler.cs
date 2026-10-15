@@ -290,6 +290,16 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""37003cc5-b922-4f2d-904f-e52cfd2793db"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -301,6 +311,17 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Toggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1ed6fe20-4f9b-4b2c-a21b-7319399f3846"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -320,6 +341,7 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         // Weapon
         m_Weapon = asset.FindActionMap("Weapon", throwIfNotFound: true);
         m_Weapon_Toggle = m_Weapon.FindAction("Toggle", throwIfNotFound: true);
+        m_Weapon_Click = m_Weapon.FindAction("Click", throwIfNotFound: true);
     }
 
     ~@ActionsHandler()
@@ -553,6 +575,7 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Weapon;
     private List<IWeaponActions> m_WeaponActionsCallbackInterfaces = new List<IWeaponActions>();
     private readonly InputAction m_Weapon_Toggle;
+    private readonly InputAction m_Weapon_Click;
     /// <summary>
     /// Provides access to input actions defined in input action map "Weapon".
     /// </summary>
@@ -568,6 +591,10 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Weapon/Toggle".
         /// </summary>
         public InputAction @Toggle => m_Wrapper.m_Weapon_Toggle;
+        /// <summary>
+        /// Provides access to the underlying input action "Weapon/Click".
+        /// </summary>
+        public InputAction @Click => m_Wrapper.m_Weapon_Click;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -597,6 +624,9 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
             @Toggle.started += instance.OnToggle;
             @Toggle.performed += instance.OnToggle;
             @Toggle.canceled += instance.OnToggle;
+            @Click.started += instance.OnClick;
+            @Click.performed += instance.OnClick;
+            @Click.canceled += instance.OnClick;
         }
 
         /// <summary>
@@ -611,6 +641,9 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
             @Toggle.started -= instance.OnToggle;
             @Toggle.performed -= instance.OnToggle;
             @Toggle.canceled -= instance.OnToggle;
+            @Click.started -= instance.OnClick;
+            @Click.performed -= instance.OnClick;
+            @Click.canceled -= instance.OnClick;
         }
 
         /// <summary>
@@ -708,5 +741,12 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnToggle(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Click" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnClick(InputAction.CallbackContext context);
     }
 }

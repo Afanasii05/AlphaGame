@@ -169,5 +169,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.DebugEquip
   socket: {fileID: 2575816747554194021}
-  weaponPrefab: {fileID: 7111046321891618909, guid: 35b1862f3bf8f4aec8f4fd380a4dc743, type: 3}
-  equipOnStart: 0
+  playerTr: {fileID: 0}
+  releaseAt: 0.24
+  throwSpeed: 14
+  throwLift: 0.12
+  throwSpin: 8
