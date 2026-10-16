@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using Alpha.Input;
+using Alpha.Combat;
 namespace Alpha.Player
 {
     [SelectionBase] // click pe caracter in Scene selecteaza Player-ul (cel cu coliderul)
@@ -18,7 +19,7 @@ namespace Alpha.Player
         [SerializeField] private float gravityMultiplier = 40f;
         [SerializeField] private CameraController cameraController;
         [SerializeField] private Transform cameraTransform;
-
+        [SerializeField] private float AttackSlowness = 0.3f;
         
         private float marginError = 0.5f;
         private bool isGrounded = false;
@@ -31,7 +32,8 @@ namespace Alpha.Player
         InputHandler inputHandler;
         Rigidbody rb;
         CapsuleCollider capsule;
-        [SerializeField] private float groundSnapDistance = 0.35f; //Trepte mai mici de atat le cobor lipit de sol; peste, cad normal
+        private PlayerInAttackAnimation animationGestionate;
+        [SerializeField] private float groundSnapDistance = 0.35f; 
         Animator anim;
 
 
@@ -43,6 +45,7 @@ namespace Alpha.Player
             rb = GetComponent<Rigidbody>();
             if (Camera.main != null)
                 cameraTransform = Camera.main.transform;
+            animationGestionate = GetComponent<PlayerInAttackAnimation>();
         }
         
         private void OnEnable()
@@ -84,7 +87,12 @@ namespace Alpha.Player
             }
             if (isGrounded && !isJumping && velocity.y > 0) //Nu decolez de pe varful pantelor
                 velocity.y = 0;
-            if (!isGrounded) //In aer viteza in sus doar scade, nu ma mai ridica obiectele atinse
+
+            if (isGrounded)
+            {
+                maxVelocityY = 10000;
+            }
+            else //In aer viteza in sus doar scade, nu ma mai ridica obiectele atinse
             {
                 velocity.y = Mathf.Min(velocity.y, maxVelocityY);
                 maxVelocityY = Mathf.Max(velocity.y, 0f);
@@ -141,7 +149,7 @@ namespace Alpha.Player
         
         private Vector3 GetMoveDirectionAndMagnitude()
         {
-            if (moveInput.magnitude == 0)//Daca stau pe loc
+            if (moveInput.magnitude == 0 || animationGestionate.inPlaceAnimation())//Daca stau pe loc sau rulez o aniamtie care trebuie ea sa stea pe loc
             { anim.SetFloat("Speed", 0f);
                 return Vector3.zero;
             } 
@@ -158,6 +166,8 @@ namespace Alpha.Player
             else if(isCrouching)
                 speedMultiplier *= crouchMultiplier;
 
+            if (animationGestionate.isAttacking())
+                speedMultiplier *= (1-AttackSlowness);
             Vector3 moveDirection = cameraForward * moveInput.y + cameraRight*moveInput.x;
             anim.SetFloat("Speed", moveInput.magnitude * moveSpeed * speedMultiplier);
             return moveDirection * speedMultiplier;

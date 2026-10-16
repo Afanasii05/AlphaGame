@@ -251,7 +251,7 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 1
+  autoRandomSeed: 0
   startDelay:
     serializedVersion: 3
     minMaxState: 0
@@ -272,7 +272,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 0
+  randomSeed: 8785
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5372,7 +5372,7 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 1
+  autoRandomSeed: 0
   startDelay:
     serializedVersion: 3
     minMaxState: 0
@@ -5393,7 +5393,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 0
+  randomSeed: 4321
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -9241,7 +9241,7 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 1
+  autoRandomSeed: 0
   startDelay:
     serializedVersion: 3
     minMaxState: 0
@@ -9262,7 +9262,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 0
+  randomSeed: 8785
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -14895,7 +14895,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 400
-  field of view: 45.990353
+  field of view: 44
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -14921,8 +14921,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.043282595, y: 0.7982708, z: 0.057782214, w: 0.5979562}
-  m_LocalPosition: {x: -10.673, y: 2.5200002, z: -3.5830004}
+  m_LocalRotation: {x: -0.0155603215, y: 0.3728089, z: 0.0062527466, w: 0.9277566}
+  m_LocalPosition: {x: -9.225985, y: 3.8000002, z: -8.784232}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16901,7 +16901,7 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 1
+  autoRandomSeed: 0
   startDelay:
     serializedVersion: 3
     minMaxState: 0
@@ -16922,7 +16922,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 0
+  randomSeed: 1234
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -21056,7 +21056,7 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 1
+  autoRandomSeed: 0
   startDelay:
     serializedVersion: 3
     minMaxState: 0
@@ -21077,7 +21077,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 0
+  randomSeed: 4321
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -30978,6 +30978,7 @@ MonoBehaviour:
   gravityMultiplier: 2
   cameraController: {fileID: 330585549}
   cameraTransform: {fileID: 330585546}
+  AttackSlowness: 0.3
   groundSnapDistance: 0.35
 --- !u!114 &579590972
 MonoBehaviour:
@@ -31038,6 +31039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 819a79ddb01310446b6b5d7e63f52acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TriggerAttack
+  doubleClickWindow: 0.25
 --- !u!114 &579590975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33388,7 +33390,7 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 1
+  autoRandomSeed: 0
   startDelay:
     serializedVersion: 3
     minMaxState: 0
@@ -33409,7 +33411,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 0
+  randomSeed: 4321
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -36013,7 +36015,7 @@ MonoBehaviour:
       Size: {x: 0.8, y: 0.8}
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
-  TargetOffset: {x: -0.005816002, y: 0.03072096, z: -0.164298}
+  TargetOffset: {x: -0.005751993, y: 0.02015175, z: -0.1675007}
   Damping: {x: 0, y: 0}
   Lookahead:
     Enabled: 0
@@ -36105,8 +36107,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 615733228}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0432826, y: 0.79827076, z: 0.05778221, w: 0.5979562}
-  m_LocalPosition: {x: -6.5199695, y: 2.0195098, z: 0.1103313}
+  m_LocalRotation: {x: -0.015560313, y: 0.37280887, z: 0.006252741, w: 0.9277566}
+  m_LocalPosition: {x: -5.0729537, y: 3.29951, z: -5.0909014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46247,7 +46249,7 @@ PlayableDirector:
   m_Enabled: 0
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 1bc3c56ff7512e54b9665936bf6a57fb, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 0
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -47080,6 +47082,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1006818800}
   - component: {fileID: 1006818799}
+  - component: {fileID: 1006818801}
   m_Layer: 0
   m_Name: EyeLightTemplate
   m_TagString: Untagged
@@ -47143,7 +47146,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 1.7e-44, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -47167,6 +47170,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1903895952}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1006818801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006818798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1 &1030236948
 GameObject:
   m_ObjectHideFlags: 0
@@ -48932,7 +48964,7 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 1
+  autoRandomSeed: 0
   startDelay:
     serializedVersion: 3
     minMaxState: 0
@@ -48953,7 +48985,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 0
+  randomSeed: 4321
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -51238,7 +51270,7 @@ MonoBehaviour:
     m_Value: 0
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 0
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 487246453}
@@ -62723,7 +62755,7 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 1
+  autoRandomSeed: 0
   startDelay:
     serializedVersion: 3
     minMaxState: 0
@@ -62744,7 +62776,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 0
+  randomSeed: 8785
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -66689,6 +66721,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1511975556}
   - component: {fileID: 1511975557}
+  - component: {fileID: 1511975558}
   m_Layer: 0
   m_Name: HandLight
   m_TagString: Untagged
@@ -66776,6 +66809,35 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!114 &1511975558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511975555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1001 &1516211834
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67840,7 +67902,7 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 1
+  autoRandomSeed: 0
   startDelay:
     serializedVersion: 3
     minMaxState: 0
@@ -67861,7 +67923,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 0
+  randomSeed: 3016
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -70175,7 +70237,7 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 1
+  autoRandomSeed: 0
   startDelay:
     serializedVersion: 3
     minMaxState: 0
@@ -70196,7 +70258,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 0
+  randomSeed: 1234
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -73268,7 +73330,7 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 1
+  autoRandomSeed: 0
   startDelay:
     serializedVersion: 3
     minMaxState: 0
@@ -73289,7 +73351,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 0
+  randomSeed: 4321
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -78457,7 +78519,7 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 1
+  autoRandomSeed: 0
   startDelay:
     serializedVersion: 3
     minMaxState: 0
@@ -78478,7 +78540,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 0
+  randomSeed: 8785
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -81257,7 +81319,7 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 1
+  autoRandomSeed: 0
   startDelay:
     serializedVersion: 3
     minMaxState: 0
@@ -81278,7 +81340,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 0
+  randomSeed: 8785
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -93306,7 +93368,7 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 1
+  autoRandomSeed: 0
   startDelay:
     serializedVersion: 3
     minMaxState: 0
@@ -93327,7 +93389,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 0
+  randomSeed: 1234
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -97353,7 +97415,7 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 1
+  autoRandomSeed: 0
   startDelay:
     serializedVersion: 3
     minMaxState: 0
@@ -97374,7 +97436,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 0
+  randomSeed: 8785
   InitialModule:
     serializedVersion: 3
     enabled: 1
