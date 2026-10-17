@@ -10,23 +10,26 @@ namespace Alpha.Combat
         [SerializeField] private Transform impactPoint;
         [SerializeField] private Collider[] worldColliders; //Colidere solide, active doar cat arma sta in lume
         [SerializeField] private Collider headHitbox; //Trigger folosit de atacuri
-        public Transform GripRight { get { return gripRight; } }
-        public Transform GripLeft { get { return gripLeft; } }
+        [SerializeField] private CraterSpawner cr;
+        public Transform GripRight   { get { return gripRight; } }
+        public Transform GripLeft    { get { return gripLeft; } }
         public Transform ImpactPoint { get { return impactPoint; } }
         public bool IsHeld { get; private set; }
+
         private void Awake()
         {
 
             if (headHitbox != null)
             {
-                headHitbox.isTrigger = true;
-                headHitbox.enabled = false;
+                headHitbox.enabled = true;
             }
         }
 
         public void SetHeld(bool held)
         {
             IsHeld = held;
+            if (headHitbox != null)
+                headHitbox.isTrigger = held;
             if (worldColliders != null)
             {
                 for (int i = 0; i < worldColliders.Length; i++)
@@ -39,24 +42,15 @@ namespace Alpha.Combat
             {
                 if (held)
                 {
-                    body.linearVelocity = Vector3.zero; //Se reseteaza inainte de kinematic, altfel nu mai e permis
+                    body.linearVelocity = Vector3.zero;
                     body.angularVelocity = Vector3.zero;
-                   
+                    cr.setWasThrown(false);
                 }
            
                 body.isKinematic = held;
-                body.detectCollisions = !held;
             }
-            SetHitboxActive(false);
         }
 
-        public void SetHitboxActive(bool active)
-        {
-            if (headHitbox == null)
-                return;
-            if (active && !IsHeld)
-                return;
-            headHitbox.enabled = active;
-        }
+        
     }
 }

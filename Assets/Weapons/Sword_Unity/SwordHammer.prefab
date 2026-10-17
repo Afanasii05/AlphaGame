@@ -2481,7 +2481,7 @@ Transform:
   m_GameObject: {fileID: 5123849275586554359}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0031820317, y: 1.015, z: 0.009905979}
+  m_LocalPosition: {x: -0.438, y: 0.984, z: 0.009905979}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2496,7 +2496,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7591897599277846286}
-  - component: {fileID: 275279864633842206}
+  - component: {fileID: 4710426715384107509}
   m_Layer: 0
   m_Name: HeadHitbox
   m_TagString: Untagged
@@ -2513,14 +2513,14 @@ Transform:
   m_GameObject: {fileID: 6253709234626104661}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0031820317, y: 0.9702887, z: 0.009905979}
+  m_LocalPosition: {x: 0.034, y: 1.04, z: 0.085}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6443517581085337187}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &275279864633842206
-SphereCollider:
+--- !u!65 &4710426715384107509
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2536,10 +2536,10 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.38
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.9106779, y: 0.5088533, z: 0.67566264}
+  m_Center: {x: -0.02901876, y: -0.06664485, z: -0.053170145}
 --- !u!1 &7451556787124628624
 GameObject:
   m_ObjectHideFlags: 0
@@ -2551,6 +2551,7 @@ GameObject:
   - component: {fileID: 6443517581085337187}
   - component: {fileID: 7111046321891618909}
   - component: {fileID: -5605198258658277503}
+  - component: {fileID: 5080109540319075397}
   m_Layer: 0
   m_Name: SwordHammer
   m_TagString: Untagged
@@ -2598,7 +2599,8 @@ MonoBehaviour:
   worldColliders:
   - {fileID: 5180495207324630999}
   - {fileID: 5257249009366138912}
-  headHitbox: {fileID: 275279864633842206}
+  headHitbox: {fileID: 4710426715384107509}
+  cr: {fileID: 5080109540319075397}
 --- !u!54 &-5605198258658277503
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2609,7 +2611,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 60
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 0.03
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -2626,6 +2628,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5080109540319075397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7451556787124628624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 803c069eec0c7144abf4c44a16f28959, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CraterSpawner
+  SpawnOffsetFromGround: 0.1
+  GroundCraterPrefab: {fileID: 1204016311671959425, guid: 2f060899129d4c643a440a229b0eb0f7, type: 3}
+  wp: {fileID: 7111046321891618909}
+  headColider: {fileID: 4710426715384107509}
 --- !u!1 &8616346014121455367
 GameObject:
   m_ObjectHideFlags: 0

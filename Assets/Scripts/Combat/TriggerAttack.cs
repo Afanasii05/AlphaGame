@@ -8,6 +8,7 @@ public class TriggerAttack : MonoBehaviour
     private InputHandler input;
     private WeaponSocket socket;
     private PlayerInAttackAnimation attackState;
+    Weapon weapon;
     [SerializeField] float doubleClickWindow = 0.25f;
     float lastClickTime = 0f;
     void Awake()
@@ -29,6 +30,7 @@ public class TriggerAttack : MonoBehaviour
     private void HandleAttackTrigger()
     {
         if (!socket.HasWeapon) return;
+            weapon = socket.CurrentWeapon;
 
         float now = Time.unscaledTime;
         bool isDouble = now - lastClickTime <= doubleClickWindow;
@@ -39,6 +41,8 @@ public class TriggerAttack : MonoBehaviour
             lastClickTime = -10f;             
             anim.ResetTrigger("Click");     
             anim.SetBool("DoubleClick", true);
+            
+
             return;
         }
 

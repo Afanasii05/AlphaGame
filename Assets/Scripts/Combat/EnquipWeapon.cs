@@ -1,6 +1,7 @@
 using Alpha.Input;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 namespace Alpha.Combat
 {
@@ -8,14 +9,15 @@ namespace Alpha.Combat
     {
         [SerializeField] private WeaponSocket socket;
         [SerializeField] private Transform playerTr;
+        [SerializeField] private float waitUntilThrow = 0.7f;
         private Animator animat;
         private PlayerInAttackAnimation anim;
         private InputHandler inputHandler;
 
-        private List<Weapon>spawned = new List<Weapon>();          //Instantele la prefabs
+        private List<Weapon>spawned = new List<Weapon>();             //Instantele la prefabs
         private HashSet<Weapon> WeaponPrefabs = new HashSet<Weapon>();//Prefaburile in sine(non duplicate)
         private int IndexEnquip;
-        private bool isThrowing = false;
+
         private void Awake()
         {
             inputHandler = GetComponentInParent<InputHandler>();
@@ -76,21 +78,34 @@ namespace Alpha.Combat
                 return;
 
             Weapon weapon = socket.Detach();
-            foreach (var c in weapon.GetComponentsInChildren<Collider>()) Physics.IgnoreCollision(c, playerTr.GetComponent<Collider>());
             Rigidbody weaponRb = weapon.GetComponent<Rigidbody>();
-            Quaternion plRot = playerTr.rotation;
-            weaponRb.linearVelocity = Camera.main.transform.forward * 30f;
-            weaponRb.angularVelocity = playerTr.right * 3f;
+            Quaternion plRot = Camera.main.transform.rotation;
+            playerTr.rotation = Quaternion.Euler(0, Camera.main.transform.rotation.y,0);
+            weapon.transform.rotation = plRot * Quaternion.Euler(90,0,0);
+            weaponRb.linearVelocity = Camera.main.transform.forward * 20f;
+            weaponRb.angularVelocity = playerTr.right * 0.2f;
 
         }
         private IEnumerator ThrowRoutine()
         {
-            isThrowing = true;
+            StartCoroutine(TurnToCamera());
             animat.SetTrigger("Throw");                
-            yield return new WaitForSeconds(0.8f);        
+            yield return new WaitForSeconds(waitUntilThrow);        
             Unequip();                                     
-            yield return new WaitForSeconds(0.4f);
-            isThrowing = false;
+        }
+
+        private IEnumerator TurnToCamera()
+        {
+            Rigidbody rb = playerTr.GetComponent<Rigidbody>();
+            Quaternion start = rb.rotation;
+            Quaternion target = Quaternion.Euler(0f, Camera.main.transform.eulerAngles.y, 0f);
+
+            for (float t = 0f; t < 0.15f; t += Time.fixedDeltaTime)
+            {
+                rb.MoveRotation(Quaternion.Slerp(start, target, t / 0.15f));
+                yield return new WaitForFixedUpdate();
+            }
+            rb.MoveRotation(target);
         }
     }
 }
