@@ -9,8 +9,9 @@ namespace Alpha.Combat
         [SerializeField] private Transform gripLeft;
         [SerializeField] private Transform impactPoint;
         [SerializeField] private Collider[] worldColliders; //Colidere solide, active doar cat arma sta in lume
-        [SerializeField] private Collider headHitbox; //Trigger folosit de atacuri
+        [field: SerializeField] public Collider headHitbox { get; private set; } //Trigger folosit de atacuri
         [SerializeField] private CraterSpawner cr;
+        public PlayerCombatState Owner { get; private set; }
         public Transform GripRight   { get { return gripRight; } }
         public Transform GripLeft    { get { return gripLeft; } }
         public Transform ImpactPoint { get { return impactPoint; } }
@@ -28,6 +29,8 @@ namespace Alpha.Combat
         public void SetHeld(bool held)
         {
             IsHeld = held;
+            if(held)
+                Owner = GetComponentInParent<PlayerCombatState>();
             if (headHitbox != null)
                 headHitbox.isTrigger = held;
             if (worldColliders != null)

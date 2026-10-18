@@ -1,5 +1,6 @@
 using UnityEngine;
 using Alpha.Input;
+using Alpha.Combat;
 namespace Alpha.Player
 {
     [RequireComponent(typeof(InputHandler))]
@@ -11,6 +12,7 @@ namespace Alpha.Player
         [SerializeField] private float backTurnAngle = 40f;
         [SerializeField] private float turnSmoothTime = 0.12f;
         [SerializeField] private float directionBlendTime = 0.1f;
+        PlayerCombatState combatState;
         private InputHandler inputHandler;
         private CameraController cameraController;
         private Animator anim;
@@ -24,6 +26,7 @@ namespace Alpha.Player
         {
             inputHandler = GetComponent<InputHandler>();
             anim = model != null ? model.GetComponent<Animator>() : GetComponentInChildren<Animator>();
+            combatState = GetComponent<PlayerCombatState>();
             if (model == null && anim != null) model = anim.transform;
             if (Camera.main != null) cameraController = Camera.main.GetComponent<CameraController>();
         }
@@ -34,7 +37,7 @@ namespace Alpha.Player
 
         private void Update()
         {
-            bool isMoving = moveInput.sqrMagnitude > 0.01f;
+            bool isMoving = moveInput.sqrMagnitude > 0.01f && !combatState.inPlaceAction();
             bool is3D = cameraController == null || cameraController.is3D;
             targetYRotation = 0f;                       
             if (isMoving)

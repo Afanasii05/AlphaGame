@@ -20,6 +20,7 @@ namespace Alpha.Player
         [SerializeField] private CameraController cameraController;
         [SerializeField] private Transform cameraTransform;
         [SerializeField] private float AttackSlowness = 0.3f;
+
         
         private float marginError = 0.5f;
         private bool isGrounded = false;
@@ -32,7 +33,7 @@ namespace Alpha.Player
         InputHandler inputHandler;
         Rigidbody rb;
         CapsuleCollider capsule;
-        private PlayerInAttackAnimation animationGestionate;
+        PlayerCombatState combState;
         [SerializeField] private float groundSnapDistance = 0.35f; 
         Animator anim;
 
@@ -43,9 +44,9 @@ namespace Alpha.Player
             inputHandler = GetComponent<InputHandler>();
             capsule = GetComponent<CapsuleCollider>();
             rb = GetComponent<Rigidbody>();
+            combState = GetComponent<PlayerCombatState>();
             if (Camera.main != null)
                 cameraTransform = Camera.main.transform;
-            animationGestionate = GetComponent<PlayerInAttackAnimation>();
         }
         
         private void OnEnable()
@@ -66,7 +67,8 @@ namespace Alpha.Player
         }
         void FixedUpdate()
         {
-
+            if (rb.isKinematic)
+                return;
             Vector3 moveDirectionAndMagnitude = GetMoveDirectionAndMagnitude();
             if (moveDirectionAndMagnitude != Vector3.zero || !cameraController.is3D)
                 RotatePlayer();
@@ -103,7 +105,7 @@ namespace Alpha.Player
                 handleFall();
 
         }
-        
+       
         private void HandleMovementUpdate(Vector2 moveVector){ moveInput = moveVector;}
         private void HandleSprint(bool sprintPressed){isSprinting = sprintPressed;}
         private void HandleCrouch(bool crouchPressed)
@@ -149,8 +151,9 @@ namespace Alpha.Player
         
         private Vector3 GetMoveDirectionAndMagnitude()
         {
-            if (moveInput.magnitude == 0 || animationGestionate.inPlaceAnimation())//Daca stau pe loc sau rulez o aniamtie care trebuie ea sa stea pe loc
-            { anim.SetFloat("Speed", 0f);
+            if (moveInput.magnitude == 0 || combState.inPlaceAction())//Daca stau pe loc sau rulez o aniamtie care trebuie ea sa stea pe loc
+            { 
+                anim.SetFloat("Speed", 0f);
                 return Vector3.zero;
             } 
 
@@ -165,9 +168,8 @@ namespace Alpha.Player
                 speedMultiplier *= sprintMultiplier;
             else if(isCrouching)
                 speedMultiplier *= crouchMultiplier;
-
-            if (animationGestionate.isAttacking())
-                speedMultiplier *= (1-AttackSlowness);
+            if (combState.inSlowDownAction())
+                speedMultiplier *= (1 - AttackSlowness);
             Vector3 moveDirection = cameraForward * moveInput.y + cameraRight*moveInput.x;
             anim.SetFloat("Speed", moveInput.magnitude * moveSpeed * speedMultiplier);
             return moveDirection * speedMultiplier;
@@ -175,7 +177,7 @@ namespace Alpha.Player
         }
 
         private void RotatePlayer()
-        {  
+        {
             float yAngle = cameraTransform.eulerAngles.y;
             Quaternion targetRotation = Quaternion.Euler(0f, yAngle, 0f);
             rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, 0.1f));

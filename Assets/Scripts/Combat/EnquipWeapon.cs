@@ -1,7 +1,6 @@
 using Alpha.Input;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
+
 using UnityEngine;
 namespace Alpha.Combat
 {
@@ -9,40 +8,42 @@ namespace Alpha.Combat
     {
         [SerializeField] private WeaponSocket socket;
         [SerializeField] private Transform playerTr;
-        [SerializeField] private float waitUntilThrow = 0.7f;
-        private Animator animat;
-        private PlayerInAttackAnimation anim;
+
+        private PlayerCombatState combatState;
         private InputHandler inputHandler;
 
         private List<Weapon>spawned = new List<Weapon>();             //Instantele la prefabs
         private HashSet<Weapon> WeaponPrefabs = new HashSet<Weapon>();//Prefaburile in sine(non duplicate)
         private int IndexEnquip;
+        Animator animator;
 
         private void Awake()
         {
             inputHandler = GetComponentInParent<InputHandler>();
-            anim = GetComponentInParent<PlayerInAttackAnimation>();
-            animat = GetComponent<Animator>();
+            combatState = GetComponentInParent<PlayerCombatState>();
+            animator = GetComponentInParent<Animator>();
         }
         private void OnEnable(){inputHandler.onToggleWeapon += HandleToggleWeapon;}
         private void OnDisable(){inputHandler.onToggleWeapon -= HandleToggleWeapon;}
 
         private void HandleToggleWeapon()
         {
-            if (anim.isAttacking() || anim.isThrowing())
+            if (!canEnquip())
                 return;
-            if (socket.HasWeapon)
-                StartCoroutine(ThrowRoutine());
-            else
+            if (!socket.HasWeapon)
                 Equip();
         }
 
-        
+        private bool canEnquip()
+        {
+            return (combatState.CurrentAction() == CombatAction.None || combatState.CurrentAction() == CombatAction.NonSemiCombat);
+        }
         private void Equip()
         {
             if (spawned.Count == 0)
                 return;
             socket.Attach(spawned[IndexEnquip]);
+            animator.SetBool("HasWeapon", true);
         }
         private void Equip(Weapon spawnedPrefab)
         {
@@ -50,6 +51,7 @@ namespace Alpha.Combat
                 return;
             IndexEnquip = spawned.IndexOf(spawnedPrefab);
             socket.Attach(spawned[IndexEnquip]);
+            animator.SetBool("HasWeapon", true);
         }
 
         public Weapon Unlock(Weapon UnlockedWeaponPrefab)
@@ -62,8 +64,6 @@ namespace Alpha.Combat
             return spawn;
             
         }
-
-
         public void UnlockAndEnquip(Weapon UnlockedWeaponPrefab)
         {
             Weapon spawnedFromPrefab = Unlock(UnlockedWeaponPrefab);
@@ -72,40 +72,13 @@ namespace Alpha.Combat
             Equip(spawnedFromPrefab);
 
         }
-        private void Unequip()
+        public Weapon Unequip()
         {
             if (!socket.HasWeapon)
-                return;
-
-            Weapon weapon = socket.Detach();
-            Rigidbody weaponRb = weapon.GetComponent<Rigidbody>();
-            Quaternion plRot = Camera.main.transform.rotation;
-            playerTr.rotation = Quaternion.Euler(0, Camera.main.transform.rotation.y,0);
-            weapon.transform.rotation = plRot * Quaternion.Euler(90,0,0);
-            weaponRb.linearVelocity = Camera.main.transform.forward * 20f;
-            weaponRb.angularVelocity = playerTr.right * 0.2f;
-
+                return null;
+            animator.SetBool("HasWeapon", false);
+            return socket.Detach();
         }
-        private IEnumerator ThrowRoutine()
-        {
-            StartCoroutine(TurnToCamera());
-            animat.SetTrigger("Throw");                
-            yield return new WaitForSeconds(waitUntilThrow);        
-            Unequip();                                     
-        }
-
-        private IEnumerator TurnToCamera()
-        {
-            Rigidbody rb = playerTr.GetComponent<Rigidbody>();
-            Quaternion start = rb.rotation;
-            Quaternion target = Quaternion.Euler(0f, Camera.main.transform.eulerAngles.y, 0f);
-
-            for (float t = 0f; t < 0.15f; t += Time.fixedDeltaTime)
-            {
-                rb.MoveRotation(Quaternion.Slerp(start, target, t / 0.15f));
-                yield return new WaitForFixedUpdate();
-            }
-            rb.MoveRotation(target);
-        }
+       
     }
 }

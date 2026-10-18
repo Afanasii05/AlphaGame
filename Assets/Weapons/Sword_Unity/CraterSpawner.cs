@@ -13,7 +13,7 @@ namespace Alpha.Combat
         private void OnCollisionEnter(Collision collision)
         {
 
-            if (wasThrown || wp.IsHeld)
+            if (wasThrown)
                 return;
 
             ContactPoint cont = collision.GetContact(0);
@@ -25,6 +25,7 @@ namespace Alpha.Combat
             SpawnCrater(rot, point + nr * SpawnOffsetFromGround);
             wasThrown = true;
         }
+       
         public void SpawnCrater(Quaternion rotation, Vector3 pozition)
         {
             GameObject cr = Instantiate(GroundCraterPrefab, pozition, rotation);
