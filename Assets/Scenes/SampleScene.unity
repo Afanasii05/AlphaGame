@@ -560,7 +560,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 101864015}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Vegetation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6023,6 +6023,10 @@ PrefabInstance:
     - target: {fileID: 2878242685437472621, guid: fea4eba4eae1e6c42af2b6226aaaeede, type: 3}
       propertyPath: m_Name
       value: Bush_Medium_11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2878242685437472621, guid: fea4eba4eae1e6c42af2b6226aaaeede, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2878242685437472621, guid: fea4eba4eae1e6c42af2b6226aaaeede, type: 3}
       propertyPath: m_IsActive
@@ -12159,6 +12163,10 @@ PrefabInstance:
       value: Bush_Medium_3
       objectReference: {fileID: 0}
     - target: {fileID: 2878242685437472621, guid: fea4eba4eae1e6c42af2b6226aaaeede, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2878242685437472621, guid: fea4eba4eae1e6c42af2b6226aaaeede, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -14904,6 +14912,10 @@ PrefabInstance:
       value: Bush_Medium_1
       objectReference: {fileID: 0}
     - target: {fileID: 2878242685437472621, guid: fea4eba4eae1e6c42af2b6226aaaeede, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2878242685437472621, guid: fea4eba4eae1e6c42af2b6226aaaeede, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -15129,6 +15141,7 @@ GameObject:
   - component: {fileID: 579590974}
   - component: {fileID: 579590975}
   - component: {fileID: 579590976}
+  - component: {fileID: 579590977}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -15352,6 +15365,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TriggerAttack
   doubleClickWindow: 0.25
+  playerTr: {fileID: 579590968}
+  waitUntilThrow: 0.7
+  ChargeDelay: 10
 --- !u!114 &579590975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15378,6 +15394,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc230bca7b8f9684db77700cae494163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.PlayerInAttackAnimation
+--- !u!114 &579590977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579590964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f85221ed9a09abf4183474dd85d6cadb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.ChargeShockwave
+  gatherPrefab: {fileID: 6413486752557660006, guid: b6e9d1fb4560591439619c4d7ca60a29, type: 3}
+  shockwavePrefab: {fileID: 6829646495423655771, guid: 2f0c54d97f54e4244984fb1cd1e533c6, type: 3}
+  releaseDelay: 0.65
+  shockwaveLifetime: 2.5
+  lightIntensity: 8
+  lightFadeTime: 0.6
+  ChargeMoveDelay: 10
 --- !u!1 &581135265
 GameObject:
   m_ObjectHideFlags: 0
@@ -17940,7 +17975,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 598319236}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21720,6 +21755,10 @@ PrefabInstance:
       value: Bush_Small_4
       objectReference: {fileID: 0}
     - target: {fileID: 7750200700758446762, guid: 76261259d2f172f499d459ca1eb7cf28, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7750200700758446762, guid: 76261259d2f172f499d459ca1eb7cf28, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -22591,6 +22630,10 @@ PrefabInstance:
     - target: {fileID: 928449162692844121, guid: 4ad4f842169b4294499fa33ebed08595, type: 3}
       propertyPath: m_Name
       value: Bush_Large_8
+      objectReference: {fileID: 0}
+    - target: {fileID: 928449162692844121, guid: 4ad4f842169b4294499fa33ebed08595, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2819025057262309110, guid: 4ad4f842169b4294499fa33ebed08595, type: 3}
       propertyPath: m_LocalScale.x
@@ -26294,6 +26337,10 @@ PrefabInstance:
       value: Bush_Small_2
       objectReference: {fileID: 0}
     - target: {fileID: 7750200700758446762, guid: 76261259d2f172f499d459ca1eb7cf28, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7750200700758446762, guid: 76261259d2f172f499d459ca1eb7cf28, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -28886,6 +28933,10 @@ PrefabInstance:
       value: Bush_Small_7
       objectReference: {fileID: 0}
     - target: {fileID: 7750200700758446762, guid: 76261259d2f172f499d459ca1eb7cf28, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7750200700758446762, guid: 76261259d2f172f499d459ca1eb7cf28, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -28910,6 +28961,10 @@ PrefabInstance:
     - target: {fileID: 2878242685437472621, guid: fea4eba4eae1e6c42af2b6226aaaeede, type: 3}
       propertyPath: m_Name
       value: Bush_Medium_5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2878242685437472621, guid: fea4eba4eae1e6c42af2b6226aaaeede, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5232546295898846269, guid: fea4eba4eae1e6c42af2b6226aaaeede, type: 3}
       propertyPath: m_LocalScale.x
@@ -33328,6 +33383,10 @@ PrefabInstance:
     - target: {fileID: 7750200700758446762, guid: 76261259d2f172f499d459ca1eb7cf28, type: 3}
       propertyPath: m_Name
       value: Bush_Small_10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7750200700758446762, guid: 76261259d2f172f499d459ca1eb7cf28, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -41208,6 +41267,10 @@ PrefabInstance:
       value: Bush_Large_0
       objectReference: {fileID: 0}
     - target: {fileID: 928449162692844121, guid: 4ad4f842169b4294499fa33ebed08595, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 928449162692844121, guid: 4ad4f842169b4294499fa33ebed08595, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -41914,7 +41977,7 @@ GameObject:
   - component: {fileID: 1857465523}
   - component: {fileID: 1857465522}
   - component: {fileID: 1857465521}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HubTerrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42105,6 +42168,10 @@ PrefabInstance:
     - target: {fileID: 7750200700758446762, guid: 76261259d2f172f499d459ca1eb7cf28, type: 3}
       propertyPath: m_Name
       value: Bush_Small_6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7750200700758446762, guid: 76261259d2f172f499d459ca1eb7cf28, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7750200700758446762, guid: 76261259d2f172f499d459ca1eb7cf28, type: 3}
       propertyPath: m_IsActive
@@ -47999,6 +48066,10 @@ PrefabInstance:
     - target: {fileID: 2878242685437472621, guid: fea4eba4eae1e6c42af2b6226aaaeede, type: 3}
       propertyPath: m_Name
       value: Bush_Medium_9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2878242685437472621, guid: fea4eba4eae1e6c42af2b6226aaaeede, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5232546295898846269, guid: fea4eba4eae1e6c42af2b6226aaaeede, type: 3}
       propertyPath: m_LocalScale.x
@@ -62581,63 +62652,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
---- !u!1001 &9176916587833078017
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1204016311671959425, guid: 2f060899129d4c643a440a229b0eb0f7, type: 3}
-      propertyPath: m_Name
-      value: HeavyWeaponHitArea
-      objectReference: {fileID: 0}
-    - target: {fileID: 8692416157817322076, guid: 2f060899129d4c643a440a229b0eb0f7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8692416157817322076, guid: 2f060899129d4c643a440a229b0eb0f7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8692416157817322076, guid: 2f060899129d4c643a440a229b0eb0f7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8692416157817322076, guid: 2f060899129d4c643a440a229b0eb0f7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8692416157817322076, guid: 2f060899129d4c643a440a229b0eb0f7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8692416157817322076, guid: 2f060899129d4c643a440a229b0eb0f7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8692416157817322076, guid: 2f060899129d4c643a440a229b0eb0f7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8692416157817322076, guid: 2f060899129d4c643a440a229b0eb0f7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8692416157817322076, guid: 2f060899129d4c643a440a229b0eb0f7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8692416157817322076, guid: 2f060899129d4c643a440a229b0eb0f7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2f060899129d4c643a440a229b0eb0f7, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -62653,4 +62667,3 @@ SceneRoots:
   - {fileID: 940007409}
   - {fileID: 793424672}
   - {fileID: 1551173537}
-  - {fileID: 9176916587833078017}
