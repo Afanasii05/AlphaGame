@@ -1,7 +1,0 @@
-{
-  "name": "Test.PlayMode",
-  "optionalUnityReferences": [
-    "TestAssemblies"
-  ],
-  "autoReferenced": false
-}
