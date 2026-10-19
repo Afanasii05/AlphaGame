@@ -19,7 +19,7 @@ public class HeavyImpactDetection : MonoBehaviour
 
     void LateUpdate()
     {
-        if (wp.Owner == null || wp.Owner.CurrentAction() != CombatAction.Heavy)
+        if (wp.combatStateOfPlayer == null || wp.combatStateOfPlayer.CurrentAction() != CombatAction.Heavy)
         {
             enabled = false;               
             return;

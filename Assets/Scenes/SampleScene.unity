@@ -15394,6 +15394,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc230bca7b8f9684db77700cae494163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.PlayerInAttackAnimation
+  actionsDetails:
+  - layer: 0
+    action: 2
+    nextAction: 0
+    mode: 2
+    comboWindow: 0.4
+  - layer: 0
+    action: 4
+    nextAction: 0
+    mode: 2
+    comboWindow: 0.4
+  - layer: 0
+    action: 5
+    nextAction: 6
+    mode: 2
+    comboWindow: 0.4
+  - layer: 1
+    action: 1
+    nextAction: 0
+    mode: 1
+    comboWindow: 0.4
+  - layer: 1
+    action: 3
+    nextAction: 0
+    mode: 1
+    comboWindow: 0.4
+  - layer: 0
+    action: 8
+    nextAction: 0
+    mode: 0
+    comboWindow: 0.4
+  - layer: 0
+    action: 9
+    nextAction: 0
+    mode: 0
+    comboWindow: 0.4
+  - layer: 0
+    action: 10
+    nextAction: 0
+    mode: 2
+    comboWindow: 0.4
+  - layer: 0
+    action: 6
+    nextAction: 7
+    mode: 2
+    comboWindow: 0.4
+  - layer: 0
+    action: 7
+    nextAction: 0
+    mode: 2
+    comboWindow: 0.4
 --- !u!114 &579590977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18193,7 +18244,7 @@ MonoBehaviour:
       Size: {x: 0.8, y: 0.8}
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
-  TargetOffset: {x: -0.007187532, y: 0.2571425, z: 0.3465846}
+  TargetOffset: {x: -0.005751993, y: 0.02015175, z: -0.1675007}
   Damping: {x: 0, y: 0}
   Lookahead:
     Enabled: 0
@@ -18258,11 +18309,11 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 31.16139
+    FieldOfView: 44
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 400
-    Dutch: -0.8386111
+    Dutch: 0
     ModeOverride: 0
     PhysicalProperties:
       GateFit: 2
@@ -18306,7 +18357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBasicMultiChannelPerlin
   NoiseProfile: {fileID: 11400000, guid: 46965f9cbaf525742a6da4c2172a99cd, type: 2}
   PivotOffset: {x: 0, y: 0, z: 0}
-  AmplitudeGain: 0.3901688
+  AmplitudeGain: 0.3
   FrequencyGain: 0.6
   m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1001 &621354433

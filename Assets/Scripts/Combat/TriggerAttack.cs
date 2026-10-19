@@ -74,10 +74,11 @@ public class TriggerAttack : MonoBehaviour
     }
     private void HandleHandCombat()
     {
-        if (combatState.TryStart(CombatAction.LightPunch))
+        CombatAction move = combatState.ComboFrom(CombatAction.LightPunch);
+        if (combatState.TryStart(move))
         {
             StartCoroutine(TurnToCamera());
-            animator.SetTrigger("Click");
+            animator.SetTrigger(move == CombatAction.LightPunch ? "Click" : "Combo"); //Click porneste lantul, Combo il continua (Any State nu-l poate intercepta)
 
         }
 
@@ -94,13 +95,13 @@ public class TriggerAttack : MonoBehaviour
     }
     private void HandleSpecialMove()
     {
-        if (socket.HasWeapon&&combatState.TryStart(CombatAction.Ability))
+        if (socket.HasWeapon&&combatState.TryStart(CombatAction.Heavy))
             animator.SetTrigger("SpecialMove");
     }
 
     private void HandleChargeAttack()
     {
-        if (Time.time-lastCharge>=ChargeDelay && combatState.TryStart(CombatAction.Charge))
+        if (Time.time-lastCharge>=ChargeDelay && combatState.TryStart(CombatAction.Heavy))
         {
             animator.SetTrigger("Charge");
             if (chargeShockwave != null)

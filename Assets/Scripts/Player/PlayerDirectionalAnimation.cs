@@ -57,7 +57,13 @@ namespace Alpha.Player
                     target = 1;
                 }
             }
-            yRotation = Mathf.SmoothDampAngle(yRotation, targetYRotation, ref yawVelocity, turnSmoothTime);
+            if (combatState.inPlaceAction()) //Atac pe loc: modelul se aliniaza instant cu corpul, TurnToCamera roteste corpul
+            {
+                yRotation = 0f;
+                yawVelocity = 0f;
+            }
+            else
+                yRotation = Mathf.SmoothDampAngle(yRotation, targetYRotation, ref yawVelocity, turnSmoothTime);
             model.localRotation = Quaternion.Euler(0f, yRotation, 0f);
             if (isMoving) anim.SetFloat("MoveForward", target, directionBlendTime, Time.deltaTime);
             

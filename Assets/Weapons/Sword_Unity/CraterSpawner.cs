@@ -7,13 +7,24 @@ namespace Alpha.Combat
         [SerializeField] GameObject GroundCraterPrefab;
         [SerializeField] Weapon wp;
         [SerializeField] Collider headColider;
-        private bool wasThrown = false;
-        public void setWasThrown(bool st) { wasThrown = st; }
-        
+        private bool canSpawn = false;
+
+        private void OnEnable()
+        {
+            wp.onHeldChange += ChangeStateOfSpawn;
+        }
+        private void OnDisable()
+        {
+            wp.onHeldChange -= ChangeStateOfSpawn;
+        }
+        private void ChangeStateOfSpawn(bool held)
+        {
+            canSpawn = !held;
+        }
         private void OnCollisionEnter(Collision collision)
         {
 
-            if (wasThrown)
+            if (wp.IsHeld || !canSpawn)
                 return;
 
             ContactPoint cont = collision.GetContact(0);
@@ -23,11 +34,11 @@ namespace Alpha.Combat
             Vector3 nr = cont.normal;
             Quaternion rot = Quaternion.FromToRotation(Vector3.up, nr);
             SpawnCrater(rot, point + nr * SpawnOffsetFromGround);
-            wasThrown = true;
+            canSpawn = false;
         }
        
         public void SpawnCrater(Quaternion rotation, Vector3 pozition)
-        {
+        { 
             GameObject cr = Instantiate(GroundCraterPrefab, pozition, rotation);
             Destroy(cr, 5f);
         }
