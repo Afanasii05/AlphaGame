@@ -56,7 +56,6 @@ namespace Alpha.Combat
             if (Current == CombatAction.None || ValidNext() == action) return true;
             switch (Current)
             {   
-                case CombatAction.Light: return action == CombatAction.Heavy;
                 case CombatAction.NonSemiCombat: return (action == CombatAction.Throw || action == CombatAction.Light);
                 default: return false;
             }
@@ -74,6 +73,13 @@ namespace Alpha.Combat
         }
         public bool inPlaceAction() { return actionsMoveMode[CurrentAction()] == MoveMode.InPlace; }
         public bool inSlowDownAction() { return actionsMoveMode[CurrentAction()] == MoveMode.SlowDown; }
+        public bool hasOwnMovement()
+        {
+            CombatAction curr = CurrentAction();
+            if (curr == CombatAction.None) return false;
+            return combatDef[curr].hasItsOwnMovement;
+
+        }
         public CombatAction ComboFrom(CombatAction firstMove)
         {
             if (firstMove == CombatAction.None) return CombatAction.None;

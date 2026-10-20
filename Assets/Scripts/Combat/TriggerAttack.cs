@@ -30,78 +30,75 @@ public class TriggerAttack : MonoBehaviour
         enquip = GetComponentInChildren<EnquipWeapon>();
         chargeShockwave = GetComponent<ChargeShockwave>();
 
-
     }
     private void OnEnable()
     {
-        input.onClick += HandleAttackTrigger;
+        input.onClick += HandleClickAttackTrigger;
+        input.onRightClick += HandleRightClickTrigger;
         input.onToggleWeapon += HandleThrowAttack;
         input.onToggleSpecialMove += HandleSpecialMove;
         input.onCharge += HandleChargeAttack;
+        
     }
     private void OnDisable()
     {
-        input.onClick -= HandleAttackTrigger;
+        input.onClick -= HandleClickAttackTrigger;
+        input.onRightClick -= HandleRightClickTrigger;
         input.onToggleWeapon -= HandleThrowAttack;
         input.onToggleSpecialMove -= HandleSpecialMove;
         input.onCharge -= HandleChargeAttack;
     }
 
-    private void HandleAttackTrigger()
+    private void HandleClickAttackTrigger()
     {
         if (!socket.HasWeapon)
-        {
-            HandleHandCombat();
-            return;
-        }
+            HandleMeleCombat(CombatAction.LightPunch);
 
-        float now = Time.unscaledTime;
-        bool isDouble = now - lastClickTime <= doubleClickWindow;
-
-        if (isDouble && combatState.TryStart(CombatAction.Heavy))
-        {
-            lastClickTime = -10f;             
-            animator.ResetTrigger("Click");
-            heavyAttack();
-            return;
-        }
-        if (combatState.TryStart(CombatAction.Light))
-        {
-            lastClickTime = now;
-            meleAttack();
-        }
+        else
+            HandleMeleCombat(CombatAction.Light);
 
     }
-    private void HandleHandCombat()
+    private void HandleRightClickTrigger()
     {
-        CombatAction move = combatState.ComboFrom(CombatAction.LightPunch);
+        if (!socket.HasWeapon)
+            return;
+        if (combatState.TryStart(CombatAction.Heavy))
+        {
+            animator.SetTrigger("RightClick");
+            socket.CurrentWeapon.GetComponent<HeavyImpactDetection>()?.Begin();
+        }
+    }
+
+    private void HandleMeleCombat(CombatAction calledAction)
+    {
+        CombatAction move = combatState.ComboFrom(calledAction);
         if (combatState.TryStart(move))
         {
             StartCoroutine(TurnToCamera());
-            animator.SetTrigger(move == CombatAction.LightPunch ? "Click" : "Combo"); //Click porneste lantul, Combo il continua (Any State nu-l poate intercepta)
-
+            if (move == calledAction)
+                animator.SetTrigger("Click"); //Am avut none deci pot incepe prima miscare din combo.
+            else
+                animator.SetTrigger("Combo"); //Click porneste lantul, combo il continua (any state nu l poate intercepta)
+ 
         }
 
     }
-    private void meleAttack()
-    {
-        animator.SetTrigger("Click");
-    }
-    private void heavyAttack()
-    {
-        animator.SetBool("DoubleClick", true);
-        socket.CurrentWeapon.GetComponent<HeavyImpactDetection>()?.Begin();
+    
 
-    }
+
+
+
+
+   
     private void HandleSpecialMove()
     {
-        if (socket.HasWeapon&&combatState.TryStart(CombatAction.Heavy))
+        if (socket.HasWeapon&&combatState.TryStart(CombatAction.Ability))
             animator.SetTrigger("SpecialMove");
     }
 
     private void HandleChargeAttack()
     {
-        if (Time.time-lastCharge>=ChargeDelay && combatState.TryStart(CombatAction.Heavy))
+        if (Time.time-lastCharge>=ChargeDelay && combatState.TryStart(CombatAction.Charge))
         {
             animator.SetTrigger("Charge");
             if (chargeShockwave != null)

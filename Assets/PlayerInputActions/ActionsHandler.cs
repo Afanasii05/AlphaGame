@@ -320,6 +320,16 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""RightClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""b6aa6639-9092-4c10-9a0e-f8478778b87c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -366,6 +376,17 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
                     ""action"": ""Charge"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ae0a98b7-c675-411b-a025-4123cdde3b38"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -386,6 +407,7 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         m_Weapon_Click = m_Weapon.FindAction("Click", throwIfNotFound: true);
         m_Weapon_Special = m_Weapon.FindAction("Special", throwIfNotFound: true);
         m_Weapon_Charge = m_Weapon.FindAction("Charge", throwIfNotFound: true);
+        m_Weapon_RightClick = m_Weapon.FindAction("RightClick", throwIfNotFound: true);
     }
 
     ~@ActionsHandler()
@@ -622,6 +644,7 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
     private readonly InputAction m_Weapon_Click;
     private readonly InputAction m_Weapon_Special;
     private readonly InputAction m_Weapon_Charge;
+    private readonly InputAction m_Weapon_RightClick;
     /// <summary>
     /// Provides access to input actions defined in input action map "Weapon".
     /// </summary>
@@ -649,6 +672,10 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Weapon/Charge".
         /// </summary>
         public InputAction @Charge => m_Wrapper.m_Weapon_Charge;
+        /// <summary>
+        /// Provides access to the underlying input action "Weapon/RightClick".
+        /// </summary>
+        public InputAction @RightClick => m_Wrapper.m_Weapon_RightClick;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -687,6 +714,9 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
             @Charge.started += instance.OnCharge;
             @Charge.performed += instance.OnCharge;
             @Charge.canceled += instance.OnCharge;
+            @RightClick.started += instance.OnRightClick;
+            @RightClick.performed += instance.OnRightClick;
+            @RightClick.canceled += instance.OnRightClick;
         }
 
         /// <summary>
@@ -710,6 +740,9 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
             @Charge.started -= instance.OnCharge;
             @Charge.performed -= instance.OnCharge;
             @Charge.canceled -= instance.OnCharge;
+            @RightClick.started -= instance.OnRightClick;
+            @RightClick.performed -= instance.OnRightClick;
+            @RightClick.canceled -= instance.OnRightClick;
         }
 
         /// <summary>
@@ -828,5 +861,12 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCharge(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RightClick" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRightClick(InputAction.CallbackContext context);
     }
 }
