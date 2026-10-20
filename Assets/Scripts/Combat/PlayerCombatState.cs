@@ -9,6 +9,8 @@ namespace Alpha.Combat
         CombatAction pending = CombatAction.None;
         [SerializeField] private List<CombatActionDefinition> actionsDetails = new();
         private Dictionary<CombatAction, MoveMode> actionsMoveMode = new();
+        private Dictionary<CombatAction, bool> actionAllowsJump = new();
+        private Dictionary<CombatAction, bool> actionHasOwnMovement = new();
         private Dictionary<CombatAction, CombatActionDefinition> combatDef = new();
         float pendingSince;
 
@@ -20,9 +22,13 @@ namespace Alpha.Combat
             {
                 act.tagHash = Animator.StringToHash(act.action.ToString());
                 actionsMoveMode[act.action] = act.mode;
+                actionAllowsJump[act.action] = act.allowsJump;
+                actionHasOwnMovement[act.action] = act.hasItsOwnMovement;
                 combatDef[act.action] = act;
             }
             actionsMoveMode[CombatAction.None] = MoveMode.Free;
+            actionAllowsJump[CombatAction.None] = true;
+            actionHasOwnMovement[CombatAction.None] = false;
             combatDef[CombatAction.None] = null;
         }
 
@@ -49,14 +55,11 @@ namespace Alpha.Combat
 
         public bool CanStart(CombatAction action)
         {
-            if ((action == CombatAction.Light || action == CombatAction.Heavy) && !animator.GetBool("IsGrounded"))
-                return false;
-            
             CombatAction Current = CurrentAction();
-            if (Current == CombatAction.None || ValidNext() == action) return true;
+            if (Current == CombatAction.None ||(ValidNext() == action && animator.GetBool("IsGrounded"))) return true;
             switch (Current)
             {   
-                case CombatAction.NonSemiCombat: return (action == CombatAction.Throw || action == CombatAction.Light);
+                case CombatAction.NonSemiCombat: return combatDef[action].passesNonSemiCombat;
                 default: return false;
             }
         }
@@ -73,13 +76,9 @@ namespace Alpha.Combat
         }
         public bool inPlaceAction() { return actionsMoveMode[CurrentAction()] == MoveMode.InPlace; }
         public bool inSlowDownAction() { return actionsMoveMode[CurrentAction()] == MoveMode.SlowDown; }
-        public bool hasOwnMovement()
-        {
-            CombatAction curr = CurrentAction();
-            if (curr == CombatAction.None) return false;
-            return combatDef[curr].hasItsOwnMovement;
+        public bool hasOwnMovement(){return actionHasOwnMovement[CurrentAction()];}
+        public bool allowsJump(){return actionAllowsJump[CurrentAction()];}
 
-        }
         public CombatAction ComboFrom(CombatAction firstMove)
         {
             if (firstMove == CombatAction.None) return CombatAction.None;

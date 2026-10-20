@@ -144,7 +144,7 @@ namespace Alpha.Player
         private void handleFall(){rb.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);}
         private void HandleJump()
         {
-            if (isGrounded && !isCrouching && !isJumping)
+            if (isGrounded && !isJumping && combState.allowsJump() && !isCrouching)
             {
                 StartCoroutine(JumpRoutine());
             }
@@ -161,6 +161,7 @@ namespace Alpha.Player
             isJumping = false;
 
         }
+
         
         private Vector3 GetMoveDirectionAndMagnitude()
         {
