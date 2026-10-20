@@ -151,6 +151,16 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""c2d6a1e4-7b53-4f08-9a3e-5d1f8e2b9c47"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -274,6 +284,17 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
                     ""action"": ""TogglePerspective"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9e4b7c30-1a85-4d62-b0f9-3c6a2d8e5f71"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -315,6 +336,16 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
                     ""name"": ""Charge"",
                     ""type"": ""Button"",
                     ""id"": ""bf813fe8-cc50-4397-a4d5-43238751e3fa"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""Heavy"",
+                    ""type"": ""Button"",
+                    ""id"": ""a7f3e5b2-6c19-4e84-8d0a-1b9c4f7e2a36"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -366,6 +397,17 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
                     ""action"": ""Charge"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d18c6f94-3e27-4a5b-9f0d-8e2b7a4c1d53"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Heavy"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -380,12 +422,14 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         m_Player_MovePlayer = m_Player.FindAction("MovePlayer", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_TogglePerspective = m_Player.FindAction("TogglePerspective", throwIfNotFound: true);
+        m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         // Weapon
         m_Weapon = asset.FindActionMap("Weapon", throwIfNotFound: true);
         m_Weapon_Toggle = m_Weapon.FindAction("Toggle", throwIfNotFound: true);
         m_Weapon_Click = m_Weapon.FindAction("Click", throwIfNotFound: true);
         m_Weapon_Special = m_Weapon.FindAction("Special", throwIfNotFound: true);
         m_Weapon_Charge = m_Weapon.FindAction("Charge", throwIfNotFound: true);
+        m_Weapon_Heavy = m_Weapon.FindAction("Heavy", throwIfNotFound: true);
     }
 
     ~@ActionsHandler()
@@ -473,6 +517,7 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MovePlayer;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_TogglePerspective;
+    private readonly InputAction m_Player_Dash;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -508,6 +553,10 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/TogglePerspective".
         /// </summary>
         public InputAction @TogglePerspective => m_Wrapper.m_Player_TogglePerspective;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Dash".
+        /// </summary>
+        public InputAction @Dash => m_Wrapper.m_Player_Dash;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -552,6 +601,9 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
             @TogglePerspective.started += instance.OnTogglePerspective;
             @TogglePerspective.performed += instance.OnTogglePerspective;
             @TogglePerspective.canceled += instance.OnTogglePerspective;
+            @Dash.started += instance.OnDash;
+            @Dash.performed += instance.OnDash;
+            @Dash.canceled += instance.OnDash;
         }
 
         /// <summary>
@@ -581,6 +633,9 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
             @TogglePerspective.started -= instance.OnTogglePerspective;
             @TogglePerspective.performed -= instance.OnTogglePerspective;
             @TogglePerspective.canceled -= instance.OnTogglePerspective;
+            @Dash.started -= instance.OnDash;
+            @Dash.performed -= instance.OnDash;
+            @Dash.canceled -= instance.OnDash;
         }
 
         /// <summary>
@@ -622,6 +677,7 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
     private readonly InputAction m_Weapon_Click;
     private readonly InputAction m_Weapon_Special;
     private readonly InputAction m_Weapon_Charge;
+    private readonly InputAction m_Weapon_Heavy;
     /// <summary>
     /// Provides access to input actions defined in input action map "Weapon".
     /// </summary>
@@ -649,6 +705,10 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Weapon/Charge".
         /// </summary>
         public InputAction @Charge => m_Wrapper.m_Weapon_Charge;
+        /// <summary>
+        /// Provides access to the underlying input action "Weapon/Heavy".
+        /// </summary>
+        public InputAction @Heavy => m_Wrapper.m_Weapon_Heavy;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -687,6 +747,9 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
             @Charge.started += instance.OnCharge;
             @Charge.performed += instance.OnCharge;
             @Charge.canceled += instance.OnCharge;
+            @Heavy.started += instance.OnHeavy;
+            @Heavy.performed += instance.OnHeavy;
+            @Heavy.canceled += instance.OnHeavy;
         }
 
         /// <summary>
@@ -710,6 +773,9 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
             @Charge.started -= instance.OnCharge;
             @Charge.performed -= instance.OnCharge;
             @Charge.canceled -= instance.OnCharge;
+            @Heavy.started -= instance.OnHeavy;
+            @Heavy.performed -= instance.OnHeavy;
+            @Heavy.canceled -= instance.OnHeavy;
         }
 
         /// <summary>
@@ -792,6 +858,13 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTogglePerspective(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Dash" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDash(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Weapon" which allows adding and removing callbacks.
@@ -828,5 +901,12 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCharge(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Heavy" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnHeavy(InputAction.CallbackContext context);
     }
 }
