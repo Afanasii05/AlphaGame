@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8692416157817322076}
-  - component: {fileID: 4605457321527388948}
   m_Layer: 0
   m_Name: HeavyWeaponHitArea
   m_TagString: Untagged
@@ -34,23 +33,6 @@ Transform:
   - {fileID: 3071424245276580518}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4605457321527388948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1204016311671959425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bc3ebff59a7e47c8b5997061fefd60a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.CraterImpactFX
-  dustBurstPrefab: {fileID: 7883418152698598512, guid: 0edde929157c8472e8881519136be841, type: 3}
-  debrisPrefab: {fileID: 1825829447001086438, guid: a4a9322876b254835bb82609afa33a17, type: 3}
-  flashColor: {r: 1, g: 0.6, b: 0.3, a: 1}
-  flashIntensity: 6
-  flashTime: 0.25
 --- !u!1 &7503053159903197981
 GameObject:
   m_ObjectHideFlags: 0

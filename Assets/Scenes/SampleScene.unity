@@ -15364,7 +15364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 819a79ddb01310446b6b5d7e63f52acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TriggerAttack
-  doubleClickWindow: 0
+  doubleClickWindow: 0.25
   playerTr: {fileID: 579590968}
   waitUntilThrow: 0.7
   ChargeDelay: 10
@@ -15403,7 +15403,7 @@ MonoBehaviour:
   - layer: 0
     action: 4
     nextAction: 0
-    mode: 1
+    mode: 2
     comboWindow: 0.4
   - layer: 0
     action: 5

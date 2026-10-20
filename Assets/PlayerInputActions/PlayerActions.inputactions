@@ -65,16 +65,6 @@
                     "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
-                },
-                {
-                    "name": "Dash",
-                    "type": "Button",
-                    "id": "c2d6a1e4-7b53-4f08-9a3e-5d1f8e2b9c47",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false,
-                    "priority": 0
                 }
             ],
             "bindings": [
@@ -198,17 +188,6 @@
                     "action": "TogglePerspective",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9e4b7c30-1a85-4d62-b0f9-3c6a2d8e5f71",
-                    "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -250,16 +229,6 @@
                     "name": "Charge",
                     "type": "Button",
                     "id": "bf813fe8-cc50-4397-a4d5-43238751e3fa",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false,
-                    "priority": 0
-                },
-                {
-                    "name": "Heavy",
-                    "type": "Button",
-                    "id": "a7f3e5b2-6c19-4e84-8d0a-1b9c4f7e2a36",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -309,17 +278,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Charge",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d18c6f94-3e27-4a5b-9f0d-8e2b7a4c1d53",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Heavy",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
