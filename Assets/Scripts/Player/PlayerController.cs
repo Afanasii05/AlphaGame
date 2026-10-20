@@ -18,10 +18,13 @@ namespace Alpha.Player
         [SerializeField] private float jumpForce = 15f;
         [SerializeField] private float gravityMultiplier = 40f;
         [SerializeField] private CameraController cameraController;
-        [SerializeField] private Transform cameraTransform;
         [SerializeField] private float AttackSlowness = 0.3f;
-
+        [SerializeField] private float sprintFovBoost = 10f;
+        [SerializeField] private float crouchFovBoost = -5f;   
+        [SerializeField] private float fovBlendSpeed = 8f;
         
+        private float baseFov;
+        private float currentFovBoost;
         private float marginError = 0.5f;
         private bool isGrounded = false;
         private Vector3 wallNormal = Vector3.zero;
@@ -36,7 +39,7 @@ namespace Alpha.Player
         PlayerCombatState combState;
         [SerializeField] private float groundSnapDistance = 0.35f; 
         Animator anim;
-
+        private Camera cam;
 
         private void Awake()
         {
@@ -45,8 +48,8 @@ namespace Alpha.Player
             capsule = GetComponent<CapsuleCollider>();
             rb = GetComponent<Rigidbody>();
             combState = GetComponent<PlayerCombatState>();
-            if (Camera.main != null)
-                cameraTransform = Camera.main.transform;
+            cam = Camera.main;
+            baseFov = cam.fieldOfView;
         }
         
         private void OnEnable()
@@ -105,7 +108,17 @@ namespace Alpha.Player
                 handleFall();
 
         }
-       
+        private void LateUpdate()
+        {
+            bool moving = moveInput.sqrMagnitude > 0.01f;
+            float target = 0f;
+            if (isCrouching)
+                target = crouchFovBoost;
+            else if (isSprinting && moving && isGrounded)
+                target = sprintFovBoost;
+            currentFovBoost = Mathf.Lerp(currentFovBoost, target, 1f - Mathf.Exp(-fovBlendSpeed * Time.deltaTime));
+            cam.fieldOfView = baseFov + currentFovBoost;
+        }
         private void HandleMovementUpdate(Vector2 moveVector){ moveInput = moveVector;}
         private void HandleSprint(bool sprintPressed){isSprinting = sprintPressed;}
         private void HandleCrouch(bool crouchPressed)
@@ -157,8 +170,8 @@ namespace Alpha.Player
                 return Vector3.zero;
             } 
 
-            Vector3 cameraForward = cameraTransform.forward;//Directia camerei pentru a misca playerul relativ la rotatia camerei
-            Vector3 cameraRight = cameraTransform.right;
+            Vector3 cameraForward = cam.transform.forward;//Directia camerei pentru a misca playerul relativ la rotatia camerei
+            Vector3 cameraRight = cam.transform.right;
             cameraForward.y = 0;
             cameraRight.y = 0;
             cameraForward.Normalize();
@@ -171,14 +184,17 @@ namespace Alpha.Player
             if (combState.inSlowDownAction())
                 speedMultiplier *= (1 - AttackSlowness);
             Vector3 moveDirection = cameraForward * moveInput.y + cameraRight*moveInput.x;
-            anim.SetFloat("Speed", moveInput.magnitude * moveSpeed * speedMultiplier);
+            if (!combState.hasOwnMovement())
+                anim.SetFloat("Speed", moveInput.magnitude * moveSpeed * speedMultiplier);
+            else
+                anim.SetFloat("Speed", 0);
             return moveDirection * speedMultiplier;
 
         }
 
         private void RotatePlayer()
         {
-            float yAngle = cameraTransform.eulerAngles.y;
+            float yAngle = cam.transform.eulerAngles.y;
             Quaternion targetRotation = Quaternion.Euler(0f, yAngle, 0f);
             rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, 0.1f));
 

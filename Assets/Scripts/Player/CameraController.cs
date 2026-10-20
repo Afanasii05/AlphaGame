@@ -11,7 +11,6 @@ namespace Alpha.Player
         [SerializeField] private float distance = 5f;
         [SerializeField] private Transform playerTransform;
         [SerializeField] private InputHandler inputHandler;
-        [SerializeField] private float lookAroundAngle = 20f;
 
         public bool is3D { get; private set; } = true;
         private float xAngle = 0f;

@@ -6222,7 +6222,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 400
-  field of view: 44
+  field of view: 65
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -6248,13 +6248,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0155603215, y: 0.3728089, z: 0.0062527466, w: 0.9277566}
-  m_LocalPosition: {x: -9.225985, y: 3.8000002, z: -8.784232}
+  m_LocalRotation: {x: 0.0042017065, y: 0.37285754, z: -0.0016884095, w: 0.9278776}
+  m_LocalPosition: {x: -9.2, y: 5.2, z: -8.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 5, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.519, y: 43.784, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6312,10 +6312,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Alpha.Player.CameraController
   mouseSensitivity: 0.1
-  distance: 5
+  distance: 3.5
   playerTransform: {fileID: 579590968}
   inputHandler: {fileID: 579590969}
-  lookAroundAngle: 8
 --- !u!114 &330585550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15302,8 +15301,10 @@ MonoBehaviour:
   jumpForce: 13
   gravityMultiplier: 2
   cameraController: {fileID: 330585549}
-  cameraTransform: {fileID: 330585546}
   AttackSlowness: 0.3
+  sprintFovBoost: 10
+  crouchFovBoost: -5
+  fovBlendSpeed: 8
   groundSnapDistance: 0.35
 --- !u!114 &579590972
 MonoBehaviour:
@@ -15395,55 +15396,82 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.PlayerInAttackAnimation
   actionsDetails:
-  - layer: 0
+  - name: Light Swing Sword
+    layer: 1
+    action: 1
+    nextAction: 2
+    mode: 1
+    hasItsOwnMovement: 0
+    comboWindow: 0.4
+  - name: Light Swing Sword 2
+    layer: 1
+    action: 2
+    nextAction: 0
+    mode: 1
+    hasItsOwnMovement: 0
+    comboWindow: 0.4
+  - name: Heavy Attack
+    layer: 0
     action: 2
     nextAction: 0
     mode: 2
+    hasItsOwnMovement: 0
     comboWindow: 0.4
-  - layer: 0
+  - name: Ability(Spin)
+    layer: 0
     action: 4
     nextAction: 0
-    mode: 2
-    comboWindow: 0.4
-  - layer: 0
-    action: 5
-    nextAction: 6
-    mode: 2
-    comboWindow: 0.4
-  - layer: 1
-    action: 1
-    nextAction: 0
     mode: 1
+    hasItsOwnMovement: 1
     comboWindow: 0.4
-  - layer: 1
+  - name: Throw Weapon
+    layer: 1
     action: 3
     nextAction: 0
     mode: 1
+    hasItsOwnMovement: 0
     comboWindow: 0.4
-  - layer: 0
+  - name: Non Combat
+    layer: 0
     action: 8
     nextAction: 0
     mode: 0
+    hasItsOwnMovement: 0
     comboWindow: 0.4
-  - layer: 0
+  - name: Non Semi Combat
+    layer: 0
     action: 9
     nextAction: 0
     mode: 0
+    hasItsOwnMovement: 0
     comboWindow: 0.4
-  - layer: 0
+  - name: Charge (Special Ability)
+    layer: 0
     action: 10
     nextAction: 0
     mode: 2
+    hasItsOwnMovement: 0
     comboWindow: 0.4
-  - layer: 0
+  - name: Light Punch
+    layer: 0
+    action: 5
+    nextAction: 6
+    mode: 2
+    hasItsOwnMovement: 0
+    comboWindow: 0.4
+  - name: Light Punch 2
+    layer: 0
     action: 6
     nextAction: 7
     mode: 2
+    hasItsOwnMovement: 0
     comboWindow: 0.4
-  - layer: 0
+  - name: Light Kick 3
+    layer: 0
     action: 7
     nextAction: 0
     mode: 2
+    hasItsOwnMovement: 0
     comboWindow: 0.4
 --- !u!114 &579590977
 MonoBehaviour:

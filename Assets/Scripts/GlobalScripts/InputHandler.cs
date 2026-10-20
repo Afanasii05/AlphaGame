@@ -15,6 +15,7 @@ namespace Alpha.Input
         public event Action onCharge;                       //Q          SPECIAL MOVE CHARGE
         public event Action<Vector2> onMouseMoveUpdate;     //MOUSE      LOOK
         public event Action<Vector2> onMoveUpdate;          //WASD       MOVE
+        public event Action onRightClick;                   //RIGHT CLICK
         private ActionsHandler inputActions;
 
 
@@ -49,6 +50,8 @@ namespace Alpha.Input
             inputActions.Weapon.Toggle.performed += ctx => onToggleWeapon?.Invoke();
             //CLICK(ATTACK)
             inputActions.Weapon.Click.performed += ctx => onClick?.Invoke();
+            //RIGHT CLICK(HEAVY ATTACK)
+            inputActions.Weapon.RightClick.performed += ctx => onRightClick?.Invoke();
             //SPECIAL MOVE
             inputActions.Weapon.Special.performed += ctx => onToggleSpecialMove?.Invoke();
             //SPECIAL MOVE CHARGE
