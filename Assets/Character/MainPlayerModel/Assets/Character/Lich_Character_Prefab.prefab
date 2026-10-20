@@ -75,6 +75,313 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62354278d46be4a6a8271e2c3d6deb0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.WeaponSocket
+--- !u!1 &8916078446170291229
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3089481664582381016}
+  - component: {fileID: 2024068884139456422}
+  - component: {fileID: 3611506711324094606}
+  - component: {fileID: 228447633137380525}
+  - component: {fileID: 3568798338914975888}
+  - component: {fileID: 982679631275189046}
+  - component: {fileID: 644619779208686408}
+  - component: {fileID: 1023462305550299560}
+  - component: {fileID: 4758664965030898032}
+  - component: {fileID: 1429205733493170793}
+  - component: {fileID: 4914037142740288417}
+  - component: {fileID: 6705346613566132309}
+  - component: {fileID: 8757409686534679967}
+  - component: {fileID: 8260671823285836738}
+  m_Layer: 0
+  m_Name: CombatPolish
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3089481664582381016
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916078446170291229}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7703134658001050229}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2024068884139456422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916078446170291229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d82e3dc391554780a02fc36d4da2342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Input.ExtraInputHandler
+--- !u!114 &3611506711324094606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916078446170291229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a643bb5b21f457cb186786259b233e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.CombatFeedback
+  hitstopScale: 0.02
+  flashDuration: 0.3
+  shakeFrequency: 25
+--- !u!114 &228447633137380525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916078446170291229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bea318f9f4194a76bb03c168213e93b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.HeavyAttackInput
+--- !u!114 &3568798338914975888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916078446170291229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c94b9802d35044033aaee3d9be4470d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.AttackMotion
+  motions:
+  - action: 2
+    layer: 0
+    useRootMotion: 1
+    rootScale: 1
+    maxRootDistance: 2.5
+    burstDistance: 0
+    burstDelay: 0.07
+    burstDuration: 0.1
+    impactTime: 0.45
+    impactShake: 0
+  - action: 5
+    layer: 0
+    useRootMotion: 0
+    rootScale: 1
+    maxRootDistance: 2.5
+    burstDistance: 0.45
+    burstDelay: 0.07
+    burstDuration: 0.1
+    impactTime: 0.3
+    impactShake: 0.06
+  - action: 6
+    layer: 0
+    useRootMotion: 0
+    rootScale: 1
+    maxRootDistance: 2.5
+    burstDistance: 0.45
+    burstDelay: 0.07
+    burstDuration: 0.1
+    impactTime: 0.3
+    impactShake: 0.06
+  - action: 7
+    layer: 0
+    useRootMotion: 0
+    rootScale: 1
+    maxRootDistance: 2.5
+    burstDistance: 0.6
+    burstDelay: 0.07
+    burstDuration: 0.1
+    impactTime: 0.3
+    impactShake: 0.06
+  - action: 1
+    layer: 1
+    useRootMotion: 0
+    rootScale: 1
+    maxRootDistance: 2.5
+    burstDistance: 0
+    burstDelay: 0.07
+    burstDuration: 0.1
+    impactTime: 0.35
+    impactShake: 0.08
+  maxSpeed: 15
+--- !u!114 &982679631275189046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916078446170291229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e1f6b785c777430882854b9dad3aea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.AirAttack
+  shockwavePrefab: {fileID: 6829646495423655771, guid: 2f0c54d97f54e4244984fb1cd1e533c6, type: 3}
+  airHangTime: 0.35
+  airSlashCooldown: 0.45
+  minSlamHeight: 1.5
+  slamSpeed: 30
+  slamHangTime: 0.18
+  slamHoldTime: 0.35
+  upperBlendTime: 0.08
+  debugLog: 0
+--- !u!114 &644619779208686408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916078446170291229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6474049b81ff444228844e54be285cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.WeaponRecall
+  catchFxPrefab: {fileID: 6612513058435713651, guid: f19cb897aaa44aa4d86e88fe437c0277, type: 3}
+  minRecallDistance: 1.5
+  recallSpeed: 28
+  spinDegrees: 720
+--- !u!114 &1023462305550299560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916078446170291229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 528a090a1cfbf4bed9acf7c8df0180ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Player.PlayerDash
+  dustPrefab: {fileID: 7883418152698598512, guid: 0edde929157c8472e8881519136be841, type: 3}
+  ghostMaterial: {fileID: 2100000, guid: a8aabc9b2e71f4ac3b01bef00c8ac728, type: 2}
+  dashSpeed: 22
+  dashDuration: 0.18
+  dashCooldown: 0.6
+  ghostInterval: 0.035
+  ghostLifetime: 0.3
+--- !u!114 &4758664965030898032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916078446170291229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8846425f62f0a4fa18351edae58a0c8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Player.PlayerSlide
+  dustTrailPrefab: {fileID: 5491185977048394523, guid: 5987bc6983fc942a9b087e33abf685da, type: 3}
+  slideSpeed: 12
+  endSpeed: 3
+  slideDuration: 0.75
+  slideCooldown: 0.5
+--- !u!114 &1429205733493170793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916078446170291229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6de4405d95d44dcdb3f5b67780e9f45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Player.SprintFeel
+  speedLinesPrefab: {fileID: 4861433724094074961, guid: 68f6cc7f9c0da4a9081f61f6a7311b8b, type: 3}
+  footDustPrefab: {fileID: 1734515755461558525, guid: da8e23e6909134088a54c2adcd8e77e8, type: 3}
+  fovBoost: 10
+  dustInterval: 0.28
+--- !u!114 &4914037142740288417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916078446170291229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8330b31231a4447ad09087099094e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Player.LandingImpact
+  dustRingPrefab: {fileID: 2780852560707324004, guid: 60771ca88f3aa458fbf3e4f0fc044539, type: 3}
+  footDustPrefab: {fileID: 1734515755461558525, guid: da8e23e6909134088a54c2adcd8e77e8, type: 3}
+  minAirTime: 0.3
+  heavyLandSpeed: 12
+  squatLandSpeed: 20
+  squatTime: 0.22
+--- !u!114 &6705346613566132309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916078446170291229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ade308f0eb24bd1ab2591c6889178e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Player.DoubleJump
+  jumpRingPrefab: {fileID: 2912453926407841692, guid: 342b306091859400aa6e64b7799b035e, type: 3}
+  jumpSpeed: 12
+  gravity: 30
+  minAirTime: 0.15
+--- !u!114 &8757409686534679967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916078446170291229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2f84c66ab7f4c3dbf6461cef005e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.ActionLock
+  grace: 0.3
+  debugLog: 0
+--- !u!114 &8260671823285836738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916078446170291229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b33f873cc3c4446f581a7c5e816edb43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.AttackAim
+  heavyYaw: 31.92221
+  lightYaw: 0
+  airSlashYaw: 0
+  airSlamYaw: 36.998055
+  abilityYaw: 0
+  punchYaw: 0
+  lockOffsets: 0
+  blendTime: 0.08
+  turnBodyOnLight: 1
+  turnTime: 0.15
+  debugLog: 0
 --- !u!1001 &7885153505212267934
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130,6 +437,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3089481664582381016}
     - targetCorrespondingSourceObject: {fileID: 6734931530170869177, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3324807538633085190}
@@ -140,6 +450,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1864887313556036215}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8882386734187211490}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3632654580494286632}
   m_SourcePrefab: {fileID: 100100000, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
 --- !u!4 &3466357598581938215 stripped
 Transform:
@@ -170,7 +486,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.DebugEquip
   socket: {fileID: 2575816747554194021}
   playerTr: {fileID: 0}
-  releaseAt: 0.24
-  throwSpeed: 14
-  throwLift: 0.12
-  throwSpin: 8
+--- !u!114 &8882386734187211490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7038238379281432783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea837bb082219438d94ca7d5119c4e1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.RootMotionRelay
+  enableRootMotionFlag: 1
+--- !u!114 &3632654580494286632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7038238379281432783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc708e49f2664705afbc55e9184f7ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.LeftHandGrip
+  blendIn: 0.1
+  blendOut: 0.15
+  positionWeight: 1
+  positionOffset: {x: 0, y: 0, z: 0}
+  gripSlide: 0
+  lead: 1
+  rotationWeight: 0
+  rotationOffsetEuler: {x: 0, y: 0, z: 0}
+  elbowWeight: 0
+  elbowHint: {x: -0.6, y: 1.1, z: -0.2}
+  debugLog: 0
+--- !u!4 &7703134658001050229 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
+  m_PrefabInstance: {fileID: 7885153505212267934}
+  m_PrefabAsset: {fileID: 0}
