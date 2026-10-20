@@ -2,9 +2,9 @@ name: Unity Tests
 
 on:
   pull_request:
-    branches: [main]
+    branches: [testing_scripts]
   push:
-    branches: [main]
+    branches: [testing_scripts]
   workflow_dispatch:
 
 jobs:
