@@ -140,6 +140,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1864887313556036215}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1787906500062663603}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8210006821514303223}
   m_SourcePrefab: {fileID: 100100000, guid: fdc253496ef7b584db4c2855a917adf1, type: 3}
 --- !u!4 &3466357598581938215 stripped
 Transform:
@@ -170,7 +176,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.DebugEquip
   socket: {fileID: 2575816747554194021}
   playerTr: {fileID: 0}
-  releaseAt: 0.24
-  throwSpeed: 14
-  throwLift: 0.12
-  throwSpin: 8
+--- !u!114 &1787906500062663603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7038238379281432783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6474049b81ff444228844e54be285cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.WeaponRecall
+  minRecallDistance: 1.5
+  recallSpeed: 28
+  spinDegrees: 720
+  animHoldAfterCatch: 0.15
+--- !u!114 &8210006821514303223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7038238379281432783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6de4405d95d44dcdb3f5b67780e9f45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Player.SprintFeel
+  fovBoost: 10
+  blendSpeed: 8
