@@ -391,7 +391,8 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8210006821514303223, guid: 5725f497428e64549a35b1f7fc7d759c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5482013991924511158, guid: 5725f497428e64549a35b1f7fc7d759c, type: 3}
@@ -15399,16 +15400,20 @@ MonoBehaviour:
   - name: Light Swing Sword
     layer: 1
     action: 1
-    nextAction: 2
+    nextAction: 11
     mode: 1
     hasItsOwnMovement: 0
+    passesNonSemiCombat: 1
+    allowsJump: 0
     comboWindow: 0.4
   - name: Light Swing Sword 2
     layer: 1
-    action: 2
+    action: 11
     nextAction: 0
     mode: 1
     hasItsOwnMovement: 0
+    passesNonSemiCombat: 0
+    allowsJump: 0
     comboWindow: 0.4
   - name: Heavy Attack
     layer: 0
@@ -15416,6 +15421,8 @@ MonoBehaviour:
     nextAction: 0
     mode: 2
     hasItsOwnMovement: 0
+    passesNonSemiCombat: 0
+    allowsJump: 0
     comboWindow: 0.4
   - name: Ability(Spin)
     layer: 0
@@ -15423,6 +15430,8 @@ MonoBehaviour:
     nextAction: 0
     mode: 1
     hasItsOwnMovement: 1
+    passesNonSemiCombat: 1
+    allowsJump: 0
     comboWindow: 0.4
   - name: Throw Weapon
     layer: 1
@@ -15430,6 +15439,8 @@ MonoBehaviour:
     nextAction: 0
     mode: 1
     hasItsOwnMovement: 0
+    passesNonSemiCombat: 1
+    allowsJump: 0
     comboWindow: 0.4
   - name: Non Combat
     layer: 0
@@ -15437,6 +15448,8 @@ MonoBehaviour:
     nextAction: 0
     mode: 0
     hasItsOwnMovement: 0
+    passesNonSemiCombat: 1
+    allowsJump: 1
     comboWindow: 0.4
   - name: Non Semi Combat
     layer: 0
@@ -15444,6 +15457,8 @@ MonoBehaviour:
     nextAction: 0
     mode: 0
     hasItsOwnMovement: 0
+    passesNonSemiCombat: 0
+    allowsJump: 1
     comboWindow: 0.4
   - name: Charge (Special Ability)
     layer: 0
@@ -15451,6 +15466,8 @@ MonoBehaviour:
     nextAction: 0
     mode: 2
     hasItsOwnMovement: 0
+    passesNonSemiCombat: 1
+    allowsJump: 0
     comboWindow: 0.4
   - name: Light Punch
     layer: 0
@@ -15458,6 +15475,8 @@ MonoBehaviour:
     nextAction: 6
     mode: 2
     hasItsOwnMovement: 0
+    passesNonSemiCombat: 0
+    allowsJump: 0
     comboWindow: 0.4
   - name: Light Punch 2
     layer: 0
@@ -15465,6 +15484,8 @@ MonoBehaviour:
     nextAction: 7
     mode: 2
     hasItsOwnMovement: 0
+    passesNonSemiCombat: 0
+    allowsJump: 0
     comboWindow: 0.4
   - name: Light Kick 3
     layer: 0
@@ -15472,6 +15493,8 @@ MonoBehaviour:
     nextAction: 0
     mode: 2
     hasItsOwnMovement: 0
+    passesNonSemiCombat: 0
+    allowsJump: 0
     comboWindow: 0.4
 --- !u!114 &579590977
 MonoBehaviour:

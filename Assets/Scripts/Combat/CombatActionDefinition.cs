@@ -1,4 +1,3 @@
-using Unity.Collections;
 using UnityEngine;
 namespace Alpha.Combat
 {
@@ -13,6 +12,7 @@ namespace Alpha.Combat
     public class CombatActionDefinition
     {
         public string name;
+        public string trigger;
         public int layer;
         public CombatAction action;
         public CombatAction nextAction;
@@ -20,6 +20,8 @@ namespace Alpha.Combat
         public bool hasItsOwnMovement;
         public bool passesNonSemiCombat;
         public bool allowsJump;
+        public bool requiresGrounded;
+        public float coolDownTime;
         [Range(0f, 1f)] public float comboWindow = 0.4f; //de la ce procent din animatie accepta nextAction
         [System.NonSerialized] public int tagHash;        //tagul din Animator = numele actiunii, calculat in Awake
     }

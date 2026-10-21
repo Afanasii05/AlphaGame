@@ -5,25 +5,18 @@ using System.Collections;
 
 public class TriggerAttack : MonoBehaviour
 {
-    private Animator animator;
     private InputHandler input;
     private WeaponSocket socket;
     private PlayerCombatState combatState;
-    
-    [SerializeField] float doubleClickWindow = 0.25f;
+  
     [SerializeField] Transform playerTr;
     EnquipWeapon enquip;
     ChargeShockwave chargeShockwave;
 
-
-
     [SerializeField] private float waitUntilThrow = 0.7f;
-    float lastClickTime = 0f;
-    [SerializeField] private float ChargeDelay = 10f;
-    private float lastCharge = -10;
+    Coroutine turnRoutine;
     void Awake()
     {
-        animator = GetComponentInChildren<Animator>();
         input = GetComponent<InputHandler>();
         socket = GetComponentInChildren<WeaponSocket>();
         combatState = GetComponent<PlayerCombatState>();
@@ -53,10 +46,8 @@ public class TriggerAttack : MonoBehaviour
     {
         if (!socket.HasWeapon)
             HandleMeleCombat(CombatAction.LightPunch);
-
         else
             HandleMeleCombat(CombatAction.Light);
-
     }
     private void HandleRightClickTrigger()
     {
@@ -64,8 +55,8 @@ public class TriggerAttack : MonoBehaviour
             return;
         if (combatState.TryStart(CombatAction.Heavy))
         {
-            animator.SetTrigger("RightClick");
-            socket.CurrentWeapon.GetComponent<HeavyImpactDetection>()?.Begin();
+            if (socket.CurrentWeapon.TryGetComponent(out HeavyImpactDetection hid)) hid.Begin();
+            StartTurn();
         }
     }
 
@@ -73,37 +64,22 @@ public class TriggerAttack : MonoBehaviour
     {
         CombatAction move = combatState.ComboFrom(calledAction);
         if (combatState.TryStart(move))
-        {
-            StartCoroutine(TurnToCamera());
-            if (move == calledAction)
-                animator.SetTrigger("Click"); //Am avut none deci pot incepe prima miscare din combo.
-            else
-                animator.SetTrigger("Combo"); //Click porneste lantul, combo il continua (any state nu l poate intercepta)
- 
-        }
-
+            StartTurn();
     }
-    
-
-
-
-
-
-   
+     
     private void HandleSpecialMove()
     {
         if (socket.HasWeapon&&combatState.TryStart(CombatAction.Ability))
-            animator.SetTrigger("SpecialMove");
+            StartTurn();
     }
 
     private void HandleChargeAttack()
     {
-        if (Time.time-lastCharge>=ChargeDelay && combatState.TryStart(CombatAction.Charge))
+        if (combatState.TryStart(CombatAction.Charge))
         {
-            animator.SetTrigger("Charge");
             if (chargeShockwave != null)
                 chargeShockwave.Play();
-            lastCharge = Time.time;
+            StartTurn();
         }
     }
 
@@ -113,13 +89,11 @@ public class TriggerAttack : MonoBehaviour
         if (!socket.HasWeapon || !combatState.TryStart(CombatAction.Throw))
             return;
         StartCoroutine(ThrowRoutine());
-       
     }
 
     private IEnumerator ThrowRoutine()
     {
-        StartCoroutine(TurnToCamera());
-        animator.SetTrigger("Throw");
+        StartTurn();
         yield return new WaitForSeconds(waitUntilThrow);
 
         Weapon weapon = enquip.Unequip();
@@ -144,8 +118,9 @@ public class TriggerAttack : MonoBehaviour
         }
         rb.MoveRotation(target);
     }
-    void Update()
+    void StartTurn()
     {
-        
+        if (turnRoutine != null) StopCoroutine(turnRoutine);
+        turnRoutine = StartCoroutine(TurnToCamera());
     }
 }

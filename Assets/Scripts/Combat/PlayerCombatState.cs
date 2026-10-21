@@ -5,33 +5,33 @@ namespace Alpha.Combat
 
     public class PlayerCombatState : MonoBehaviour
     {
+        private static readonly CombatActionDefinition NoneDef = new() { allowsJump = true };
         Animator animator;
         CombatAction pending = CombatAction.None;
         [SerializeField] private List<CombatActionDefinition> actionsDetails = new();
-        private Dictionary<CombatAction, MoveMode> actionsMoveMode = new();
-        private Dictionary<CombatAction, bool> actionAllowsJump = new();
-        private Dictionary<CombatAction, bool> actionHasOwnMovement = new();
         private Dictionary<CombatAction, CombatActionDefinition> combatDef = new();
+        private Dictionary<CombatAction, float> lastTimePlayed = new();
         float pendingSince;
 
         void Awake()
         {
             animator = GetComponentInChildren<Animator>();
-
             foreach (CombatActionDefinition act in actionsDetails)
             {
                 act.tagHash = Animator.StringToHash(act.action.ToString());
-                actionsMoveMode[act.action] = act.mode;
-                actionAllowsJump[act.action] = act.allowsJump;
-                actionHasOwnMovement[act.action] = act.hasItsOwnMovement;
                 combatDef[act.action] = act;
             }
-            actionsMoveMode[CombatAction.None] = MoveMode.Free;
-            actionAllowsJump[CombatAction.None] = true;
-            actionHasOwnMovement[CombatAction.None] = false;
-            combatDef[CombatAction.None] = null;
+            combatDef[CombatAction.None] = NoneDef;
         }
 
+        private bool inCoolDown(CombatAction action)
+        {
+            if (!lastTimePlayed.TryGetValue(action, out float t))
+                return false;
+            if (Time.time - t >= combatDef[action].coolDownTime)
+                return false;
+            return true;
+        }
         private bool InTag(CombatActionDefinition ad)
         {
             AnimatorStateInfo s = animator.GetCurrentAnimatorStateInfo(ad.layer);
@@ -55,9 +55,14 @@ namespace Alpha.Combat
 
         public bool CanStart(CombatAction action)
         {
-            CombatAction Current = CurrentAction();
-            if (Current == CombatAction.None ||(ValidNext() == action && animator.GetBool("IsGrounded"))) return true;
-            switch (Current)
+            if (inCoolDown(action))
+                return false;
+            
+            bool ground = animator.GetBool("IsGrounded");
+            if (combatDef[action].requiresGrounded && !ground) return false;
+            CombatAction current = CurrentAction();
+            if (current == CombatAction.None ||(ValidNext() == action && ground)) return true;
+            switch (current)
             {   
                 case CombatAction.NonSemiCombat: return combatDef[action].passesNonSemiCombat;
                 default: return false;
@@ -70,14 +75,16 @@ namespace Alpha.Combat
             {
                 pending = action;
                 pendingSince = Time.time;
+                lastTimePlayed[action] = pendingSince;
+                animator.SetTrigger(combatDef[action].trigger);
                 return true;
             }
             return false;
         }
-        public bool inPlaceAction() { return actionsMoveMode[CurrentAction()] == MoveMode.InPlace; }
-        public bool inSlowDownAction() { return actionsMoveMode[CurrentAction()] == MoveMode.SlowDown; }
-        public bool hasOwnMovement(){return actionHasOwnMovement[CurrentAction()];}
-        public bool allowsJump(){return actionAllowsJump[CurrentAction()];}
+        public bool inPlaceAction() { return combatDef[CurrentAction()].mode == MoveMode.InPlace; }
+        public bool inSlowDownAction() { return combatDef[CurrentAction()].mode == MoveMode.SlowDown; }
+        public bool hasOwnMovement(){return combatDef[CurrentAction()].hasItsOwnMovement;}
+        public bool allowsJump(){return combatDef[CurrentAction()].allowsJump;}
 
         public CombatAction ComboFrom(CombatAction firstMove)
         {
@@ -94,7 +101,7 @@ namespace Alpha.Combat
         {
             if (pending != CombatAction.None) return CombatAction.None;
             CombatAction actual = ActualStateInAnimation();
-            if (!combatDef.TryGetValue(actual, out CombatActionDefinition cur) || cur == null || cur.nextAction == CombatAction.None)
+            if (!combatDef.TryGetValue(actual, out CombatActionDefinition cur) || cur.nextAction == CombatAction.None)
                 return CombatAction.None;
             if (animator.IsInTransition(cur.layer)) return CombatAction.None;
             AnimatorStateInfo s = animator.GetCurrentAnimatorStateInfo(cur.layer);
