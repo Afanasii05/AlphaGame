@@ -10,6 +10,7 @@ namespace Alpha.Input
         public event Action onJumpTriggered;                //SPACE      JUMP
         public event Action onTogglePerspective;            //P          CAMERA PERSPECTIVE
         public event Action onToggleWeapon;                 //E          TOGGLE WEAPON
+        public event Action onTeleport;                     //T          TELEPORT
         public event Action onClick;                        //Click         
         public event Action onToggleSpecialMove;            //Z          SPECIAL MOVE
         public event Action onCharge;                       //Q          SPECIAL MOVE CHARGE
@@ -56,6 +57,8 @@ namespace Alpha.Input
             inputActions.Weapon.Special.performed += ctx => onToggleSpecialMove?.Invoke();
             //SPECIAL MOVE CHARGE
             inputActions.Weapon.Charge.performed += ctx => onCharge?.Invoke();
+            //TELEPORT
+            inputActions.Weapon.Teleport.performed += ctx => onTeleport?.Invoke();
         }
         
 

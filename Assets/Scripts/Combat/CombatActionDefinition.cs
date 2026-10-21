@@ -4,7 +4,8 @@ namespace Alpha.Combat
     public enum CombatAction
     {
         None = 0, Light = 1, Heavy = 2, Throw = 3, Ability = 4, LightPunch = 5,
-        LightPunch2 = 6, LightKick3 = 7, NonCombat = 8, NonSemiCombat = 9, Charge = 10, Light2 = 11
+        LightPunch2 = 6, LightKick3 = 7, NonCombat = 8, NonSemiCombat = 9, Charge = 10, Light2 = 11,
+        Recall = 12, Teleport = 13
     }
 
     public enum MoveMode {Free, SlowDown, InPlace}

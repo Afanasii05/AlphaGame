@@ -23,8 +23,6 @@ namespace Alpha.Combat
             combatState = GetComponentInParent<PlayerCombatState>();
             animator = GetComponentInParent<Animator>();
         }
-        private void OnEnable(){inputHandler.onToggleWeapon += HandleToggleWeapon;}
-        private void OnDisable(){inputHandler.onToggleWeapon -= HandleToggleWeapon;}
 
         private void HandleToggleWeapon()
         {
@@ -38,14 +36,14 @@ namespace Alpha.Combat
         {
             return (combatState.CurrentAction() == CombatAction.None || combatState.CurrentAction() == CombatAction.NonSemiCombat);
         }
-        private void Equip()
+        public void Equip()
         {
             if (spawned.Count == 0)
                 return;
             socket.Attach(spawned[IndexEnquip]);
             animator.SetBool("HasWeapon", true);
         }
-        private void Equip(Weapon spawnedPrefab)
+        public void Equip(Weapon spawnedPrefab)
         {
             if (!spawned.Contains(spawnedPrefab))
                 return;

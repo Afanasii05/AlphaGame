@@ -3,7 +3,7 @@ namespace Alpha.Combat
 {
     
     [RequireComponent(typeof(Weapon))]
-    [DefaultExecutionOrder(1001)] //Dupa WeaponRecall, ca sa vada pozitia reala din zbor
+    [DefaultExecutionOrder(1001)] //Dupa restul LateUpdate-urilor, ca sa vada pozitia finala a armei
     public class WeaponTrail : MonoBehaviour
     {
         [SerializeField] private TrailRenderer trail;
@@ -23,7 +23,7 @@ namespace Alpha.Combat
 
         private void LateUpdate()
         {
-            Transform current = weapon.IsHeld ? transform.root : null;
+            Transform current = weapon.IsHeld && weapon.combatStateOfPlayer != null ? weapon.combatStateOfPlayer.transform : null; //Playerul, nu transform.root: in zborul de recall arma nu e copilul lui
             Vector3 point = current != null ? current.InverseTransformPoint(trail.transform.position) : trail.transform.position;
             if (current != reference)
             {

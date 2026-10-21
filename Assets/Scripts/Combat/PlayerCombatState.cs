@@ -76,7 +76,8 @@ namespace Alpha.Combat
                 pending = action;
                 pendingSince = Time.time;
                 lastTimePlayed[action] = pendingSince;
-                animator.SetTrigger(combatDef[action].trigger);
+                if (!string.IsNullOrEmpty(combatDef[action].trigger))
+                    animator.SetTrigger(combatDef[action].trigger);
                 return true;
             }
             return false;

@@ -330,6 +330,16 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""Teleport"",
+                    ""type"": ""Button"",
+                    ""id"": ""06e22bf8-cd59-402d-8dc5-c3955421e4af"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -387,6 +397,17 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
                     ""action"": ""RightClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""648d0e6f-d8e6-46a2-a115-513c52c7f219"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Teleport"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -408,6 +429,7 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         m_Weapon_Special = m_Weapon.FindAction("Special", throwIfNotFound: true);
         m_Weapon_Charge = m_Weapon.FindAction("Charge", throwIfNotFound: true);
         m_Weapon_RightClick = m_Weapon.FindAction("RightClick", throwIfNotFound: true);
+        m_Weapon_Teleport = m_Weapon.FindAction("Teleport", throwIfNotFound: true);
     }
 
     ~@ActionsHandler()
@@ -645,6 +667,7 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
     private readonly InputAction m_Weapon_Special;
     private readonly InputAction m_Weapon_Charge;
     private readonly InputAction m_Weapon_RightClick;
+    private readonly InputAction m_Weapon_Teleport;
     /// <summary>
     /// Provides access to input actions defined in input action map "Weapon".
     /// </summary>
@@ -676,6 +699,10 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Weapon/RightClick".
         /// </summary>
         public InputAction @RightClick => m_Wrapper.m_Weapon_RightClick;
+        /// <summary>
+        /// Provides access to the underlying input action "Weapon/Teleport".
+        /// </summary>
+        public InputAction @Teleport => m_Wrapper.m_Weapon_Teleport;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -717,6 +744,9 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
             @RightClick.started += instance.OnRightClick;
             @RightClick.performed += instance.OnRightClick;
             @RightClick.canceled += instance.OnRightClick;
+            @Teleport.started += instance.OnTeleport;
+            @Teleport.performed += instance.OnTeleport;
+            @Teleport.canceled += instance.OnTeleport;
         }
 
         /// <summary>
@@ -743,6 +773,9 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
             @RightClick.started -= instance.OnRightClick;
             @RightClick.performed -= instance.OnRightClick;
             @RightClick.canceled -= instance.OnRightClick;
+            @Teleport.started -= instance.OnTeleport;
+            @Teleport.performed -= instance.OnTeleport;
+            @Teleport.canceled -= instance.OnTeleport;
         }
 
         /// <summary>
@@ -868,5 +901,12 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRightClick(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Teleport" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTeleport(InputAction.CallbackContext context);
     }
 }

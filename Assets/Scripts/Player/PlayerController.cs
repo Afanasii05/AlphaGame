@@ -22,6 +22,7 @@ namespace Alpha.Player
         [SerializeField] private float sprintFovBoost = 10f;
         [SerializeField] private float crouchFovBoost = -5f;   
         [SerializeField] private float fovBlendSpeed = 8f;
+        [SerializeField] private float teleportFovBoost = 15;
         
         private float baseFov;
         private float currentFovBoost;
@@ -32,17 +33,20 @@ namespace Alpha.Player
         private bool isJumping = false;
         private bool isSprinting = false;
         private bool isCrouching = false;
+        private bool isTeleporting = false;
         private Vector2 moveInput = Vector2.zero;
         InputHandler inputHandler;
         Rigidbody rb;
         CapsuleCollider capsule;
         PlayerCombatState combState;
+        TeleportToWeapon teleporter;
         [SerializeField] private float groundSnapDistance = 0.35f; 
         Animator anim;
         private Camera cam;
 
         private void Awake()
         {
+            teleporter = GetComponent<TeleportToWeapon>();
             anim = GetComponentInChildren<Animator>();
             inputHandler = GetComponent<InputHandler>();
             capsule = GetComponent<CapsuleCollider>();
@@ -58,6 +62,7 @@ namespace Alpha.Player
             inputHandler.onSprintHold += HandleSprint;
             inputHandler.onJumpTriggered += HandleJump;
             inputHandler.onMoveUpdate += HandleMovementUpdate;
+            teleporter.onTriggerTeleport += UpdateTeleportStatus;
 
         }
         private void OnDisable()
@@ -66,6 +71,7 @@ namespace Alpha.Player
             inputHandler.onSprintHold -= HandleSprint;
             inputHandler.onJumpTriggered -= HandleJump;
             inputHandler.onMoveUpdate -= HandleMovementUpdate;
+            teleporter.onTriggerTeleport -= UpdateTeleportStatus;
 
         }
         void FixedUpdate()
@@ -116,6 +122,8 @@ namespace Alpha.Player
                 target = crouchFovBoost;
             else if (isSprinting && moving && isGrounded)
                 target = sprintFovBoost;
+            if (isTeleporting)
+                target = teleportFovBoost;
             currentFovBoost = Mathf.Lerp(currentFovBoost, target, 1f - Mathf.Exp(-fovBlendSpeed * Time.deltaTime));
             cam.fieldOfView = baseFov + currentFovBoost;
         }
@@ -162,7 +170,10 @@ namespace Alpha.Player
 
         }
 
-        
+        private void UpdateTeleportStatus(bool status)
+        {
+            isTeleporting = status;
+        }
         private Vector3 GetMoveDirectionAndMagnitude()
         {
             if (moveInput.magnitude == 0 || combState.inPlaceAction())//Daca stau pe loc sau rulez o aniamtie care trebuie ea sa stea pe loc
