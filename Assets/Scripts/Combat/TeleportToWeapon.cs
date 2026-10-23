@@ -116,19 +116,38 @@ namespace Alpha.Combat
         {
             float r = capsule.radius * 0.95f;
             float half = Mathf.Max(capsule.height * 0.5f - capsule.radius, 0f);
-            Vector3 back = fromPos - weaponPos; back.y = 0f; back.Normalize();
+            const float skin = 0.03f;
+            Vector3 back = fromPos - weaponPos; back.y = 0f;
+            back = back.sqrMagnitude > 0.0001f ? back.normalized : Vector3.zero;
 
-            for (int i = 0; i < 6; i++)   
+            // daca nu gasim nimic liber, mergem oricum langa sabie, nu ramanem pe loc
+            bool hasFallback = false;
+            Vector3 fallback = weaponPos + Vector3.up * (capsule.height * 0.5f) - capsule.center;
+
+            for (int i = 0; i < 6; i++)
             {
                 Vector3 probe = weaponPos + back * (i * 0.5f);
-                if (!Physics.Raycast(probe + Vector3.up * 1.5f, Vector3.down, out RaycastHit hit, 5f, groundLayer, QueryTriggerInteraction.Ignore))
+                if (!Physics.Raycast(probe + Vector3.up * 4f, Vector3.down, out RaycastHit hit, 8f, groundLayer, QueryTriggerInteraction.Ignore))
                     continue;
 
-                Vector3 center = hit.point + Vector3.up * (capsule.height * 0.5f + 0.02f);
-                if (!Physics.CheckCapsule(center + Vector3.up * half, center - Vector3.up * half, r, groundLayer, QueryTriggerInteraction.Ignore))
-                    return center - capsule.center;   
+                // pe panta sfera de jos trebuie ridicata mai mult ca sa nu intre in teren
+                float ny = Mathf.Max(hit.normal.y, 0.2f);
+                Vector3 bottom = hit.point + Vector3.up * ((r + skin) / ny);
+
+                if (!hasFallback)
+                {
+                    fallback = bottom + Vector3.up * half - capsule.center;
+                    hasFallback = true;
+                }
+
+                for (int k = 0; k < 4; k++)   // incerc si putin mai sus
+                {
+                    Vector3 b = bottom + Vector3.up * (k * 0.25f);
+                    if (!Physics.CheckCapsule(b, b + Vector3.up * (half * 2f), r, groundLayer, QueryTriggerInteraction.Ignore))
+                        return b + Vector3.up * half - capsule.center;
+                }
             }
-            return fromPos;   
+            return fallback;
         }
     }
 }
