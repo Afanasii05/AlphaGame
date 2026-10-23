@@ -112,9 +112,9 @@ public class TriggerAttack : MonoBehaviour
 
     private void HandleTeleportation()
     {
-        if(!socket.HasWeapon&&combatState.TryStart(CombatAction.Teleport))
+        if(!socket.HasWeapon&& teleport.canTeleport(thrown) &&combatState.TryStart(CombatAction.Teleport))
         {
-            teleport.teleport();
+            teleport.teleport(thrown);
             StartTurn();
         }
     }

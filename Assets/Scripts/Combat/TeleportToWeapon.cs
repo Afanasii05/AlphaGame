@@ -11,85 +11,92 @@ namespace Alpha.Combat
         [SerializeField] float minTeleportDist=2f;
         [SerializeField] float playerTeleportSpeed = 10f;
         [SerializeField] LayerMask groundLayer;
-        EnquipWeapon eq;
-        WeaponSocket socket;
-        TriggerAttack trigger;
+        Animator anim;
         CapsuleCollider capsule;
-        Rigidbody rb;
-        Weapon weapon;
+        Rigidbody playerRb;
         Renderer[] bodyRenderers;
+
         [SerializeField] ParticleSystem teleportFx;
         [SerializeField] ParticleSystem teleportSmoke;
         [SerializeField] int smokeAmount = 40;
         [SerializeField] float smokeDelay = 0.4f;   
         [SerializeField] float revealDelay = 0.1f;  
+
         bool teleporting;
         public event Action<bool> onTriggerTeleport;
         Camera cam;
         CameraController cameraController;
+        EnquipWeapon eq;
+
         void Awake()
         {
-            socket = GetComponentInChildren<WeaponSocket>();
-            trigger = GetComponent<TriggerAttack>();
-            rb = playerTr.GetComponent<Rigidbody>();
-            eq = GetComponentInChildren<EnquipWeapon>();
+            playerRb = playerTr.GetComponent<Rigidbody>();
             bodyRenderers = playerTr.GetComponentsInChildren<SkinnedMeshRenderer>(true);
             cam = Camera.main;
             cameraController = cam.GetComponent<CameraController>();
             capsule = playerTr.GetComponent<CapsuleCollider>();
+            eq = GetComponentInChildren<EnquipWeapon>();
+            anim = GetComponentInChildren<Animator>();
         }
 
-        
-        public void teleport()
+        public bool canTeleport(Weapon wp)
         {
-            if (teleporting)
-                return;
-            weapon = trigger.Thrown;
-            if (socket.HasWeapon || weapon == null)
-                return;
-            Rigidbody weaponRb = weapon.GetComponent<Rigidbody>();
-            if (weaponRb.linearVelocity.magnitude > 0.5f) 
-                return;
-
-            Vector3 target = FindSafeSpot(weaponRb.position, rb.position);
-            
-            
-            StartCoroutine(teleportation(weapon.transform.position));
-            
+            if (wp == null)
+                return false;
+            Rigidbody wrb = wp.GetComponent<Rigidbody>();
+            if (teleporting  ||  wrb.linearVelocity.magnitude > 1f)
+                return false;
+            return true;
+        }
+        public void teleport(Weapon wp)
+        {
+            Rigidbody weaponRb = wp.GetComponent<Rigidbody>();
+            Vector3 target = FindSafeSpot(weaponRb.position, playerRb.position);
+            StartCoroutine(teleportation(target, wp));
             
         }
-        private IEnumerator teleportation(Vector3 target)
+        private IEnumerator teleportation(Vector3 target, Weapon wp)
         {
+            anim.SetBool("Teleport", true);
             onTriggerTeleport?.Invoke(true);    //trimit in playerController pentru fov la camera
             teleporting = true;
-            rb.isKinematic = true;
-            if (teleportSmoke) teleportSmoke.Emit(smokeAmount); 
-            yield return new WaitForSeconds(smokeDelay);
-            Vector3 initial = rb.position;
+            playerRb.isKinematic = true;
+            AimCameraAt(target);                //Ma uit la sabie
+            Vector3 initial = playerRb.position;
             float total = Vector3.Distance(initial, target);
             float ds = cameraController.distance;
-            cameraController.distance = -total/10;
-            AimCameraAt(weapon.transform.position);
+            
+
+            if (teleportSmoke) teleportSmoke.Emit(smokeAmount); 
+            yield return new WaitForSeconds(smokeDelay);
+            cameraController.distance = -total / 7; //Apropii distanta catre sabie
+
             SetVisible(false);
             if (teleportFx) teleportFx.Play();
+
             while ((playerTr.position - target).sqrMagnitude >= 0.01f)
             {
-                float catAmMers =  1f - Vector3.Distance(rb.position, target) / total;
+                float catAmMers =  1f - Vector3.Distance(playerRb.position, target) / total;
                 cameraController.distance = Mathf.Lerp(-total/10, 5, catAmMers);
-                rb.MovePosition(Vector3.MoveTowards(rb.position, target, playerTeleportSpeed * Time.fixedDeltaTime));
+                playerRb.MovePosition(Vector3.MoveTowards(playerRb.position, target, playerTeleportSpeed * Time.fixedDeltaTime));
                 yield return new WaitForFixedUpdate();
             }
-            if (teleportFx) teleportFx.Stop(true, ParticleSystemStopBehavior.StopEmitting); 
+            if (teleportFx) teleportFx.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+
+            eq.Equip(wp);
+            cameraController.distance = ds;
 
             if (teleportSmoke) teleportSmoke.Emit(smokeAmount);   
             yield return new WaitForSeconds(revealDelay);
-            rb.isKinematic = false;
-            rb.linearVelocity = Vector3.zero;
-            eq.Equip(weapon);
+
+            playerRb.isKinematic = false;
+            playerRb.linearVelocity = Vector3.zero;
             SetVisible(true);
             onTriggerTeleport?.Invoke(false);
             teleporting = false;
-            cameraController.distance = ds;
+            anim.SetBool("Teleport", false);
+            
+
         }
         void SetVisible(bool visible)
         {
