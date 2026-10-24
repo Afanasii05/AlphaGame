@@ -6208,8 +6208,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.23970805, g: 0.96981126, b: 0.30489576, a: 0.75}
-      maxColor: {r: 0.46939632, g: 0.94716984, b: 0.41997153, a: 0.65}
+      minColor: {r: 0.46404406, g: 0.89433956, b: 0.50337213, a: 0.75}
+      maxColor: {r: 0.5699724, g: 0.87169814, b: 0.5378213, a: 0.65}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -17472,9 +17472,11 @@ GameObject:
   - component: {fileID: 579590976}
   - component: {fileID: 579590977}
   - component: {fileID: 579590978}
+  - component: {fileID: 579590979}
+  - component: {fileID: 579590980}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17742,7 +17744,12 @@ MonoBehaviour:
     allowsJump: 1
     requiresGrounded: 0
     coolDownTime: 0
+    knockBackPower: 1.2
+    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
+    activeStart: 0.25
+    activeEnd: 0.8
+    alwaysActive: 0
   - name: Light Swing Sword 2
     trigger: Combo
     layer: 1
@@ -17754,7 +17761,12 @@ MonoBehaviour:
     allowsJump: 1
     requiresGrounded: 0
     coolDownTime: 0
+    knockBackPower: 1.5
+    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
+    activeStart: 0.2
+    activeEnd: 0.85
+    alwaysActive: 0
   - name: Heavy Attack
     trigger: RightClick
     layer: 0
@@ -17766,7 +17778,12 @@ MonoBehaviour:
     allowsJump: 0
     requiresGrounded: 0
     coolDownTime: 5
+    knockBackPower: 3
+    hitboxScaleofWeapon: {x: 1.5, y: 1.5, z: 2}
     comboWindow: 0.4
+    activeStart: 0.35
+    activeEnd: 0.9
+    alwaysActive: 0
   - name: Ability(Spin)
     trigger: SpecialMove
     layer: 0
@@ -17777,8 +17794,13 @@ MonoBehaviour:
     passesNonSemiCombat: 1
     allowsJump: 0
     requiresGrounded: 0
-    coolDownTime: 7
+    coolDownTime: 0
+    knockBackPower: 1.1
+    hitboxScaleofWeapon: {x: 3, y: 1.2, z: 1.2}
     comboWindow: 0.4
+    activeStart: 0.05
+    activeEnd: 1
+    alwaysActive: 0
   - name: Throw Weapon
     trigger: Throw
     layer: 1
@@ -17790,7 +17812,12 @@ MonoBehaviour:
     allowsJump: 0
     requiresGrounded: 0
     coolDownTime: 0
+    knockBackPower: 2
+    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
+    activeStart: 1
+    activeEnd: 1
+    alwaysActive: 0
   - name: Non Combat
     trigger: 
     layer: 0
@@ -17802,7 +17829,12 @@ MonoBehaviour:
     allowsJump: 1
     requiresGrounded: 0
     coolDownTime: 0
+    knockBackPower: 0
+    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
+    activeStart: 0
+    activeEnd: 0
+    alwaysActive: 0
   - name: Non Semi Combat
     trigger: 
     layer: 0
@@ -17814,7 +17846,12 @@ MonoBehaviour:
     allowsJump: 1
     requiresGrounded: 0
     coolDownTime: 0
+    knockBackPower: 0
+    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
+    activeStart: 0
+    activeEnd: 0
+    alwaysActive: 0
   - name: Charge (Special Ability)
     trigger: Charge
     layer: 0
@@ -17826,7 +17863,12 @@ MonoBehaviour:
     allowsJump: 0
     requiresGrounded: 0
     coolDownTime: 10
+    knockBackPower: 5
+    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
+    activeStart: 0.1
+    activeEnd: 1
+    alwaysActive: 0
   - name: Light Punch
     trigger: Click
     layer: 0
@@ -17838,7 +17880,12 @@ MonoBehaviour:
     allowsJump: 0
     requiresGrounded: 0
     coolDownTime: 0
+    knockBackPower: 0
+    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
+    activeStart: 0
+    activeEnd: 1
+    alwaysActive: 0
   - name: Light Punch 2
     trigger: Combo
     layer: 0
@@ -17850,7 +17897,12 @@ MonoBehaviour:
     allowsJump: 0
     requiresGrounded: 0
     coolDownTime: 0
+    knockBackPower: 0
+    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
+    activeStart: 0
+    activeEnd: 1
+    alwaysActive: 0
   - name: Light Kick 3
     trigger: Combo
     layer: 0
@@ -17862,7 +17914,12 @@ MonoBehaviour:
     allowsJump: 0
     requiresGrounded: 0
     coolDownTime: 0
+    knockBackPower: 0
+    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
+    activeStart: 0
+    activeEnd: 1
+    alwaysActive: 0
   - name: Recall
     trigger: 
     layer: 1
@@ -17874,7 +17931,12 @@ MonoBehaviour:
     allowsJump: 0
     requiresGrounded: 0
     coolDownTime: 0
+    knockBackPower: -1
+    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
+    activeStart: 0
+    activeEnd: 1
+    alwaysActive: 1
   - name: Teleport
     trigger: 
     layer: 0
@@ -17886,7 +17948,12 @@ MonoBehaviour:
     allowsJump: 0
     requiresGrounded: 0
     coolDownTime: 0
+    knockBackPower: 0
+    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
+    activeStart: 0
+    activeEnd: 1
+    alwaysActive: 0
 --- !u!114 &579590977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17920,7 +17987,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.TeleportToWeapon
   playerTr: {fileID: 579590968}
   minTeleportDist: 2
-  playerTeleportSpeed: 150
+  playerTeleportSpeed: 200
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -17929,6 +17996,39 @@ MonoBehaviour:
   smokeAmount: 55
   smokeDelay: 0.4
   revealDelay: 0.1
+--- !u!114 &579590979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579590964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 506528955be3e3d44bba4f74cff13625, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.EnemyHitMeneger
+  combatState: {fileID: 0}
+--- !u!114 &579590980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579590964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffffi
 --- !u!1 &581135265
 GameObject:
   m_ObjectHideFlags: 0
@@ -25275,6 +25375,67 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 212761847630296704, guid: 6d7fb0a4f725a1c4e837cd460d55cd3f, type: 3}
   m_PrefabInstance: {fileID: 991217078}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &991247347
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6336287852905366778, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: m_Name
+      value: Stumphorn
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675694295656980032, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.5584507
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675694295656980032, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675694295656980032, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -12.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675694295656980032, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675694295656980032, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675694295656980032, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675694295656980032, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675694295656980032, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675694295656980032, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675694295656980032, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6752592371927306497, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 579590968}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
 --- !u!1001 &996543798
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52947,6 +53108,70 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5232546295898846269, guid: fea4eba4eae1e6c42af2b6226aaaeede, type: 3}
   m_PrefabInstance: {fileID: 1982493063}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1996162910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1996162912}
+  - component: {fileID: 1996162911}
+  m_Layer: 0
+  m_Name: NavMesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1996162911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996162910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: -1372625422
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967231
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.4
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: f22f35454dfc52d4491fdf0703050d7b, type: 2}
+  m_BuildHeightMesh: 0
+--- !u!4 &1996162912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996162910}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2003534929 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4325466632238055439, guid: 5725f497428e64549a35b1f7fc7d759c, type: 3}
@@ -67481,3 +67706,5 @@ SceneRoots:
   - {fileID: 940007409}
   - {fileID: 793424672}
   - {fileID: 1551173537}
+  - {fileID: 991247347}
+  - {fileID: 1996162912}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 namespace Alpha.Combat
@@ -7,15 +8,19 @@ namespace Alpha.Combat
     {
         private static readonly CombatActionDefinition NoneDef = new() { allowsJump = true };
         Animator animator;
+        WeaponSocket socket;
         CombatAction pending = CombatAction.None;
         [SerializeField] private List<CombatActionDefinition> actionsDetails = new();
-        private Dictionary<CombatAction, CombatActionDefinition> combatDef = new();
+        [NonSerialized]  public Dictionary<CombatAction, CombatActionDefinition> combatDef = new();
+        EnemyHitMeneger hitMeneger;
         private Dictionary<CombatAction, float> lastTimePlayed = new();
         float pendingSince;
 
         void Awake()
         {
+            hitMeneger = GetComponent<EnemyHitMeneger>();
             animator = GetComponentInChildren<Animator>();
+            socket = GetComponentInChildren<WeaponSocket>();
             foreach (CombatActionDefinition act in actionsDetails)
             {
                 act.tagHash = Animator.StringToHash(act.action.ToString());
@@ -78,9 +83,27 @@ namespace Alpha.Combat
                 lastTimePlayed[action] = pendingSince;
                 if (!string.IsNullOrEmpty(combatDef[action].trigger))
                     animator.SetTrigger(combatDef[action].trigger);
+                if (socket.HasWeapon)
+                {
+                    Weapon weapon = socket.CurrentWeapon;
+                    weapon.headHitbox.transform.localScale = Vector3.Scale(weapon.HitboxOriginalSize, combatDef[action].hitboxScaleofWeapon);
+                }
+                hitMeneger.resetAction();
                 return true;
             }
             return false;
+        }
+        public bool inActiveWindow()
+        {
+            CombatAction current = ActualStateInAnimation();
+            if (current == CombatAction.None) return false;
+            CombatActionDefinition def = combatDef[current];
+            if (def.alwaysActive) return true;
+            if (animator.IsInTransition(def.layer)) return false;
+            AnimatorStateInfo s = animator.GetCurrentAnimatorStateInfo(def.layer);
+            if (s.tagHash != def.tagHash) return false;
+            float t = s.normalizedTime;
+            return t >= def.activeStart && t <= def.activeEnd;
         }
         public bool inPlaceAction() { return combatDef[CurrentAction()].mode == MoveMode.InPlace; }
         public bool inSlowDownAction() { return combatDef[CurrentAction()].mode == MoveMode.SlowDown; }

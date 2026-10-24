@@ -23,7 +23,12 @@ namespace Alpha.Combat
         public bool allowsJump;
         public bool requiresGrounded;
         public float coolDownTime;
+        public float knockBackPower=0;
+        public Vector3 hitboxScaleofWeapon = Vector3.one;
         [Range(0f, 1f)] public float comboWindow = 0.4f; //de la ce procent din animatie accepta nextAction
+        [Range(0f, 1f)] public float activeStart = 0f;
+        [Range(0f, 1f)] public float activeEnd = 1f;
+        public bool alwaysActive;
         [System.NonSerialized] public int tagHash;        //tagul din Animator = numele actiunii, calculat in Awake
     }
 }

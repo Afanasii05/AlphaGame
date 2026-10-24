@@ -6,7 +6,7 @@ namespace Alpha.Combat
     {
         public Weapon CurrentWeapon { get; private set; }
         public bool HasWeapon { get { return CurrentWeapon != null; } }
-        
+        public Vector3 weaponHitboxOriginalSize;
         public void Attach(Weapon weapon)
         {
             if (weapon == null)

@@ -2706,6 +2706,8 @@ GameObject:
   - component: {fileID: 5080109540319075397}
   - component: {fileID: -1207842287922276297}
   - component: {fileID: 4148516941262547588}
+  - component: {fileID: -5902401192750241319}
+  - component: {fileID: -7978453674252544977}
   m_Layer: 0
   m_Name: SwordHammer
   m_TagString: Untagged
@@ -2754,6 +2756,8 @@ MonoBehaviour:
   - {fileID: 5180495207324630999}
   - {fileID: 5257249009366138912}
   <headHitbox>k__BackingField: {fileID: 4710426715384107509}
+  owner: {fileID: 0}
+  enHit: {fileID: 0}
 --- !u!54 &-5605198258658277503
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2829,6 +2833,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.WeaponTrail
   trail: {fileID: 5157067443764840243}
   minSpeed: 6
+--- !u!114 &-5902401192750241319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7451556787124628624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf30f8c5fba02734fb6cda5c65f85847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.EnemyHit
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  speedRequiredForThrowToCount: 10
+--- !u!114 &-7978453674252544977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7451556787124628624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f40b81aadf687c4483df51087d5052a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.HitboxGizmo
+  includeChildren: 1
+  onlyWhenSelected: 0
+  showDisabled: 1
+  triggerColor: {r: 1, g: 0.2, b: 0.2, a: 0.35}
+  solidColor: {r: 0.2, g: 0.6, b: 1, a: 0.3}
+  disabledColor: {r: 0.6, g: 0.6, b: 0.6, a: 0.12}
 --- !u!1 &8616346014121455367
 GameObject:
   m_ObjectHideFlags: 0
