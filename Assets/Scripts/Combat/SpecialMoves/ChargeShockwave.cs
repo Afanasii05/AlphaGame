@@ -12,7 +12,6 @@ namespace Alpha.Combat
         [SerializeField] private float lightIntensity = 8f;
         [SerializeField] private float lightFadeTime = 0.6f;
         [SerializeField] private float ChargeMoveDelay = 10f;
-        private float lastTime = -10;
 
         private PlayerCombatState combatState;
 
@@ -34,7 +33,7 @@ namespace Alpha.Combat
             Destroy(gather);
 
             
-            if (combatState.CurrentAction() != CombatAction.Charge)
+            if (combatState.CurrentAction() != PlayerActions.Charge)
                 yield break;
 
          

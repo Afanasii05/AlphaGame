@@ -24,7 +24,6 @@ public class TriggerAttack : MonoBehaviour
     ChargeShockwave chargeShockwave;
     TeleportToWeapon teleport;
     [SerializeField] private float waitUntilThrow = 0.7f;
-    public event Action<bool> onThrow;
     Coroutine turnRoutine;
     void Awake()
     {
@@ -59,37 +58,37 @@ public class TriggerAttack : MonoBehaviour
     private void HandleClickAttackTrigger()
     {
         if (!socket.HasWeapon)
-            HandleMeleCombat(CombatAction.LightPunch);
+            HandleMeleCombat(PlayerActions.LightPunch);
         else
-            HandleMeleCombat(CombatAction.Light);
+            HandleMeleCombat(PlayerActions.Light);
     }
     private void HandleRightClickTrigger()
     {
         if (!socket.HasWeapon)
             return;
-        if (combatState.TryStart(CombatAction.Heavy))
+        if (combatState.TryStart(PlayerActions.Heavy))
         {
             if (socket.CurrentWeapon.TryGetComponent(out HeavyImpactDetection hid)) hid.Begin();
             StartTurn();
         }
     }
 
-    private void HandleMeleCombat(CombatAction calledAction)
+    private void HandleMeleCombat(PlayerActions calledAction)
     {
-        CombatAction move = combatState.ComboFrom(calledAction);
+        PlayerActions move = combatState.ComboFrom(calledAction);
         if (combatState.TryStart(move))
             StartTurn();
     }
      
     private void HandleSpecialMove()
     {
-        if (socket.HasWeapon&&combatState.TryStart(CombatAction.Ability))
+        if (socket.HasWeapon&&combatState.TryStart(PlayerActions.Ability))
             StartTurn();
     }
 
     private void HandleChargeAttack()
     {
-        if (combatState.TryStart(CombatAction.Charge))
+        if (combatState.TryStart(PlayerActions.Charge))
         {
             if (chargeShockwave != null)
                 chargeShockwave.Play();
@@ -103,16 +102,16 @@ public class TriggerAttack : MonoBehaviour
 
         if (socket.HasWeapon)
         {
-            if (combatState.TryStart(CombatAction.Throw))
+            if (combatState.TryStart(PlayerActions.Throw))
                 StartCoroutine(ThrowRoutine());
         }
-        else if (thrown != null && combatState.TryStart(CombatAction.Recall))
+        else if (thrown != null && combatState.TryStart(PlayerActions.Recall))
             StartCoroutine(RecallRoutine());
     }
 
     private void HandleTeleportation()
     {
-        if(!socket.HasWeapon&& teleport.canTeleport(thrown) &&combatState.TryStart(CombatAction.Teleport))
+        if(!socket.HasWeapon&& teleport.canTeleport(thrown) &&combatState.TryStart(PlayerActions.Teleport))
         {
             teleport.teleport(thrown);
             StartTurn();

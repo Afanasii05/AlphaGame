@@ -9,24 +9,21 @@ namespace Alpha.Combat
         [SerializeField] private Transform gripLeft;
         [SerializeField] private Transform impactPoint;
         [SerializeField] private Collider[] worldColliders; //Colidere solide, active doar cat arma sta in lume
+
         [field: SerializeField] public Collider headHitbox { get; private set; } //Trigger folosit de atacuri
-        public PlayerCombatState combatStateOfPlayer{ get; private set; }
-        public EnemyHitMeneger owner;
-        public EnemyHit enHit;
+        public PlayerCombatState playerState{ get; private set; }
         public Transform ImpactPoint { get { return impactPoint; } }
         public bool IsHeld { get; private set; }
         public event Action<bool> onHeldChange;  //Trigger catre scripturile care tin de aruncare sau enquip
         public Vector3 HitboxOriginalSize;
-        public bool activeDmg;
         void Update()
         {
-            if (combatStateOfPlayer == null || !IsHeld) return;
-            headHitbox.enabled = combatStateOfPlayer.inActiveWindow();
+            if (playerState == null || !IsHeld) return;
+            headHitbox.enabled = playerState.inActiveWindow();
 
         }
         private void Awake()
         {
-            enHit = GetComponent<EnemyHit>();
             if (headHitbox != null)
             {
                 headHitbox.enabled = true;
@@ -40,9 +37,7 @@ namespace Alpha.Combat
             IsHeld = held;
             if (held)
             {
-                combatStateOfPlayer = GetComponentInParent<PlayerCombatState>();
-                owner = GetComponentInParent<EnemyHitMeneger>();
-                enHit.Init();
+                playerState = GetComponentInParent<PlayerCombatState>();
             }
             if (headHitbox != null)
                 headHitbox.isTrigger = held;

@@ -1,25 +1,19 @@
-using Alpha.Enemies;
-using System;
+using Alpha.Interfaces;
+using System.Collections.Generic;
 using UnityEngine;
 namespace Alpha.Combat
 {
-    public class EnemyHitMeneger : MonoBehaviour
+    public class EnemyHitMeneger 
     {
-        EnemyAI eminem;
-        [SerializeField] PlayerCombatState combatState;
-        CombatActionDefinition actual;
-        public void HandleAttack(Collider enemy, CombatActionDefinition hitAction)
+        readonly HashSet<HittableCharacter> hitThisAction = new();
+
+        public void HandleAttack(HittableCharacter characterThatGotHit, CharacterActionDefinition hitAction)
         {
-            if (actual == hitAction)
-                return;
-            actual = hitAction;
-            Debug.Log($"I have hit {enemy.ToString()}  with {hitAction.ToString()}");
-            eminem = enemy.GetComponent<EnemyAI>();
-            eminem.enemyGetHit(hitAction);
+            if (!hitThisAction.Add(characterThatGotHit)) return;
+            characterThatGotHit.HandleAttack(hitAction);
+
+            Debug.Log($"I have hit {characterThatGotHit.ToString()}  with {hitAction.ToString()}");
         }
-        public void resetAction()
-        {
-            actual = null;
-        }
+        public void resetAction() { hitThisAction.Clear(); }
     }
 }

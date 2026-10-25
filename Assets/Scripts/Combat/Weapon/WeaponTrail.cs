@@ -23,7 +23,7 @@ namespace Alpha.Combat
 
         private void LateUpdate()
         {
-            Transform current = weapon.IsHeld && weapon.combatStateOfPlayer != null ? weapon.combatStateOfPlayer.transform : null; //Playerul, nu transform.root: in zborul de recall arma nu e copilul lui
+            Transform current = weapon.IsHeld && weapon.playerState != null ? weapon.playerState.transform : null; //Playerul, nu transform.root: in zborul de recall arma nu e copilul lui
             Vector3 point = current != null ? current.InverseTransformPoint(trail.transform.position) : trail.transform.position;
             if (current != reference)
             {

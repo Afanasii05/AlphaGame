@@ -161,7 +161,7 @@ PrefabInstance:
       addedObject: {fileID: 5650648908402283502}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b6797c09dc282241b5aa27106ee4114, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6752592371927306497}
+      addedObject: {fileID: 8552141857103067784}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b6797c09dc282241b5aa27106ee4114, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6798458359114013405}
@@ -207,7 +207,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6752592371927306497
+--- !u!114 &8552141857103067784
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -231,7 +231,7 @@ MonoBehaviour:
   runSpeed: 2.4
   walkSpeed: 0.53
   turnSpeed: 90
-  knockBackPower: 0.6
+  knockBackPower: 5
   knockBackDuration: 0.35
 --- !u!114 &6798458359114013405
 MonoBehaviour:

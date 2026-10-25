@@ -17472,8 +17472,8 @@ GameObject:
   - component: {fileID: 579590976}
   - component: {fileID: 579590977}
   - component: {fileID: 579590978}
-  - component: {fileID: 579590979}
   - component: {fileID: 579590980}
+  - component: {fileID: 579590981}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -17736,13 +17736,7 @@ MonoBehaviour:
   - name: Light Swing Sword
     trigger: Click
     layer: 1
-    action: 1
-    nextAction: 11
     mode: 1
-    hasItsOwnMovement: 0
-    passesNonSemiCombat: 1
-    allowsJump: 1
-    requiresGrounded: 0
     coolDownTime: 0
     knockBackPower: 1.2
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
@@ -17750,16 +17744,16 @@ MonoBehaviour:
     activeStart: 0.25
     activeEnd: 0.8
     alwaysActive: 0
-  - name: Light Swing Sword 2
-    trigger: Combo
-    layer: 1
-    action: 11
-    nextAction: 0
-    mode: 1
+    action: 1
+    nextAction: 11
     hasItsOwnMovement: 0
     passesNonSemiCombat: 1
     allowsJump: 1
     requiresGrounded: 0
+  - name: Light Swing Sword 2
+    trigger: Combo
+    layer: 1
+    mode: 1
     coolDownTime: 0
     knockBackPower: 1.5
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
@@ -17767,16 +17761,16 @@ MonoBehaviour:
     activeStart: 0.2
     activeEnd: 0.85
     alwaysActive: 0
+    action: 11
+    nextAction: 0
+    hasItsOwnMovement: 0
+    passesNonSemiCombat: 1
+    allowsJump: 1
+    requiresGrounded: 0
   - name: Heavy Attack
     trigger: RightClick
     layer: 0
-    action: 2
-    nextAction: 0
     mode: 2
-    hasItsOwnMovement: 0
-    passesNonSemiCombat: 0
-    allowsJump: 0
-    requiresGrounded: 0
     coolDownTime: 5
     knockBackPower: 3
     hitboxScaleofWeapon: {x: 1.5, y: 1.5, z: 2}
@@ -17784,16 +17778,16 @@ MonoBehaviour:
     activeStart: 0.35
     activeEnd: 0.9
     alwaysActive: 0
+    action: 2
+    nextAction: 0
+    hasItsOwnMovement: 0
+    passesNonSemiCombat: 0
+    allowsJump: 0
+    requiresGrounded: 0
   - name: Ability(Spin)
     trigger: SpecialMove
     layer: 0
-    action: 4
-    nextAction: 0
     mode: 1
-    hasItsOwnMovement: 1
-    passesNonSemiCombat: 1
-    allowsJump: 0
-    requiresGrounded: 0
     coolDownTime: 0
     knockBackPower: 1.1
     hitboxScaleofWeapon: {x: 3, y: 1.2, z: 1.2}
@@ -17801,16 +17795,16 @@ MonoBehaviour:
     activeStart: 0.05
     activeEnd: 1
     alwaysActive: 0
-  - name: Throw Weapon
-    trigger: Throw
-    layer: 1
-    action: 3
+    action: 4
     nextAction: 0
-    mode: 1
-    hasItsOwnMovement: 0
+    hasItsOwnMovement: 1
     passesNonSemiCombat: 1
     allowsJump: 0
     requiresGrounded: 0
+  - name: Throw Weapon
+    trigger: Throw
+    layer: 1
+    mode: 1
     coolDownTime: 0
     knockBackPower: 2
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
@@ -17818,50 +17812,50 @@ MonoBehaviour:
     activeStart: 1
     activeEnd: 1
     alwaysActive: 0
-  - name: Non Combat
-    trigger: 
-    layer: 0
-    action: 8
+    action: 3
     nextAction: 0
-    mode: 0
-    hasItsOwnMovement: 0
-    passesNonSemiCombat: 1
-    allowsJump: 1
-    requiresGrounded: 0
-    coolDownTime: 0
-    knockBackPower: 0
-    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
-    comboWindow: 0.4
-    activeStart: 0
-    activeEnd: 0
-    alwaysActive: 0
-  - name: Non Semi Combat
-    trigger: 
-    layer: 0
-    action: 9
-    nextAction: 0
-    mode: 0
-    hasItsOwnMovement: 0
-    passesNonSemiCombat: 0
-    allowsJump: 1
-    requiresGrounded: 0
-    coolDownTime: 0
-    knockBackPower: 0
-    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
-    comboWindow: 0.4
-    activeStart: 0
-    activeEnd: 0
-    alwaysActive: 0
-  - name: Charge (Special Ability)
-    trigger: Charge
-    layer: 0
-    action: 10
-    nextAction: 0
-    mode: 2
     hasItsOwnMovement: 0
     passesNonSemiCombat: 1
     allowsJump: 0
     requiresGrounded: 0
+  - name: Non Combat
+    trigger: 
+    layer: 0
+    mode: 0
+    coolDownTime: 0
+    knockBackPower: 0
+    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
+    comboWindow: 0.4
+    activeStart: 0
+    activeEnd: 0
+    alwaysActive: 0
+    action: 8
+    nextAction: 0
+    hasItsOwnMovement: 0
+    passesNonSemiCombat: 1
+    allowsJump: 1
+    requiresGrounded: 0
+  - name: Non Semi Combat
+    trigger: 
+    layer: 0
+    mode: 0
+    coolDownTime: 0
+    knockBackPower: 0
+    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
+    comboWindow: 0.4
+    activeStart: 0
+    activeEnd: 0
+    alwaysActive: 0
+    action: 9
+    nextAction: 0
+    hasItsOwnMovement: 0
+    passesNonSemiCombat: 0
+    allowsJump: 1
+    requiresGrounded: 0
+  - name: Charge (Special Ability)
+    trigger: Charge
+    layer: 0
+    mode: 2
     coolDownTime: 10
     knockBackPower: 5
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
@@ -17869,16 +17863,16 @@ MonoBehaviour:
     activeStart: 0.1
     activeEnd: 1
     alwaysActive: 0
+    action: 10
+    nextAction: 0
+    hasItsOwnMovement: 0
+    passesNonSemiCombat: 1
+    allowsJump: 0
+    requiresGrounded: 0
   - name: Light Punch
     trigger: Click
     layer: 0
-    action: 5
-    nextAction: 6
     mode: 2
-    hasItsOwnMovement: 0
-    passesNonSemiCombat: 1
-    allowsJump: 0
-    requiresGrounded: 0
     coolDownTime: 0
     knockBackPower: 0
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
@@ -17886,16 +17880,16 @@ MonoBehaviour:
     activeStart: 0
     activeEnd: 1
     alwaysActive: 0
+    action: 5
+    nextAction: 6
+    hasItsOwnMovement: 0
+    passesNonSemiCombat: 1
+    allowsJump: 0
+    requiresGrounded: 0
   - name: Light Punch 2
     trigger: Combo
     layer: 0
-    action: 6
-    nextAction: 7
     mode: 2
-    hasItsOwnMovement: 0
-    passesNonSemiCombat: 0
-    allowsJump: 0
-    requiresGrounded: 0
     coolDownTime: 0
     knockBackPower: 0
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
@@ -17903,16 +17897,16 @@ MonoBehaviour:
     activeStart: 0
     activeEnd: 1
     alwaysActive: 0
+    action: 6
+    nextAction: 7
+    hasItsOwnMovement: 0
+    passesNonSemiCombat: 0
+    allowsJump: 0
+    requiresGrounded: 0
   - name: Light Kick 3
     trigger: Combo
     layer: 0
-    action: 7
-    nextAction: 0
     mode: 2
-    hasItsOwnMovement: 0
-    passesNonSemiCombat: 0
-    allowsJump: 0
-    requiresGrounded: 0
     coolDownTime: 0
     knockBackPower: 0
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
@@ -17920,16 +17914,16 @@ MonoBehaviour:
     activeStart: 0
     activeEnd: 1
     alwaysActive: 0
+    action: 7
+    nextAction: 0
+    hasItsOwnMovement: 0
+    passesNonSemiCombat: 0
+    allowsJump: 0
+    requiresGrounded: 0
   - name: Recall
     trigger: 
     layer: 1
-    action: 12
-    nextAction: 0
     mode: 1
-    hasItsOwnMovement: 0
-    passesNonSemiCombat: 1
-    allowsJump: 0
-    requiresGrounded: 0
     coolDownTime: 0
     knockBackPower: -1
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
@@ -17937,16 +17931,16 @@ MonoBehaviour:
     activeStart: 0
     activeEnd: 1
     alwaysActive: 1
-  - name: Teleport
-    trigger: 
-    layer: 0
-    action: 13
+    action: 12
     nextAction: 0
-    mode: 2
     hasItsOwnMovement: 0
     passesNonSemiCombat: 1
     allowsJump: 0
     requiresGrounded: 0
+  - name: Teleport
+    trigger: 
+    layer: 0
+    mode: 2
     coolDownTime: 0
     knockBackPower: 0
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
@@ -17954,6 +17948,30 @@ MonoBehaviour:
     activeStart: 0
     activeEnd: 1
     alwaysActive: 0
+    action: 13
+    nextAction: 0
+    hasItsOwnMovement: 0
+    passesNonSemiCombat: 1
+    allowsJump: 0
+    requiresGrounded: 0
+  - name: None
+    trigger: 
+    layer: 0
+    mode: 0
+    coolDownTime: 0
+    knockBackPower: 0
+    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
+    comboWindow: 0.4
+    activeStart: 0
+    activeEnd: 1
+    alwaysActive: 1
+    action: 0
+    nextAction: 0
+    hasItsOwnMovement: 0
+    passesNonSemiCombat: 0
+    allowsJump: 1
+    requiresGrounded: 0
+  animator: {fileID: 2003534929}
 --- !u!114 &579590977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17996,19 +18014,6 @@ MonoBehaviour:
   smokeAmount: 55
   smokeDelay: 0.4
   revealDelay: 0.1
---- !u!114 &579590979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 579590964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 506528955be3e3d44bba4f74cff13625, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.EnemyHitMeneger
-  combatState: {fileID: 0}
 --- !u!114 &579590980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18029,6 +18034,19 @@ MonoBehaviour:
   m_IgnoreFromBuild: 1
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffffi
+--- !u!114 &579590981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579590964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0623f21ab43c04a4da25134334a8fdb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAtributes
+  health: 100
 --- !u!1 &581135265
 GameObject:
   m_ObjectHideFlags: 0
@@ -25431,10 +25449,47 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 579590968}
+    - target: {fileID: 7344720476941555870, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 579590968}
+    - target: {fileID: 8514880484469935154, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: m_Size.x
+      value: 1.9564183
+      objectReference: {fileID: 0}
+    - target: {fileID: 8514880484469935154, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: m_Size.y
+      value: 1.722265
+      objectReference: {fileID: 0}
+    - target: {fileID: 8514880484469935154, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: m_Center.x
+      value: 0.0060595274
+      objectReference: {fileID: 0}
+    - target: {fileID: 8514880484469935154, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: m_Center.y
+      value: 0.884717
+      objectReference: {fileID: 0}
+    - target: {fileID: 8552141857103067784, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 579590968}
+    - target: {fileID: 8552141857103067784, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: knockBackPower
+      value: 0.6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6336287852905366778, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1856307697}
+    - targetCorrespondingSourceObject: {fileID: 6336287852905366778, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1856307700}
+    - targetCorrespondingSourceObject: {fileID: 6336287852905366778, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1856307699}
   m_SourcePrefab: {fileID: 100100000, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
 --- !u!1001 &996543798
 PrefabInstance:
@@ -46941,6 +46996,84 @@ Transform:
   m_Children: []
   m_Father: {fileID: 940007409}
   m_LocalEulerAnglesHint: {x: 0, y: -132.86, z: 0}
+--- !u!1 &1856307688 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6336287852905366778, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+  m_PrefabInstance: {fileID: 991247347}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1856307695 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 739989206327198778, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+  m_PrefabInstance: {fileID: 991247347}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1856307697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856307688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c2a81aea52af34e9a0b6579b0c8f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAtributes
+  health: 100
+  armor: 1
+  damageMultiplier: 1
+--- !u!114 &1856307699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856307688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 878d53ad0f66639479d27ad0b95770ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCombatState
+  actionsDetails:
+  - name: GetHit
+    trigger: Hit
+    layer: 0
+    mode: 2
+    coolDownTime: 0
+    knockBackPower: 0
+    hitboxScaleofWeapon: {x: 0, y: 0, z: 0}
+    comboWindow: 0
+    activeStart: 0
+    activeEnd: 0
+    alwaysActive: 0
+    action: 2
+    nextAction: 0
+  - name: Attack
+    trigger: Attack
+    layer: 0
+    mode: 2
+    coolDownTime: 0
+    knockBackPower: 0
+    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
+    comboWindow: 0.4
+    activeStart: 0
+    activeEnd: 1
+    alwaysActive: 0
+    action: 1
+    nextAction: 0
+  animator: {fileID: 1856307695}
+--- !u!114 &1856307700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856307688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0e5a538ad81f764aaef11fb085f1e80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  knockBackDuration: 1.2
 --- !u!1 &1857465520
 GameObject:
   m_ObjectHideFlags: 0

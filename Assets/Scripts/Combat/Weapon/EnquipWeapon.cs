@@ -34,7 +34,7 @@ namespace Alpha.Combat
 
         private bool canEnquip()
         {
-            return (combatState.CurrentAction() == CombatAction.None || combatState.CurrentAction() == CombatAction.NonSemiCombat);
+            return (combatState.CurrentAction() == PlayerActions.None || combatState.CurrentAction() == PlayerActions.NonSemiCombat);
         }
         public void Equip()
         {

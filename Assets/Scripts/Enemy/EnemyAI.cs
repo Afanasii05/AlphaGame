@@ -1,21 +1,20 @@
-using Alpha.Combat;
-using NUnit;
-using System.Collections;
-using Unity.InferenceEngine;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 namespace Alpha.Enemies
 {
-    public enum EnemyState { Idle, Chase, Attack, Hit, Return, Dead }
+    public enum EnemyState { Idle, Chase, Return, Dead }
 
+    //Doar detectie si pathfinding. Ce face inamicul cand ajunge la tinta decide EnemyController.
     [RequireComponent(typeof(NavMeshAgent))]
     public class EnemyAI : MonoBehaviour
     {
         [SerializeField] private Animator animator;
-        [SerializeField] private Transform target;         
-        public EnemyState State { get; private set; } = EnemyState.Idle;
-        private NavMeshAgent agent;
+        [SerializeField] public Transform target;         
+        public EnemyState State = EnemyState.Idle;
+        public NavMeshAgent agent;
         private Vector3 homePosition;
+        public event Action onTargetInRange;   //tinta e in raza si in fata
 
         //Valori pentru detectie
         [SerializeField] float maxDistanceToDetectFromHome = 15f;
@@ -23,69 +22,55 @@ namespace Alpha.Enemies
         [SerializeField] float detectDistance = 10f;
         [SerializeField] float loseDistance = 15f;
         [SerializeField] float distanceFromHome= 30f;
-        [SerializeField] float attackRange = 2.65f;
+        [SerializeField] float attackRange = 2.65f;   //aici se opreste si anunta controllerul
         [SerializeField] float attackAngle = 70;
 
         //Miscare
         [SerializeField] float runSpeed = 3f;
         [SerializeField] float walkSpeed = 0.53f;
         [SerializeField] float turnSpeed = 1f;
-        //Lovit
-        [SerializeField] float knockBackPower = 5f;
-        [SerializeField] float knockBackDuration = 1f;
-        private   int SpeedHash = Animator.StringToHash("Speed");
-        private   int AttackHash = Animator.StringToHash("Attack");
-        private   int HitHash = Animator.StringToHash("Hit");
-        private   int DeadHash = Animator.StringToHash("Dead");
-        private   int AttackTag = Animator.StringToHash("Attack");
+        private static readonly int SpeedHash = Animator.StringToHash("Speed");
         private float sqrDistToPlayer;
-        private Vector3 totalKnokback;
-        private bool isInKnockBack=false;
-
+        EnemyCombatState enemyCombatState;
         void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             if (animator == null) animator = GetComponentInChildren<Animator>();
             homePosition = transform.position;
+            enemyCombatState = GetComponent<EnemyCombatState>();
         }
         void Update()
         {
             if (State == EnemyState.Dead) return;
             sqrDistToPlayer = (target.position - transform.position).sqrMagnitude;
-            switch (State)
+            if (enemyCombatState.IsBusy)
+                agent.isStopped = true;   //cat ruleaza o actiune nu ma misc
+            else
             {
-                case EnemyState.Idle: 
-                    updateChase();
-                    break;
-                case EnemyState.Chase:
-                    UpdateChase();
-                    break;
-                case EnemyState.Return:
-                    if (Vector3.Distance(homePosition, transform.position) <= agent.stoppingDistance + 0.1f) SetState(EnemyState.Idle);
-                    else updateChase();
-                    break;
-                case EnemyState.Attack:
-                    if(!inAnimation(AttackHash))
-                    {
-                        if (shouldContinueToChase()) SetState(EnemyState.Chase);
-                        else SetState(EnemyState.Return);
-                    }
-                    break;
-                case EnemyState.Hit:
-                    if (!inAnimation(HitHash))
-                    {
-                        SetState(EnemyState.Chase);
-                    }
-                    break;
-                default:return;
-
+                switch (State)
+                {
+                    case EnemyState.Idle:
+                        determineChaseFromNonAggro();
+                        break;
+                    case EnemyState.Chase:
+                        UpdateChase();
+                        break;
+                    case EnemyState.Return:
+                        if (determineIddle()) SetState(EnemyState.Idle);
+                        else determineChaseFromNonAggro();
+                        break;
+                }
             }
             animator.SetFloat(SpeedHash, agent.velocity.magnitude, 0.1f, Time.deltaTime);
         }
+        public void Aggro()
+        {
+            if (State != EnemyState.Dead && State != EnemyState.Chase) SetState(EnemyState.Chase);
+        }
+        private bool determineIddle() => Vector3.Distance(homePosition, transform.position) <= agent.stoppingDistance + 0.1f;
         private void UpdateChase()
         {
             if (!shouldContinueToChase()) { SetState(EnemyState.Return); return; }
-
             if (sqrDistToPlayer > attackRange * attackRange)
             {
                 agent.isStopped = false;
@@ -94,9 +79,8 @@ namespace Alpha.Enemies
             }
 
             agent.isStopped = true;
-            if (FaceTarget() <= attackAngle) SetState(EnemyState.Attack);
+            if (FaceTarget() <= attackAngle) onTargetInRange?.Invoke();
         }
-
         private float FaceTarget()
         {
             Vector3 dir = target.position - transform.position;
@@ -126,29 +110,24 @@ namespace Alpha.Enemies
             return ((sqrDistToPlayer <= loseDistance * loseDistance) && (toHome.sqrMagnitude<=distanceFromHome*distanceFromHome));
 
         }
-        private void updateChase()
+        private void determineChaseFromNonAggro()
         {
             if (canChase())
                 SetState(EnemyState.Chase);
 
         }
-        private bool inAnimation(int hash)
-        {
-            AnimatorStateInfo s = animator.GetCurrentAnimatorStateInfo(0);
-            AnimatorStateInfo k = animator.GetNextAnimatorStateInfo(0);
-            return s.tagHash == hash || (animator.IsInTransition(0) && k.tagHash == hash);
-        }
-        
         private void SetState(EnemyState updatingState)
         {
             State = updatingState;
             switch (updatingState)
             {
                 case EnemyState.Chase:
+                    agent.isStopped = false;
                     agent.SetDestination(target.position);
                     agent.speed = runSpeed;
                     break;
                 case EnemyState.Return:
+                    agent.isStopped = false;   
                     agent.SetDestination(homePosition);
                     agent.speed = walkSpeed;
                     break;
@@ -156,40 +135,7 @@ namespace Alpha.Enemies
                     agent.ResetPath();
                     agent.speed = 0f;
                     break;
-                case EnemyState.Attack:
-                    animator.SetTrigger(AttackHash);
-                    break;
-                default:
-                    return;
-
             }
-            
         }
-
-        public void enemyGetHit(CombatActionDefinition attack) 
-        {
-            Vector3 knowkBackDirection = -(target.position - transform.position);
-            knowkBackDirection = knowkBackDirection.normalized;
-            totalKnokback = knowkBackDirection * attack.knockBackPower;
-            State = EnemyState.Hit;
-            animator.SetTrigger(HitHash);
-            if(!isInKnockBack)
-                StartCoroutine(knockBackEnemy());
-        }
-        IEnumerator knockBackEnemy()
-        {
-            isInKnockBack = true;
-            Vector3 start = transform.position;
-            for(float step =0; step <1f;step +=Time.deltaTime/knockBackDuration)
-            {
-                Vector3 next = Vector3.Lerp(start, start+totalKnokback, step);
-                agent.Move(next - transform.position);
-                yield return null;
-            }
-            isInKnockBack = false;
-            
-        }
-       
-
     }
 }
