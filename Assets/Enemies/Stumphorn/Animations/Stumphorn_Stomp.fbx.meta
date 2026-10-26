@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 946f78470f30d7d4daae5b8a5e7d9455
+guid: 9b21b2778778f5c49a105979818d38e2
 ModelImporter:
   serializedVersion: 24600
   internalIDToNameTable: []
@@ -32,11 +32,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Death
+      name: Stomp
       takeName: Scene
       internalID: -623603649343465320
-      firstFrame: 1
-      lastFrame: 51
+      firstFrame: 0
+      lastFrame: 35
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -83,7 +83,7 @@ ModelImporter:
     keepQuads: 0
     weldVertices: 1
     bakeAxisConversion: 0
-    preserveHierarchy: 0
+    preserveHierarchy: 1
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
@@ -102,7 +102,7 @@ ModelImporter:
     secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60

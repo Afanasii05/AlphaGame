@@ -21639,6 +21639,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3573394032803792357, guid: 5725f497428e64549a35b1f7fc7d759c, type: 3}
   m_PrefabInstance: {fileID: 63032767}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &723532169 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7062903030872908320, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+  m_PrefabInstance: {fileID: 991247347}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &732776921
 GameObject:
   m_ObjectHideFlags: 0
@@ -25473,6 +25478,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 579590968}
+    - target: {fileID: 8552141857103067784, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: hitMask.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8552141857103067784, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
       propertyPath: knockBackPower
       value: 0.6
@@ -33893,6 +33902,11 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!4 &1206793257 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8692420302215413617, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+  m_PrefabInstance: {fileID: 991247347}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1232132198 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7703134658001050229, guid: 5725f497428e64549a35b1f7fc7d759c, type: 3}
@@ -47047,6 +47061,7 @@ MonoBehaviour:
     alwaysActive: 0
     action: 2
     nextAction: 0
+    hasItsOwnMovement: 0
   - name: Attack
     trigger: Attack
     layer: 0
@@ -47060,6 +47075,35 @@ MonoBehaviour:
     alwaysActive: 0
     action: 1
     nextAction: 0
+    hasItsOwnMovement: 0
+  - name: Stomp
+    trigger: Stomp
+    layer: 0
+    mode: 2
+    coolDownTime: 5
+    knockBackPower: 2
+    hitboxScaleofWeapon: {x: 1.1, y: 1, z: 1.1}
+    comboWindow: 0.4
+    activeStart: 0.78
+    activeEnd: 0.91
+    alwaysActive: 0
+    action: 3
+    nextAction: 0
+    hasItsOwnMovement: 0
+  - name: Roll
+    trigger: Roll
+    layer: 0
+    mode: 2
+    coolDownTime: 5
+    knockBackPower: 3
+    hitboxScaleofWeapon: {x: 1.1, y: 1, z: 1.1}
+    comboWindow: 0.4
+    activeStart: 0.85
+    activeEnd: 0.95
+    alwaysActive: 0
+    action: 4
+    nextAction: 0
+    hasItsOwnMovement: 1
   animator: {fileID: 1856307695}
 --- !u!114 &1856307700
 MonoBehaviour:
@@ -47074,6 +47118,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   knockBackDuration: 1.2
+  stompVFX: {fileID: 723532169}
+  rig: {fileID: 1206793257}
+  stompImpactTime: 0.8
 --- !u!1 &1857465520
 GameObject:
   m_ObjectHideFlags: 0

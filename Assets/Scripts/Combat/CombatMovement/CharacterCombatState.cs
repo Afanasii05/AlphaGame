@@ -139,6 +139,18 @@ public abstract class CharacterCombatState<TAction , TDef>: MonoBehaviour
         }
         return false;
     }
+    public float NormalizedTime(TAction action)
+    {
+        TDef def = combatDef[action];
+        AnimatorStateInfo s = animator.GetCurrentAnimatorStateInfo(def.layer);
+        if (s.tagHash == def.tagHash) return s.normalizedTime;
+        if (animator.IsInTransition(def.layer))
+        {
+            AnimatorStateInfo n = animator.GetNextAnimatorStateInfo(def.layer);
+            if (n.tagHash == def.tagHash) return n.normalizedTime;
+        }
+        return 0f;
+    }
 
     protected void Update()
     {

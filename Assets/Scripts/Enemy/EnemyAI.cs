@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.UI.Image;
 namespace Alpha.Enemies
 {
     public enum EnemyState { Idle, Chase, Return, Dead }
@@ -14,7 +15,7 @@ namespace Alpha.Enemies
         public EnemyState State = EnemyState.Idle;
         public NavMeshAgent agent;
         private Vector3 homePosition;
-        public event Action onTargetInRange;   //tinta e in raza si in fata
+        
 
         //Valori pentru detectie
         [SerializeField] float maxDistanceToDetectFromHome = 15f;
@@ -31,7 +32,19 @@ namespace Alpha.Enemies
         [SerializeField] float turnSpeed = 1f;
         private static readonly int SpeedHash = Animator.StringToHash("Speed");
         private float sqrDistToPlayer;
+        private float timer;
         EnemyCombatState enemyCombatState;
+
+        //Trimise catre controller:
+        public event Action onTargetInAttackRange;   //tinta e in raza si in fata
+        public event Action onTargetShouldBeStomped; //Daca nu e in fata,dau stomp
+        public event Action onRollToPlayer;
+        //Pentru roll 
+        [SerializeField] float castRadius = 0.6f;
+        [SerializeField] float castDistance = 5f;
+        [SerializeField] float minRollDistance = 3f;
+        [SerializeField] float maxRollDistance = 10f;
+        [SerializeField] LayerMask hitMask;
         void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -73,13 +86,20 @@ namespace Alpha.Enemies
             if (!shouldContinueToChase()) { SetState(EnemyState.Return); return; }
             if (sqrDistToPlayer > attackRange * attackRange)
             {
-                agent.isStopped = false;
-                agent.SetDestination(target.position);
+                if (Time.time - timer >= 0.2)
+                {
+                    agent.isStopped = false;
+                    agent.SetDestination(target.position);
+                    timer = Time.time;
+                }
+                if (canRollTwardsPlayer())
+                    onRollToPlayer?.Invoke();
                 return;
             }
 
             agent.isStopped = true;
-            if (FaceTarget() <= attackAngle) onTargetInRange?.Invoke();
+            if (FaceTarget() <= attackAngle) onTargetInAttackRange?.Invoke();
+            else onTargetShouldBeStomped?.Invoke();
         }
         private float FaceTarget()
         {
@@ -88,6 +108,14 @@ namespace Alpha.Enemies
             transform.rotation = Quaternion.RotateTowards(
                 transform.rotation, Quaternion.LookRotation(dir), turnSpeed * Time.deltaTime);
             return Vector3.Angle(transform.forward, dir);
+        }
+        private bool canRollTwardsPlayer()
+        {
+            float distFromTarget = Vector3.Distance(transform.position, target.position);
+            if (distFromTarget <= minRollDistance || distFromTarget >= maxRollDistance || FaceTarget() >= attackAngle) return false;
+            Vector3 originalPos = transform.position + Vector3.up * 0.5f;
+            return !(Physics.SphereCast(originalPos, castRadius, transform.forward, out _, castDistance, hitMask, QueryTriggerInteraction.Ignore));
+               
         }
         private bool canChase()
         {

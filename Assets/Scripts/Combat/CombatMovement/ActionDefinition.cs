@@ -30,7 +30,7 @@ namespace Alpha.Combat
     }
     public enum EnemyActions
     {
-        None = 0, Attack = 1, GetHit=2
+        None = 0, Attack = 1, GetHit=2, Stomp=3, Roll = 4
     }
     [Serializable]
     public abstract class ActionDefinition<TAction> : CharacterActionDefinition
@@ -51,6 +51,6 @@ namespace Alpha.Combat
     [Serializable]
     public class EnemyActionDefinition : ActionDefinition<EnemyActions>
     {
-
+        public bool hasItsOwnMovement;   // se deplaseaza dupa root motion-ul din animatie
     }
 }
