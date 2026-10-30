@@ -47117,7 +47117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0e5a538ad81f764aaef11fb085f1e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  knockBackDuration: 1.2
+  knockBackDuration: 0.5
   stompVFX: {fileID: 723532169}
   rig: {fileID: 1206793257}
   stompImpactTime: 0.8

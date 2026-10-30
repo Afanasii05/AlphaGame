@@ -12,10 +12,10 @@ namespace Alpha.Combat
             socket = GetComponentInChildren<WeaponSocket>();
         }
         bool Grounded => animator.GetBool("IsGrounded");
-        protected override bool CanStartExtra(PlayerActionDefinition def) => !def.requiresGrounded || Grounded;
         protected override bool CanContinueCombo() => Grounded;
         protected override bool CanInterrupt(PlayerActions current, PlayerActionDefinition next)
             => current == PlayerActions.NonSemiCombat && next.passesNonSemiCombat;
+        //Momentan doar scalez hitboxurile pe arma
         protected override void OnActionStarted(PlayerActionDefinition def)
         {
             if (socket.HasWeapon)
