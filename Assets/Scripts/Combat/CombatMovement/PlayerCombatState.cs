@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 namespace Alpha.Combat
 {
@@ -5,7 +6,7 @@ namespace Alpha.Combat
     public class PlayerCombatState : CharacterCombatState <PlayerActions, PlayerActionDefinition>
     {
         WeaponSocket socket;
-        
+        HashSet<PlayerActions> intreruptableActions = new() {PlayerActions.Block, PlayerActions.NonSemiCombat};
         protected override void Awake()
         {
             base.Awake();
@@ -14,7 +15,7 @@ namespace Alpha.Combat
         bool Grounded => animator.GetBool("IsGrounded");
         protected override bool CanContinueCombo() => Grounded;
         protected override bool CanInterrupt(PlayerActions current, PlayerActionDefinition next)
-            => current == PlayerActions.NonSemiCombat && next.passesNonSemiCombat;
+            => intreruptableActions.Contains(current) && next.passesNonSemiCombat;
         //Momentan doar scalez hitboxurile pe arma
         protected override void OnActionStarted(PlayerActionDefinition def)
         {

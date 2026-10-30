@@ -38,6 +38,7 @@ namespace Alpha.Player
         private bool isTeleporting = false;
         private Vector2 moveInput = Vector2.zero;
         private Vector3 wallNormal = Vector3.zero;
+
         InputHandler inputHandler;
         Rigidbody rb;
         CapsuleCollider capsule;

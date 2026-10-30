@@ -18,7 +18,7 @@ public abstract class CharacterCombatState<TAction , TDef>: MonoBehaviour
     [NonSerialized] public Dictionary<TAction, TDef> combatDef = new();
     protected Dictionary<TAction, float> lastTimePlayed = new();
     float pendingSince;
-
+    private static readonly int intrerupt = Animator.StringToHash("Intrerupt");
     protected virtual void Awake()
     {
         foreach (TDef act in actionsDetails)
@@ -62,8 +62,6 @@ public abstract class CharacterCombatState<TAction , TDef>: MonoBehaviour
         if (inCoolDown(action))
             return false;
 
-        if (!CanStartExtra(combatDef[action])) return false;
-
         TAction current = CurrentAction();
         if (IsNone(current) || (Same(ValidNext(), action) && CanContinueCombo())) return true;
         return CanInterrupt(current, combatDef[action]);
@@ -74,7 +72,12 @@ public abstract class CharacterCombatState<TAction , TDef>: MonoBehaviour
     {
         if (!CanStart(action)) return false;
         StartAction(action);
+        intreruptContinuousStates();
         return true;
+    }
+    public void intreruptContinuousStates()
+    {
+        animator.SetTrigger(intrerupt);
     }
     public void StartAction(TAction action)
     {
@@ -105,7 +108,7 @@ public abstract class CharacterCombatState<TAction , TDef>: MonoBehaviour
     protected virtual bool CanStartExtra(TDef def) => true;
     protected virtual bool CanContinueCombo() => true;
     protected virtual bool CanInterrupt(TAction current, TDef next) => false;
-    protected virtual void OnActionStarted(TDef def) { }
+    protected abstract void OnActionStarted(TDef def);
 
     public TAction ComboFrom(TAction firstMove)
     {

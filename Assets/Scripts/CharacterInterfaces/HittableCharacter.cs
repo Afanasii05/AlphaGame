@@ -4,7 +4,7 @@ namespace Alpha.Interfaces
 {
     public abstract class HittableCharacter : MonoBehaviour
     {
-        public abstract void HandleAttack(CharacterActionDefinition attack);
-
+        public abstract void HandleGotHit(CharacterActionDefinition attack, HittableCharacter attacker);
+       
     }
 }

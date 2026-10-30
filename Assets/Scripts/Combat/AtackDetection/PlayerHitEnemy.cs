@@ -1,7 +1,7 @@
 using Alpha.Interfaces;
 using UnityEngine;
 namespace Alpha.Combat {
-    public class EnemyHit : MonoBehaviour
+    public class PlayerHitEnemy : MonoBehaviour
     {
         
         [SerializeField] LayerMask enemyLayer;
@@ -16,7 +16,7 @@ namespace Alpha.Combat {
             if (playerState == null) return;
             if ((enemyLayer.value & (1 << other.gameObject.layer)) == 0) return;
             PlayerActions currentAction = playerState.CurrentAction();
-            if (currentAction == PlayerActions.None || currentAction == PlayerActions.NonCombat || currentAction == PlayerActions.NonSemiCombat) return;
+            if (currentAction == PlayerActions.None || currentAction == PlayerActions.NonSemiCombat) return;
             HittableCharacter target = other.GetComponentInParent<HittableCharacter>();
             playerState.hitMeneger.HandleAttack(target, playerState.combatDef[currentAction]);
 

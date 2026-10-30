@@ -2,6 +2,7 @@ using Alpha.Combat;
 using Alpha.Input;
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class TriggerAttack : MonoBehaviour
@@ -25,6 +26,8 @@ public class TriggerAttack : MonoBehaviour
     TeleportToWeapon teleport;
     [SerializeField] private float waitUntilThrow = 0.7f;
     Coroutine turnRoutine;
+    private static readonly int BlockingHash = Animator.StringToHash("Blocking");
+    private bool blockHeld;
     void Awake()
     {
         input = GetComponent<InputHandler>();
@@ -43,6 +46,7 @@ public class TriggerAttack : MonoBehaviour
         input.onToggleSpecialMove += HandleSpecialMove;
         input.onCharge += HandleChargeAttack;
         input.onTeleport += HandleTeleportation;
+        input.onBlockHold += HandleBlock;
         
     }
     private void OnDisable()
@@ -53,6 +57,7 @@ public class TriggerAttack : MonoBehaviour
         input.onToggleSpecialMove -= HandleSpecialMove;
         input.onCharge -= HandleChargeAttack;
         input.onTeleport -= HandleTeleportation;
+        input.onBlockHold -= HandleBlock;
     }
 
     private void HandleClickAttackTrigger()
@@ -95,7 +100,22 @@ public class TriggerAttack : MonoBehaviour
             StartTurn();
         }
     }
+    private void HandleBlock(bool isBlocking) {
+        blockHeld = isBlocking;
+        if(!isBlocking)
+            animator.SetTrigger("Intrerupt");
+ 
+    }
 
+    private void Update()
+    {
+        if (blockHeld)
+        {
+            combatState.TryStart(PlayerActions.Block);
+            if(combatState.CurrentAction()==PlayerActions.Block)
+                animator.ResetTrigger("Intrerupt");
+        }
+    }
 
     private void HandleThrowAttack()
     {

@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62354278d46be4a6a8271e2c3d6deb0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.WeaponSocket
+  weaponHitboxOriginalSize: {x: 0, y: 0, z: 0}
 --- !u!1001 &7885153505212267934
 PrefabInstance:
   m_ObjectHideFlags: 0

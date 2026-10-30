@@ -14,7 +14,7 @@ public class EnemyAtributes : HittableCharacter
     {
         enemyController = GetComponent<EnemyController>();
     }
-    public override void HandleAttack(CharacterActionDefinition attack)
+    public override void HandleGotHit(CharacterActionDefinition attack, HittableCharacter attacker)
     {
         enemyController.enemyGetHit(attack);
     }

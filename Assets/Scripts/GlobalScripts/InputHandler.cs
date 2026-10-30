@@ -7,6 +7,7 @@ namespace Alpha.Input
         //KEY EVENTS
         public event Action<bool> onCrouchHold;             //LEFT CTRL  CROUCH
         public event Action<bool> onSprintHold;             //LEFT SHIFT SPRINT
+        public event Action<bool> onBlockHold;              //F BLOCK
         public event Action onJumpTriggered;                //SPACE      JUMP
         public event Action onTogglePerspective;            //P          CAMERA PERSPECTIVE
         public event Action onToggleWeapon;                 //E          TOGGLE WEAPON
@@ -35,6 +36,10 @@ namespace Alpha.Input
             // SPRINT
             inputActions.Player.Sprint.started += ctx => onSprintHold?.Invoke(true);
             inputActions.Player.Sprint.canceled += ctx => onSprintHold?.Invoke(false);
+
+            //BLOCK
+            inputActions.Player.Block.started += ctx => onBlockHold?.Invoke(true);
+            inputActions.Player.Block.canceled += ctx => onBlockHold?.Invoke(false);
 
             // MOVE (WASD)
             inputActions.Player.MovePlayer.performed += ctx => onMoveUpdate?.Invoke(ctx.ReadValue<Vector2>());

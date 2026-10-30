@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 namespace Alpha.Combat
 {
@@ -18,6 +19,8 @@ namespace Alpha.Combat
         [Range(0f, 1f)] public float activeStart = 0f;
         [Range(0f, 1f)] public float activeEnd = 1f;
         public bool alwaysActive;
+        public bool nonDamaging;
+        public bool hasItsOwnMovement; 
         [System.NonSerialized] public int tagHash;
         
     }
@@ -25,8 +28,8 @@ namespace Alpha.Combat
     public enum PlayerActions
     {
         None = 0, Light = 1, Heavy = 2, Throw = 3, Ability = 4, LightPunch = 5,
-        LightPunch2 = 6, LightKick3 = 7, NonCombat = 8, NonSemiCombat = 9, Charge = 10, Light2 = 11,
-        Recall = 12, Teleport = 13
+        LightPunch2 = 6, LightKick3 = 7,GetHit=8,NonSemiCombat = 9, Charge = 10, Light2 = 11,
+        Recall = 12, Teleport = 13, Block=14
     }
     public enum EnemyActions
     {
@@ -42,8 +45,6 @@ namespace Alpha.Combat
     [Serializable]
     public class PlayerActionDefinition : ActionDefinition<PlayerActions>
     {
-
-        public bool hasItsOwnMovement;
         public bool passesNonSemiCombat;
         public bool allowsJump;
         public bool requiresGrounded;
@@ -51,6 +52,6 @@ namespace Alpha.Combat
     [Serializable]
     public class EnemyActionDefinition : ActionDefinition<EnemyActions>
     {
-        public bool hasItsOwnMovement;   // se deplaseaza dupa root motion-ul din animatie
+        public List<Collider> hitboxes = new();
     }
 }

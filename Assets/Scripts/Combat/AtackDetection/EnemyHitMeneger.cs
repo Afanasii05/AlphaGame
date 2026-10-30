@@ -1,18 +1,15 @@
 using Alpha.Interfaces;
 using System.Collections.Generic;
-using UnityEngine;
 namespace Alpha.Combat
 {
     public class EnemyHitMeneger 
     {
         readonly HashSet<HittableCharacter> hitThisAction = new();
 
-        public void HandleAttack(HittableCharacter characterThatGotHit, CharacterActionDefinition hitAction)
+        public void HandleAttack(HittableCharacter characterThatGotHit, CharacterActionDefinition hitAction, HittableCharacter characterThatHit=null)
         {
             if (!hitThisAction.Add(characterThatGotHit)) return;
-            characterThatGotHit.HandleAttack(hitAction);
-
-            Debug.Log($"I have hit {characterThatGotHit.ToString()}  with {hitAction.ToString()}");
+            characterThatGotHit.HandleGotHit(hitAction, characterThatHit);
         }
         public void resetAction() { hitThisAction.Clear(); }
     }
