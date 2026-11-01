@@ -9706,10 +9706,13 @@ PrefabInstance:
       addedObject: {fileID: 4048499399004678927}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b6797c09dc282241b5aa27106ee4114, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7718792963098419353}
+      addedObject: {fileID: 1579773880844565592}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b6797c09dc282241b5aa27106ee4114, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1579773880844565592}
+      addedObject: {fileID: 473480006145341409}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b6797c09dc282241b5aa27106ee4114, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2203141079687440779}
   m_SourcePrefab: {fileID: 100100000, guid: 9b6797c09dc282241b5aa27106ee4114, type: 3}
 --- !u!95 &739989206327198778 stripped
 Animator:
@@ -9882,22 +9885,6 @@ MonoBehaviour:
   health: 100
   armor: 1
   damageMultiplier: 1
---- !u!114 &7718792963098419353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6336287852905366778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0e5a538ad81f764aaef11fb085f1e80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  knockBackDuration: 0.5
-  stompVFX: {fileID: 7062903030872908320}
-  rig: {fileID: 8692420302215413617}
-  stompImpactTime: 0.8
 --- !u!114 &1579773880844565592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9932,8 +9919,8 @@ MonoBehaviour:
     layer: 0
     mode: 2
     coolDownTime: 0
-    knockBackPower: 0
-    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
+    knockBackPower: 2
+    hitboxScaleofWeapon: {x: 1.2, y: 1.2, z: 1.2}
     comboWindow: 0.4
     activeStart: 0
     activeEnd: 1
@@ -9942,14 +9929,15 @@ MonoBehaviour:
     hasItsOwnMovement: 0
     action: 1
     nextAction: 0
-    hitboxes: []
+    hitboxes:
+    - {fileID: 1699906590553034944}
   - name: Stomp
     trigger: Stomp
     layer: 0
     mode: 2
     coolDownTime: 5
     knockBackPower: 2
-    hitboxScaleofWeapon: {x: 1.1, y: 1, z: 1.1}
+    hitboxScaleofWeapon: {x: 1.8, y: 1.2, z: 1.8}
     comboWindow: 0.4
     activeStart: 0.78
     activeEnd: 0.91
@@ -9958,7 +9946,9 @@ MonoBehaviour:
     hasItsOwnMovement: 0
     action: 3
     nextAction: 0
-    hitboxes: []
+    hitboxes:
+    - {fileID: 1608221875797266269}
+    - {fileID: 2341178700488371150}
   - name: Roll
     trigger: Roll
     layer: 0
@@ -9974,7 +9964,11 @@ MonoBehaviour:
     hasItsOwnMovement: 1
     action: 4
     nextAction: 0
-    hitboxes: []
+    hitboxes:
+    - {fileID: 1608221875797266269}
+    - {fileID: 2341178700488371150}
+    - {fileID: 1699906590553034944}
+    - {fileID: 3651973097420858842}
   - name: None
     trigger: 
     layer: 0
@@ -9992,6 +9986,37 @@ MonoBehaviour:
     nextAction: 0
     hitboxes: []
   animator: {fileID: 739989206327198778}
+--- !u!114 &473480006145341409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6336287852905366778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52b9ac2109526944abef6761e11cf9eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHitPlayer
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &2203141079687440779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6336287852905366778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b32eae5d1b3021b4caf0f1bc8758ad61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StumphornController
+  knockBackDuration: 0
+  rig: {fileID: 8692420302215413617}
+  stompImpactTime: 0.8
+  stompVFX: {fileID: 7062903030872908320}
 --- !u!4 &6675694295656980032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9b6797c09dc282241b5aa27106ee4114, type: 3}

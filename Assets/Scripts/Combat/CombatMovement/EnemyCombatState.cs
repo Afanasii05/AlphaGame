@@ -25,6 +25,9 @@ public class EnemyCombatState : CharacterCombatState<EnemyActions, EnemyActionDe
         hitboxDef = def;
         hitboxRoutine = StartCoroutine(collidersDisabler(def));
     }
+    protected override bool CanInterrupt(EnemyActions current, EnemyActionDefinition next)
+            => next.action == EnemyActions.GetHit;
+
     IEnumerator collidersDisabler(EnemyActionDefinition def)
     {
         while (!inWindow(def))

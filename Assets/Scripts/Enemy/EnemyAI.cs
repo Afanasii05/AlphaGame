@@ -1,13 +1,13 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.UI.Image;
 namespace Alpha.Enemies
 {
     public enum EnemyState { Idle, Chase, Return, Dead }
 
     //Doar detectie si pathfinding. Ce face inamicul cand ajunge la tinta decide EnemyController.
     [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(EnemyCombatState))]
     public class EnemyAI : MonoBehaviour
     {
         [SerializeField] private Animator animator;
@@ -32,18 +32,21 @@ namespace Alpha.Enemies
         [SerializeField] float turnSpeed = 1f;
         private static readonly int SpeedHash = Animator.StringToHash("Speed");
         private float sqrDistToPlayer;
-        private float timer;
+        private float getCloserTimer;
+        private float lastTimePatrulate;
         EnemyCombatState enemyCombatState;
 
         //Trimise catre controller:
         public event Action onTargetInAttackRange;   //tinta e in raza si in fata
-        public event Action onTargetShouldBeStomped; //Daca nu e in fata,dau stomp
-        public event Action onRollToPlayer;
+        public event Action onTargetInLateralAttack; //Daca nu e in fata,dau stomp
+        public event Action onCutDistanceToPlayer;
         //Pentru roll 
         [SerializeField] float castRadius = 0.6f;
         [SerializeField] float castDistance = 5f;
         [SerializeField] float minRollDistance = 3f;
         [SerializeField] float maxRollDistance = 10f;
+        [SerializeField] float randomDistanceFromHome = 5f;
+        [SerializeField] float timeBetweenPatrulate = 10f;
         [SerializeField] LayerMask hitMask;
         void Awake()
         {
@@ -80,26 +83,33 @@ namespace Alpha.Enemies
         {
             if (State != EnemyState.Dead && State != EnemyState.Chase) SetState(EnemyState.Chase);
         }
+        private void patrulate()
+        {
+            if(Time.time - lastTimePatrulate < timeBetweenPatrulate) return;
+            Vector3 randomPoint = homePosition + UnityEngine.Random.insideUnitSphere * randomDistanceFromHome;
+            agent.SetDestination(randomPoint);
+            lastTimePatrulate = Time.time;
+        }
         private bool determineIddle() => Vector3.Distance(homePosition, transform.position) <= agent.stoppingDistance + 0.1f;
         private void UpdateChase()
         {
             if (!shouldContinueToChase()) { SetState(EnemyState.Return); return; }
             if (sqrDistToPlayer > attackRange * attackRange)
             {
-                if (Time.time - timer >= 0.2)
+                if (Time.time - getCloserTimer >= 0.2)
                 {
                     agent.isStopped = false;
                     agent.SetDestination(target.position);
-                    timer = Time.time;
+                    getCloserTimer = Time.time;
                 }
-                if (canRollTwardsPlayer())
-                    onRollToPlayer?.Invoke();
+                if (canCutDistanceTwardsPlayer())
+                    onCutDistanceToPlayer?.Invoke();
                 return;
             }
 
             agent.isStopped = true;
             if (FaceTarget() <= attackAngle) onTargetInAttackRange?.Invoke();
-            else onTargetShouldBeStomped?.Invoke();
+            else onTargetInLateralAttack?.Invoke();
         }
         private float FaceTarget()
         {
@@ -109,7 +119,7 @@ namespace Alpha.Enemies
                 transform.rotation, Quaternion.LookRotation(dir), turnSpeed * Time.deltaTime);
             return Vector3.Angle(transform.forward, dir);
         }
-        private bool canRollTwardsPlayer()
+        private bool canCutDistanceTwardsPlayer()
         {
             float distFromTarget = Vector3.Distance(transform.position, target.position);
             if (distFromTarget <= minRollDistance || distFromTarget >= maxRollDistance || FaceTarget() >= attackAngle) return false;
@@ -141,7 +151,11 @@ namespace Alpha.Enemies
         private void determineChaseFromNonAggro()
         {
             if (canChase())
+            {
                 SetState(EnemyState.Chase);
+                return;
+            }
+            patrulate();
 
         }
         private void SetState(EnemyState updatingState)

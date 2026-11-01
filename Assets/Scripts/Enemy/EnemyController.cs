@@ -4,23 +4,20 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+[RequireComponent(typeof(EnemyCombatState))]
+[RequireComponent(typeof(EnemyAI))]
+[RequireComponent(typeof(Animator))]
+public abstract class EnemyController : MonoBehaviour
 {
-    Animator animator;
-    EnemyCombatState enemyCombatState;
-    bool isInKnockBack = false;
-    EnemyAI aiController;
+    protected Animator animator;
+    protected EnemyCombatState enemyCombatState;
+    protected bool isInKnockBack = false;
+    protected EnemyAI aiController;
     Transform target => aiController.target;
     [SerializeField] float knockBackDuration;
-
-    [SerializeField] ParticleSystem stompVFX;
-
     [SerializeField] Transform rig;
     Vector3 rigRestPosition;
     Quaternion rigRestRotation;
-    [SerializeField, Range(0f, 1f)] float stompImpactTime = 0.8f;
-
-
 
     private void Awake()
     {
@@ -33,43 +30,20 @@ public class EnemyController : MonoBehaviour
     private void OnEnable()  
     { 
         aiController.onTargetInAttackRange += HandleTargetInAttackRange;
-        aiController.onTargetShouldBeStomped += HandleTargetInStompRange;
-        aiController.onRollToPlayer += HandleRollToPlayer;
+        aiController.onTargetInLateralAttack += HandleTargetInLateralAttack;
+        aiController.onCutDistanceToPlayer += HandleCutDistanceToPlayer;
     }
     private void OnDisable() 
     {
         aiController.onTargetInAttackRange -= HandleTargetInAttackRange;
-        aiController.onTargetShouldBeStomped -= HandleTargetInStompRange;
-        aiController.onRollToPlayer -= HandleRollToPlayer;
+        aiController.onTargetInLateralAttack-= HandleTargetInLateralAttack;
+        aiController.onCutDistanceToPlayer -= HandleCutDistanceToPlayer;
     }
 
     private void HandleTargetInAttackRange()
-    {
-        enemyCombatState.TryStart(EnemyActions.Attack);
-    }
-    private void HandleTargetInStompRange()
-    {
-        if (enemyCombatState.TryStart(EnemyActions.Stomp))
-            StartCoroutine(PlayStompVFX(EnemyActions.Stomp));
-    }
-    private void HandleRollToPlayer()
-    {
-        if (enemyCombatState.TryStart(EnemyActions.Roll))
-            StartCoroutine(PlayStompVFX(EnemyActions.Roll));
-    }
-
-    IEnumerator PlayStompVFX(EnemyActions action)
-    {
-        if (stompVFX == null) yield break;
-        while (!enemyCombatState.inActiveWindow())
-        {
-            if (enemyCombatState.CurrentAction() != action) yield break; 
-            yield return null;
-        }
-
-        stompVFX.Play(true);
-    }
-
+    {enemyCombatState.TryStart(EnemyActions.Attack);}
+    public abstract void HandleTargetInLateralAttack();
+    public abstract void HandleCutDistanceToPlayer();
     
 
     public void enemyGetHit(CharacterActionDefinition attack)

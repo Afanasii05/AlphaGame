@@ -7,6 +7,7 @@ namespace Alpha.Combat
         [SerializeField] GameObject GroundCraterPrefab;
         [SerializeField] Weapon wp;
         [SerializeField] Collider headColider;
+        [SerializeField] LayerMask groundLayer;
         private bool canSpawn = false;
 
         private void OnEnable()
@@ -24,7 +25,7 @@ namespace Alpha.Combat
         private void OnCollisionEnter(Collision collision)
         {
 
-            if (wp.IsHeld || !canSpawn)
+            if (wp.IsHeld || !canSpawn|| (groundLayer.value & (1 << collision.gameObject.layer)) == 0)
                 return;
 
             ContactPoint cont = collision.GetContact(0);

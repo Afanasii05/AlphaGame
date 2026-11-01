@@ -9,6 +9,7 @@ namespace Alpha.Combat
         public void HandleAttack(HittableCharacter characterThatGotHit, CharacterActionDefinition hitAction, HittableCharacter characterThatHit=null)
         {
             if (!hitThisAction.Add(characterThatGotHit)) return;
+
             characterThatGotHit.HandleGotHit(hitAction, characterThatHit);
         }
         public void resetAction() { hitThisAction.Clear(); }
