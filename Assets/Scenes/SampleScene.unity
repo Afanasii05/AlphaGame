@@ -17801,7 +17801,7 @@ MonoBehaviour:
   crouchMultiplier: 0.2
   jumpForce: 13
   gravityMultiplier: 2
-  AttackSlowness: 0.3
+  AttackSlowness: 0.6
   sprintFovBoost: 10
   crouchFovBoost: -5
   fovBlendSpeed: 8
@@ -17871,8 +17871,9 @@ MonoBehaviour:
   recallSpeed: 28
   spinDegrees: 720
   animHoldAfterCatch: 0.15
-  playerTr: {fileID: 579590968}
   waitUntilThrow: 0.7
+  WallCreateScript: {fileID: 7485143488462109617, guid: e42f677a52fff764b8f4e24980354835, type: 3}
+  playerTr: {fileID: 579590968}
 --- !u!114 &579590975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18156,7 +18157,7 @@ MonoBehaviour:
     trigger: Block
     layer: 1
     mode: 1
-    coolDownTime: 0
+    coolDownTime: 4
     knockBackPower: 0
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
@@ -18167,9 +18168,9 @@ MonoBehaviour:
     hasItsOwnMovement: 0
     action: 14
     nextAction: 0
-    passesNonSemiCombat: 0
+    passesNonSemiCombat: 1
     allowsJump: 0
-    requiresGrounded: 0
+    requiresGrounded: 1
   animator: {fileID: 2003534929}
 --- !u!114 &579590977
 MonoBehaviour:
@@ -18189,7 +18190,6 @@ MonoBehaviour:
   shockwaveLifetime: 2.5
   lightIntensity: 8
   lightFadeTime: 0.6
-  ChargeMoveDelay: 10
 --- !u!114 &579590978
 MonoBehaviour:
   m_ObjectHideFlags: 0

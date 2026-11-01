@@ -6,6 +6,8 @@ public class EnemyCombatState : CharacterCombatState<EnemyActions, EnemyActionDe
 {
     public bool IsBusy => !IsNone(CurrentAction());
     Dictionary<Collider, Vector3> colidersOriginalSize = new();
+    EnemyActionDefinition hitboxDef;
+    Coroutine hitboxRoutine;
     void Start()
     {
         foreach (EnemyActionDefinition def in combatDef.Values)
@@ -18,21 +20,33 @@ public class EnemyCombatState : CharacterCombatState<EnemyActions, EnemyActionDe
     }
     protected override void OnActionStarted(EnemyActionDefinition def)
     {
-        foreach(Collider col in def.hitboxes)
-        {
-            col.enabled = true;
-            col.transform.localScale = Vector3.Scale(colidersOriginalSize[col], def.hitboxScaleofWeapon);
-        }
-        StartCoroutine(collidersDisabler(def));
+        if (hitboxRoutine != null) StopCoroutine(hitboxRoutine);
+        if (hitboxDef != null) setHitboxes(hitboxDef, false);
+        hitboxDef = def;
+        hitboxRoutine = StartCoroutine(collidersDisabler(def));
     }
     IEnumerator collidersDisabler(EnemyActionDefinition def)
     {
-
-        while (!inActiveWindow()) yield return null;
-        while (inActiveWindow()) yield return null;
+        while (!inWindow(def))
+        {
+            if (!Same(CurrentAction(), def.action)) yield break;
+            yield return null;
+        }
+        setHitboxes(def, true);
+        while (inWindow(def)) yield return null;
+        setHitboxes(def, false);
+    }
+    bool inWindow(EnemyActionDefinition def)
+    {
+        float t = NormalizedTime(def.action);
+        return t > 0f && t >= def.activeStart && t <= def.activeEnd;
+    }
+    void setHitboxes(EnemyActionDefinition def, bool state)
+    {
         foreach (Collider col in def.hitboxes)
         {
-            col.enabled = false;
+            col.enabled = state;
+            if (state) col.transform.localScale = Vector3.Scale(colidersOriginalSize[col], def.hitboxScaleofWeapon);
         }
     }
 }

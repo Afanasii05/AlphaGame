@@ -19,6 +19,7 @@ namespace Alpha.Combat
         //Momentan doar scalez hitboxurile pe arma
         protected override void OnActionStarted(PlayerActionDefinition def)
         {
+            intreruptContinuousStates();
             if (socket.HasWeapon)
             {
                 Weapon weapon = socket.CurrentWeapon;

@@ -72,7 +72,6 @@ public abstract class CharacterCombatState<TAction , TDef>: MonoBehaviour
     {
         if (!CanStart(action)) return false;
         StartAction(action);
-        intreruptContinuousStates();
         return true;
     }
     public void intreruptContinuousStates()

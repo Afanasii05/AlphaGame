@@ -12,22 +12,29 @@ public class TriggerAttack : MonoBehaviour
     [SerializeField] private float recallSpeed = 28f;
     [SerializeField] private float spinDegrees = 720f;
     [SerializeField] private float animHoldAfterCatch = 0.15f;
+    [SerializeField] private float waitUntilThrow = 0.7f;
+    [SerializeField] BlockWall WallCreateScript;
+    [SerializeField] Transform playerTr;
+
     private static readonly int RecallingHash = Animator.StringToHash("Recalling");
+    private static readonly int BlockingHash = Animator.StringToHash("Blocking");
+
     private Animator animator;
     private Weapon thrown;
     public Weapon Thrown => thrown; 
-
     private InputHandler input;
     private WeaponSocket socket;
     private PlayerCombatState combatState;
-    [SerializeField] Transform playerTr;
+    
     EnquipWeapon enquip;
     ChargeShockwave chargeShockwave;
     TeleportToWeapon teleport;
-    [SerializeField] private float waitUntilThrow = 0.7f;
     Coroutine turnRoutine;
-    private static readonly int BlockingHash = Animator.StringToHash("Blocking");
+
+    
     private bool blockHeld;
+    private bool wallBuilt = false;
+    BlockWall currentWall;
     void Awake()
     {
         input = GetComponent<InputHandler>();
@@ -37,6 +44,7 @@ public class TriggerAttack : MonoBehaviour
         chargeShockwave = GetComponent<ChargeShockwave>();
         animator = GetComponentInChildren<Animator>();
         teleport = GetComponent<TeleportToWeapon>();
+
     }
     private void OnEnable()
     {
@@ -102,8 +110,18 @@ public class TriggerAttack : MonoBehaviour
     }
     private void HandleBlock(bool isBlocking) {
         blockHeld = isBlocking;
-        if(!isBlocking)
+        if (!isBlocking)
+        {
             animator.SetTrigger("Intrerupt");
+            wallBuilt = false;
+            if (currentWall != null)
+            {
+                currentWall.stopWallBuild();
+                currentWall = null;
+            }
+            
+        }
+        
  
     }
 
@@ -111,11 +129,20 @@ public class TriggerAttack : MonoBehaviour
     {
         if (blockHeld)
         {
-            combatState.TryStart(PlayerActions.Block);
-            if(combatState.CurrentAction()==PlayerActions.Block)
+            if (combatState.TryStart(PlayerActions.Block))
+            {
+                StartTurn();
+                if (!wallBuilt)
+                {
+                    currentWall = WallCreateScript.instantiateWall(playerTr);
+                    wallBuilt = true;
+                }
                 animator.ResetTrigger("Intrerupt");
+            }
+            
         }
     }
+    
 
     private void HandleThrowAttack()
     {

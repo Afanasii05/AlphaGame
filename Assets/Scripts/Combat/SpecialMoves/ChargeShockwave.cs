@@ -11,7 +11,6 @@ namespace Alpha.Combat
         [SerializeField] private float shockwaveLifetime = 2.5f;
         [SerializeField] private float lightIntensity = 8f;
         [SerializeField] private float lightFadeTime = 0.6f;
-        [SerializeField] private float ChargeMoveDelay = 10f;
 
         private PlayerCombatState combatState;
 
