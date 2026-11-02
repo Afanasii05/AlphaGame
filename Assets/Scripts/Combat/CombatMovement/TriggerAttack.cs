@@ -17,7 +17,6 @@ public class TriggerAttack : MonoBehaviour
     [SerializeField] Transform playerTr;
 
     private static readonly int RecallingHash = Animator.StringToHash("Recalling");
-    private static readonly int BlockingHash = Animator.StringToHash("Blocking");
 
     private Animator animator;
     private Weapon thrown;

@@ -44,7 +44,7 @@ namespace Alpha.Combat
             if (wp == null)
                 return false;
             Rigidbody wrb = wp.GetComponent<Rigidbody>();
-            if (teleporting  ||  wrb.linearVelocity.magnitude > 1f)
+            if (teleporting)
                 return false;
             return true;
         }

@@ -2708,6 +2708,7 @@ GameObject:
   - component: {fileID: 4148516941262547588}
   - component: {fileID: -5902401192750241319}
   - component: {fileID: -7978453674252544977}
+  - component: {fileID: 8000020243769307150}
   m_Layer: 0
   m_Name: SwordHammer
   m_TagString: Untagged
@@ -2821,6 +2822,11 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  mirageSwordPrefab: {fileID: 7751286249549929525, guid: c630e664c76fac94fa4fb786d1ac157f, type: 3}
+  numberOfMirageSwords: 10
+  distanceFromImpactPoint: 5
+  sowrdsIntoGround: 0.7
+  timeForMirageSwordsToStay: 2
 --- !u!114 &4148516941262547588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2854,7 +2860,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   hitParticlesPrefab: {fileID: 5945104609832717647, guid: c8b956f526c39a2499064f45eda98336, type: 3}
-  speedRequiredForThrowToCount: 10
   hitbox: {fileID: 4710426715384107509}
 --- !u!114 &-7978453674252544977
 MonoBehaviour:
@@ -2874,6 +2879,23 @@ MonoBehaviour:
   triggerColor: {r: 1, g: 0.2, b: 0.2, a: 0.35}
   solidColor: {r: 0.2, g: 0.6, b: 1, a: 0.3}
   disabledColor: {r: 0.6, g: 0.6, b: 0.6, a: 0.12}
+--- !u!114 &8000020243769307150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7451556787124628624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165b2a21e7ce99f42b890e9096e43fc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThrowDetection
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  hitParticlesPrefab: {fileID: 5945104609832717647, guid: c8b956f526c39a2499064f45eda98336, type: 3}
+  speedRequiredForThrowToCount: 10
 --- !u!1 &8616346014121455367
 GameObject:
   m_ObjectHideFlags: 0
