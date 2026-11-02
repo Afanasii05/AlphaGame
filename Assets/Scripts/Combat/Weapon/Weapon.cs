@@ -7,12 +7,14 @@ namespace Alpha.Combat
     {
         [SerializeField] private Transform gripRight;
         [SerializeField] private Transform gripLeft;
-        [SerializeField] private Transform impactPoint;
+        [SerializeField] private Transform impactPoint1;
+        [SerializeField] private Transform impactPoint2;
         [SerializeField] private Collider[] worldColliders; //Colidere solide, active doar cat arma sta in lume
 
         [field: SerializeField] public Collider headHitbox { get; private set; } //Trigger folosit de atacuri
         public PlayerCombatState playerState{ get; private set; }
-        public Transform ImpactPoint { get { return impactPoint; } }
+        public Transform ImpactPoint1 { get { return impactPoint1; } }
+        public Transform ImpactPoint2 { get { return impactPoint2; } }
         public bool IsHeld { get; private set; }
         public event Action<bool> onHeldChange;  //Trigger catre scripturile care tin de aruncare sau enquip
         public Vector3 HitboxOriginalSize;

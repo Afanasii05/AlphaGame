@@ -8,13 +8,17 @@ public class HeavyHitSwordsTransition : MonoBehaviour
     private void Awake()
     {
         finalPos = transform.position;    
-        StartCoroutine(fullMove());
+        
     }
-    IEnumerator fullMove()
+    public void BeginTransition(float distance)
     {
-        StartCoroutine(moveFromToPos(transform.position - Vector3.up * 2f, finalPos));
+        StartCoroutine(fullMove(distance));
+    }
+    IEnumerator fullMove(float distance)
+    {
+        StartCoroutine(moveFromToPos(transform.position - Vector3.up * distance, finalPos));
         yield return new WaitForSeconds(1.2f);
-        StartCoroutine(moveFromToPos(finalPos, finalPos - Vector3.up * 2 ));
+        StartCoroutine(moveFromToPos(finalPos, finalPos - Vector3.up * 3 ));
     }
     IEnumerator moveFromToPos(Vector3 initial,Vector3 finalPos)
     {

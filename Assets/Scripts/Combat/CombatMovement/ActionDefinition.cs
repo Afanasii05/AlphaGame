@@ -29,7 +29,7 @@ namespace Alpha.Combat
     {
         None = 0, Light = 1, Heavy = 2, Throw = 3, Ability = 4, LightPunch = 5,
         LightPunch2 = 6, LightKick3 = 7,GetHit=8,NonSemiCombat = 9, Charge = 10, Light2 = 11,
-        Recall = 12, Teleport = 13, Block=14
+        Recall = 12, Teleport = 13, Block=14, HeavyFall = 15 
     }
     public enum EnemyActions
     {

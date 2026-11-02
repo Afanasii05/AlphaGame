@@ -2692,6 +2692,37 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 0
   m_ApplyActiveColorSpace: 1
+--- !u!1 &7419186704312572386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7085041167927937362}
+  m_Layer: 0
+  m_Name: ImpactPoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7085041167927937362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7419186704312572386}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.006, y: 1.285, z: 0.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6443517581085337187}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7451556787124628624
 GameObject:
   m_ObjectHideFlags: 0
@@ -2736,6 +2767,7 @@ Transform:
   - {fileID: 7591897599277846286}
   - {fileID: 8396949247120757245}
   - {fileID: 909963787353653081}
+  - {fileID: 7085041167927937362}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7111046321891618909
@@ -2752,7 +2784,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.Weapon
   gripRight: {fileID: 8580266622560501306}
   gripLeft: {fileID: 552344361336850084}
-  impactPoint: {fileID: 294970345071808183}
+  impactPoint1: {fileID: 294970345071808183}
+  impactPoint2: {fileID: 7085041167927937362}
   worldColliders:
   - {fileID: 5180495207324630999}
   - {fileID: 5257249009366138912}
@@ -2819,13 +2852,17 @@ MonoBehaviour:
   wp: {fileID: 7111046321891618909}
   cr: {fileID: 5080109540319075397}
   impactRadius: 0.15
+  impactMask:
+    serializedVersion: 2
+    m_Bits: 72
   groundMask:
     serializedVersion: 2
     m_Bits: 8
-  mirageSwordPrefab: {fileID: 7751286249549929525, guid: c630e664c76fac94fa4fb786d1ac157f, type: 3}
+  mirageSwordPrefab: {fileID: 5992397280399650864, guid: c630e664c76fac94fa4fb786d1ac157f, type: 3}
   numberOfMirageSwords: 10
   distanceFromImpactPoint: 5
-  sowrdsIntoGround: 0.7
+  swordsIntoGround: 0.75
+  swordsOutFromGround: -2
   timeForMirageSwordsToStay: 2
 --- !u!114 &4148516941262547588
 MonoBehaviour:

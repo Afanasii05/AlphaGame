@@ -39,7 +39,9 @@ namespace Alpha.Combat
         }
        
         public void SpawnCrater(Quaternion rotation, Vector3 pozition)
-        { 
+        {
+            if (Physics.Raycast(pozition, Vector3.down, out RaycastHit hit, 3f, groundLayer, QueryTriggerInteraction.Ignore))
+                pozition = hit.point;
             GameObject cr = Instantiate(GroundCraterPrefab, pozition, rotation);
             Destroy(cr, 5f);
         }

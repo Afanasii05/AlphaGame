@@ -78,11 +78,14 @@ public class TriggerAttack : MonoBehaviour
     {
         if (!socket.HasWeapon)
             return;
-        if (combatState.TryStart(PlayerActions.Heavy))
-        {
-            if (socket.CurrentWeapon.TryGetComponent(out HeavyImpactDetection hid)) hid.Begin();
-            StartTurn();
+        if (combatState.Grounded) { 
+            if (combatState.TryStart(PlayerActions.Heavy) && socket.CurrentWeapon.TryGetComponent(out HeavyImpactDetection hid))
+                hid.BeginHeavyGround(); }
+        else {
+            if (combatState.TryStart(PlayerActions.HeavyFall) && socket.CurrentWeapon.TryGetComponent(out HeavyImpactDetection hid))
+                hid.BeginHeavyFall();
         }
+        StartTurn();
     }
 
     private void HandleMeleCombat(PlayerActions calledAction)

@@ -49,7 +49,7 @@ public class BlockWall : MonoBehaviour
             pos = hit.point;
 
         BlockWall wall = Instantiate(this, pos, Quaternion.LookRotation(fw));
-        Destroy(wall.gameObject, 6f);
+        Destroy(wall.gameObject, 5f);
         return wall;
     }
     public void stopWallBuild()

@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 69992d2af3a692545980891a8078f9a5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.4
+      value: 2.2368596
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 69992d2af3a692545980891a8078f9a5, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.2
+      value: 1.9834926
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 69992d2af3a692545980891a8078f9a5, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.1
+      value: 1.4034901
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 69992d2af3a692545980891a8078f9a5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -969,8 +969,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlockWall
   adancime: 0.1
-  speedOfPlace: 10
-  distance: 1.35
+  speedOfPlace: 17
+  distance: 2
   timeBetweenStones: 0.01
   groundMask:
     serializedVersion: 2

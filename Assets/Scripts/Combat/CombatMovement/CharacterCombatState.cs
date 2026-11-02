@@ -1,6 +1,7 @@
 using Alpha.Combat;
 using System;
 using System.Collections.Generic;
+using Unity.AppUI.Redux;
 using UnityEngine;
 
 public abstract class CharacterCombatState<TAction , TDef>: MonoBehaviour
@@ -36,18 +37,20 @@ public abstract class CharacterCombatState<TAction , TDef>: MonoBehaviour
             return false;
         return true;
     }
-    private bool InTag(TDef ad)
-    {
-        AnimatorStateInfo s = animator.GetCurrentAnimatorStateInfo(ad.layer);
-        AnimatorStateInfo k = animator.GetNextAnimatorStateInfo(ad.layer);
-        return s.tagHash == ad.tagHash || (animator.IsInTransition(ad.layer) && k.tagHash == ad.tagHash);
-    }
 
     private TAction ActualStateInAnimation()
     {
+        // Returnez actiunea din tranzitie in loc sa le iau la rand doar.
         foreach (TDef ad in actionsDetails)
-            if (InTag(ad))
+            if (animator.IsInTransition(ad.layer) &&
+                animator.GetNextAnimatorStateInfo(ad.layer).tagHash == ad.tagHash)
                 return ad.action;
+
+        
+        foreach (TDef ad in actionsDetails)
+            if (animator.GetCurrentAnimatorStateInfo(ad.layer).tagHash == ad.tagHash)
+                return ad.action;
+
         return default;
     }
 
@@ -61,7 +64,8 @@ public abstract class CharacterCombatState<TAction , TDef>: MonoBehaviour
     {
         if (inCoolDown(action))
             return false;
-
+        if(!OtherVerifications(combatDef[action]))
+            return false;
         TAction current = CurrentAction();
         if (IsNone(current) || (Same(ValidNext(), action) && CanContinueCombo())) return true;
         return CanInterrupt(current, combatDef[action]);
@@ -106,6 +110,7 @@ public abstract class CharacterCombatState<TAction , TDef>: MonoBehaviour
 
     protected virtual bool CanStartExtra(TDef def) => true;
     protected virtual bool CanContinueCombo() => true;
+    protected virtual bool OtherVerifications(TDef def) => true;
     protected virtual bool CanInterrupt(TAction current, TDef next) => false;
     protected abstract void OnActionStarted(TDef def);
 
@@ -156,6 +161,7 @@ public abstract class CharacterCombatState<TAction , TDef>: MonoBehaviour
 
     protected void Update()
     {
+
         if (IsNone(pending)) return;
         if (Same(ActualStateInAnimation(), pending) || Time.time - pendingSince >= 0.3f)
             pending = default;
