@@ -23,7 +23,8 @@ public class ThrowDetection : MonoBehaviour
         Vector3 normala = contact.normal;
         Instantiate(hitParticlesPrefab, punct, Quaternion.LookRotation(normala));
         HittableCharacter target = collision.collider.GetComponentInParent<HittableCharacter>();
-        playerState.hitMeneger.HandleAttack(target, playerState.combatDef[PlayerActions.Throw]);
+        if (target == null) return;
+        playerState.hitMeneger.HandleAttack(target, playerState.combatDef[PlayerActions.Throw], playerState.GetComponent<HittableCharacter>());
 
 
     }
