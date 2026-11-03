@@ -11702,7 +11702,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: c457091fc16f26b4580dd1d3aa78ccda, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.9724638
+      value: 10.39
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c457091fc16f26b4580dd1d3aa78ccda, type: 3}
       propertyPath: m_LocalPosition.y
@@ -11710,7 +11710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c457091fc16f26b4580dd1d3aa78ccda, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.8268762
+      value: -10.31
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c457091fc16f26b4580dd1d3aa78ccda, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11957,6 +11957,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c457091fc16f26b4580dd1d3aa78ccda, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7430552216908173468}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c457091fc16f26b4580dd1d3aa78ccda, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5004023254157078364}
   m_SourcePrefab: {fileID: 100100000, guid: c457091fc16f26b4580dd1d3aa78ccda, type: 3}
 --- !u!1 &309245701529001033 stripped
 GameObject:
@@ -12009,7 +12012,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -12046,12 +12049,12 @@ MonoBehaviour:
     trigger: Attack
     layer: 0
     mode: 2
-    coolDownTime: 0
+    coolDownTime: 0.7
     knockBackPower: 2
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
-    activeStart: 0
-    activeEnd: 1
+    activeStart: 0.2
+    activeEnd: 0.945
     alwaysActive: 0
     nonDamaging: 0
     hasItsOwnMovement: 0
@@ -12110,6 +12113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e1514d306993214b8512a497f9c037b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Alpha.Enemies.EnemyAI
+  Ally: 0
   animator: {fileID: 6476551385062988937}
   target: {fileID: 0}
   State: 0
@@ -12128,8 +12132,8 @@ MonoBehaviour:
   castDistance: 5
   minRollDistance: 3
   maxRollDistance: 10
-  randomDistanceFromHome: 5
-  timeBetweenPatrulate: 10
+  randomDistanceFromHome: 10
+  timeBetweenPatrulate: 5
   hitMask:
     serializedVersion: 2
     m_Bits: 128
@@ -12145,9 +12149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c2a81aea52af34e9a0b6579b0c8f16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAtributes
-  health: 100
-  armor: 1
-  damageMultiplier: 1
+  knockBackDuration: 0.5
 --- !u!114 &2648550262614050252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12160,8 +12162,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f20c1e23fb70b41a63be61a11e3b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShackleController
-  knockBackDuration: 0
+  knockBackDuration: 0.5
   rig: {fileID: 8485642500364942080}
+  stompVFX: {fileID: 0}
+  stompImpactTime: 0.8
+  knockBackCooldown: 0.5
 --- !u!114 &7430552216908173468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12176,7 +12181,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHitPlayer
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384
+--- !u!114 &5004023254157078364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309245701529001033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f40b81aadf687c4483df51087d5052a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.HitboxGizmo
+  includeChildren: 1
+  onlyWhenSelected: 0
+  showDisabled: 1
+  triggerColor: {r: 1, g: 0.2, b: 0.2, a: 0.35}
+  solidColor: {r: 0.2, g: 0.6, b: 1, a: 0.3}
+  disabledColor: {r: 0.6, g: 0.6, b: 0.6, a: 0.12}
 --- !u!4 &3331009870839646845 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2788255206411430757, guid: c457091fc16f26b4580dd1d3aa78ccda, type: 3}

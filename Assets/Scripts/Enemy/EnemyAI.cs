@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using Alpha.Interfaces;
+
 namespace Alpha.Enemies
 {
     public enum EnemyState { Idle, Chase, Return, Dead }
@@ -10,6 +12,7 @@ namespace Alpha.Enemies
     [RequireComponent(typeof(EnemyCombatState))]
     public class EnemyAI : MonoBehaviour
     {
+        [SerializeField]bool Ally;
         [SerializeField] private Animator animator;
         [SerializeField] public Transform target;         
         public EnemyState State = EnemyState.Idle;
@@ -40,7 +43,7 @@ namespace Alpha.Enemies
         public event Action onTargetInAttackRange;   //tinta e in raza si in fata
         public event Action onTargetInLateralAttack; //Daca nu e in fata,dau stomp
         public event Action onCutDistanceToPlayer;
-        //Pentru roll 
+        //Pentru roll sau scurtre de distanta
         [SerializeField] float castRadius = 0.6f;
         [SerializeField] float castDistance = 5f;
         [SerializeField] float minRollDistance = 3f;
@@ -58,6 +61,13 @@ namespace Alpha.Enemies
         void Update()
         {
             if (State == EnemyState.Dead) return;
+            updateTarget();
+            if (target == null)   //nu exista nicio tinta activa
+            {
+                if (agent.isOnNavMesh) agent.isStopped = true;
+                animator.SetFloat(SpeedHash, 0f, 0.1f, Time.deltaTime);
+                return;
+            }
             sqrDistToPlayer = (target.position - transform.position).sqrMagnitude;
             if (enemyCombatState.IsBusy)
                 agent.isStopped = true;   //cat ruleaza o actiune nu ma misc
@@ -157,6 +167,14 @@ namespace Alpha.Enemies
             }
             patrulate();
 
+        }
+
+        private void updateTarget()
+        {
+            if(Ally)
+                target = HittableCharacter.Closest(HittableCharacter.enemies, transform.position)?.transform;
+            else
+                target = HittableCharacter.Closest(HittableCharacter.allys, transform.position)?.transform;
         }
         private void SetState(EnemyState updatingState)
         {

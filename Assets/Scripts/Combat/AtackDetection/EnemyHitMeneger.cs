@@ -2,7 +2,7 @@ using Alpha.Interfaces;
 using System.Collections.Generic;
 namespace Alpha.Combat
 {
-    public class EnemyHitMeneger 
+    public class EnemyHitMeneger
     {
         readonly HashSet<HittableCharacter> hitThisAction = new();
 

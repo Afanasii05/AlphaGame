@@ -11,10 +11,12 @@ namespace Alpha.Combat {
         [SerializeField] Collider hitbox;
         CameraShake cameraShake;
         PlayerCombatState playerState;
+        HittableCharacter playerHittable;
 
         private void Awake(){
             GameObject player = GameObject.FindWithTag("Player");
             playerState = player.GetComponent<PlayerCombatState>();
+            playerHittable = player.GetComponent<HittableCharacter>();
             cameraShake = Camera.main.GetComponent<CameraShake>();
         }
 
@@ -32,7 +34,8 @@ namespace Alpha.Combat {
             if ((enemyLayer.value & (1 << other.gameObject.layer)) == 0) return;
             cameraShake.Shake(0.12f, 0.15f);
             HittableCharacter target = other.GetComponentInParent<HittableCharacter>();
-            playerState.hitMeneger.HandleAttack(target, playerState.combatDef[currentAction]);
+            if (target == null) return;
+            playerState.hitMeneger.HandleAttack(target, playerState.combatDef[currentAction], playerHittable);
 
         }
         

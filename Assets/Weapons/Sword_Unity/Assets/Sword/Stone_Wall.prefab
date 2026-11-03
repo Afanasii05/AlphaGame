@@ -972,9 +972,15 @@ MonoBehaviour:
   speedOfPlace: 17
   distance: 2
   timeBetweenStones: 0.01
+  timeToComposeGolem: 1
+  speedOfComposeGolem: 10
+  timeBetweenStonesCompose: 0.05
+  waitTimeBeforeAwakenGolem: 0.2
+  decreasingInterval: 0.001
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  golemPrefab: {fileID: 4937726223967561824, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
 --- !u!208 &4442118385167168923
 NavMeshObstacle:
   m_ObjectHideFlags: 0

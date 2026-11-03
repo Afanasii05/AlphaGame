@@ -14,7 +14,9 @@ public class EnemyHitPlayer : MonoBehaviour
         EnemyActions currentAction = enemyState.CurrentAction();
         if (currentAction == EnemyActions.None ) return;
         HittableCharacter target = other.GetComponentInParent<HittableCharacter>();
-        enemyState.hitMeneger.HandleAttack(target, enemyState.combatDef[currentAction],GetComponentInParent<HittableCharacter>());
+        HittableCharacter self = GetComponentInParent<HittableCharacter>();
+        if (target == null || target == self) return;
+        enemyState.hitMeneger.HandleAttack(target, enemyState.combatDef[currentAction], self);
 
     }
 }

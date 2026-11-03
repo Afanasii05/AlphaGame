@@ -17936,13 +17936,13 @@ MonoBehaviour:
     passesNonSemiCombat: 1
     allowsJump: 1
     requiresGrounded: 0
-  - name: Heavy Attack
+  - name: 'Heavy '
     trigger: RightClick
     layer: 0
     mode: 2
     coolDownTime: 5
     knockBackPower: 3
-    hitboxScaleofWeapon: {x: 1.5, y: 1.5, z: 2}
+    hitboxScaleofWeapon: {x: 1.5, y: 3, z: 2}
     comboWindow: 0.4
     activeStart: 0.35
     activeEnd: 0.9
@@ -17953,7 +17953,7 @@ MonoBehaviour:
     nextAction: 0
     passesNonSemiCombat: 0
     allowsJump: 0
-    requiresGrounded: 0
+    requiresGrounded: 1
   - name: Ability(Spin)
     trigger: SpecialMove
     layer: 0
@@ -17971,7 +17971,7 @@ MonoBehaviour:
     nextAction: 0
     passesNonSemiCombat: 1
     allowsJump: 0
-    requiresGrounded: 0
+    requiresGrounded: 1
   - name: Throw Weapon
     trigger: Throw
     layer: 1
@@ -18016,8 +18016,8 @@ MonoBehaviour:
     knockBackPower: 5
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
-    activeStart: 0.1
-    activeEnd: 1
+    activeStart: 0.254
+    activeEnd: 0.906
     alwaysActive: 0
     nonDamaging: 0
     hasItsOwnMovement: 0
@@ -18156,7 +18156,7 @@ MonoBehaviour:
     trigger: Block
     layer: 1
     mode: 1
-    coolDownTime: 4
+    coolDownTime: 2.5
     knockBackPower: 0
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
@@ -18170,6 +18170,24 @@ MonoBehaviour:
     passesNonSemiCombat: 1
     allowsJump: 0
     requiresGrounded: 1
+  - name: HeavyFall
+    trigger: RightClick
+    layer: 0
+    mode: 2
+    coolDownTime: 4
+    knockBackPower: 5
+    hitboxScaleofWeapon: {x: 1.5, y: 3, z: 2}
+    comboWindow: 0.4
+    activeStart: 0
+    activeEnd: 1
+    alwaysActive: 1
+    nonDamaging: 0
+    hasItsOwnMovement: 0
+    action: 15
+    nextAction: 0
+    passesNonSemiCombat: 1
+    allowsJump: 0
+    requiresGrounded: 0
   animator: {fileID: 2003534929}
 --- !u!114 &579590977
 MonoBehaviour:
@@ -18244,7 +18262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0623f21ab43c04a4da25134334a8fdb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAtributes
-  health: 100
   knockBackDuration: 0.5
 --- !u!1 &581135265
 GameObject:
@@ -21934,6 +21951,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4036360211294428106, guid: 09358440e56d2b44fb7ea294065e706f, type: 3}
       propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8088607690453797000, guid: 09358440e56d2b44fb7ea294065e706f, type: 3}
+      propertyPath: actionsDetails.Array.data[1].activeEnd
+      value: 0.945
+      objectReference: {fileID: 0}
+    - target: {fileID: 8088607690453797000, guid: 09358440e56d2b44fb7ea294065e706f, type: 3}
+      propertyPath: actionsDetails.Array.data[1].activeStart
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8088607690453797000, guid: 09358440e56d2b44fb7ea294065e706f, type: 3}
+      propertyPath: actionsDetails.Array.data[1].coolDownTime
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8088607690453797000, guid: 09358440e56d2b44fb7ea294065e706f, type: 3}
+      propertyPath: actionsDetails.Array.data[1].hitboxScaleofWeapon.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8088607690453797000, guid: 09358440e56d2b44fb7ea294065e706f, type: 3}
+      propertyPath: actionsDetails.Array.data[1].hitboxScaleofWeapon.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8088607690453797000, guid: 09358440e56d2b44fb7ea294065e706f, type: 3}
+      propertyPath: actionsDetails.Array.data[1].hitboxScaleofWeapon.z
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8625103462699477520, guid: 09358440e56d2b44fb7ea294065e706f, type: 3}
@@ -25680,6 +25721,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1579773880844565592, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: actionsDetails.Array.data[1].coolDownTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203141079687440779, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: stompVFX
+      value: 
+      objectReference: {fileID: 8458053550053554419, guid: a58d33bb681f016419083605f977ffef, type: 3}
     - target: {fileID: 2203141079687440779, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
       propertyPath: knockBackDuration
       value: 0.5
@@ -25728,12 +25777,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7062903030872908320, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7062903030872908320, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7062903030872908320, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7062903030872908320, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8552141857103067784, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 579590968}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6028625769913185209, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
@@ -43418,6 +43484,11 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!65 &1605992200 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 5910464154427928144, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
+  m_PrefabInstance: {fileID: 6293736190487086551}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1607651918
 GameObject:
   m_ObjectHideFlags: 0
@@ -67890,6 +67961,79 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!1001 &6293736190487086551
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4417164389059243667, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
+      propertyPath: knockBackCooldown
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4937726223967561824, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
+      propertyPath: m_Name
+      value: StoneGolem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750396861161140954, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.34698
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750396861161140954, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.50049
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750396861161140954, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.6822
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750396861161140954, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750396861161140954, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750396861161140954, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750396861161140954, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750396861161140954, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750396861161140954, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750396861161140954, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5796148276330868407, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
+      propertyPath: actionsDetails.Array.data[0].hitboxes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5796148276330868407, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
+      propertyPath: actionsDetails.Array.data[2].hitboxes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5796148276330868407, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
+      propertyPath: 'actionsDetails.Array.data[2].hitboxes.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1605992200}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
 --- !u!4 &6358085502442792371
 Transform:
   m_ObjectHideFlags: 0
@@ -68064,5 +68208,6 @@ SceneRoots:
   - {fileID: 793424672}
   - {fileID: 1551173537}
   - {fileID: 991247347}
-  - {fileID: 1996162912}
   - {fileID: 740730343}
+  - {fileID: 1996162912}
+  - {fileID: 6293736190487086551}
