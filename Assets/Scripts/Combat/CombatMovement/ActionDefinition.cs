@@ -18,6 +18,7 @@ namespace Alpha.Combat
         [Range(0f, 1f)] public float comboWindow = 0.4f; //de la ce procent din animatie accepta nextAction
         [Range(0f, 1f)] public float activeStart = 0f;
         [Range(0f, 1f)] public float activeEnd = 1f;
+        [Range(0f,100f)] public float damage = 0f;
         public bool alwaysActive;
         public bool nonDamaging;
         public bool hasItsOwnMovement; 
@@ -29,11 +30,11 @@ namespace Alpha.Combat
     {
         None = 0, Light = 1, Heavy = 2, Throw = 3, Ability = 4, LightPunch = 5,
         LightPunch2 = 6, LightKick3 = 7,GetHit=8,NonSemiCombat = 9, Charge = 10, Light2 = 11,
-        Recall = 12, Teleport = 13, Block=14, HeavyFall = 15 
+        Recall = 12, Teleport = 13, Block=14, HeavyFall = 15, Death=16
     }
     public enum EnemyActions
     {
-        None = 0, Attack = 1, GetHit=2, Stomp=3, Roll = 4
+        None = 0, Attack = 1, GetHit=2, Stomp=3, Roll = 4, Death=5
     }
     [Serializable]
     public abstract class ActionDefinition<TAction> : CharacterActionDefinition

@@ -981,6 +981,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   golemPrefab: {fileID: 4937726223967561824, guid: b9a3464c94ad8634d967cb6f3258cb41, type: 3}
+  lifeStreamPrefab: {fileID: 4605948338318507875, guid: df57002f588e9264d944412a6c79dd5c, type: 3}
 --- !u!208 &4442118385167168923
 NavMeshObstacle:
   m_ObjectHideFlags: 0

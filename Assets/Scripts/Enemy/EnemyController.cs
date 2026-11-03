@@ -1,6 +1,5 @@
 using Alpha.Combat;
 using Alpha.Enemies;
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -11,15 +10,10 @@ public abstract class EnemyController : MonoBehaviour
 {
     protected Animator animator;
     protected EnemyCombatState enemyCombatState;
-    protected bool isInKnockBack = false;
-    protected EnemyAI aiController;
-    Transform target => aiController.target;
-    [SerializeField] float knockBackDuration;
+    public EnemyAI aiController;
     [SerializeField] Transform rig;
     [SerializeField] ParticleSystem stompVFX;
-    [SerializeField] float knockBackCooldown = 1.5f;
     [SerializeField] Transform stompPoint;
-    float lastTimeKnockBack;
     Vector3 rigRestPosition;
     Quaternion rigRestRotation;
 
@@ -43,42 +37,7 @@ public abstract class EnemyController : MonoBehaviour
         aiController.onTargetInLateralAttack-= HandleTargetInLateralAttack;
         aiController.onCutDistanceToPlayer -= HandleCutDistanceToPlayer;
     }
-
-    private void HandleTargetInAttackRange()
-    {enemyCombatState.TryStart(EnemyActions.Attack);}
-    public virtual void HandleTargetInLateralAttack()
-    {
-        if (enemyCombatState.TryStart(EnemyActions.Stomp))
-            StartCoroutine(PlayStompVFX(EnemyActions.Stomp));
-    }
-    public abstract void HandleCutDistanceToPlayer();
-    
-
-    public void enemyGetHit(CharacterActionDefinition attack)
-    {
-        if (isInKnockBack || Time.time - lastTimeKnockBack < knockBackCooldown) return;
-        enemyCombatState.TryStart(EnemyActions.GetHit);
-        Vector3 knowkBackDirection = -(target.position - transform.position);
-        knowkBackDirection = knowkBackDirection.normalized;
-        Vector3 totalKnokback = knowkBackDirection * attack.knockBackPower;
-        aiController.Aggro();  
-        StartCoroutine(knockBackEnemy(totalKnokback));
-
-    }
-    IEnumerator knockBackEnemy(Vector3 totalKnockback)
-    {
-        lastTimeKnockBack = Time.time;
-        isInKnockBack = true;
-        Vector3 start = transform.position;
-        for (float step = 0; step < 1f; step += Time.deltaTime / knockBackDuration)
-        {
-            Vector3 next = Vector3.Lerp(start, start + totalKnockback, step);
-            aiController.agent.Move(next - transform.position);
-            yield return null;
-        }
-        isInKnockBack = false;
-
-    }
+    private void LateUpdate() => rig.localPosition = rigRestPosition;
 
     private void OnAnimatorMove()
     {
@@ -88,7 +47,16 @@ public abstract class EnemyController : MonoBehaviour
         aiController.agent.Move(transform.rotation * local);
     }
 
-    private void LateUpdate() => rig.localPosition = rigRestPosition;
+    //Actiunile apelate din ENEMY AI -> actiuni still combat;
+    private void HandleTargetInAttackRange()
+    {enemyCombatState.TryStart(EnemyActions.Attack);}
+    public abstract void HandleCutDistanceToPlayer();
+    public virtual void HandleTargetInLateralAttack()
+    {
+        if (enemyCombatState.TryStart(EnemyActions.Stomp))
+            StartCoroutine(PlayStompVFX(EnemyActions.Stomp));
+    }
+
     protected IEnumerator PlayStompVFX(EnemyActions action)
     {
         if (stompVFX == null) yield break;

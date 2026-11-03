@@ -3,16 +3,32 @@ using Alpha.Interfaces;
 
 public class EnemyAtributes : HittableCharacter
 {
+    EnemyCombatState enemyState;
     EnemyController enemyController;
-
     protected override void Awake()
     {
         base.Awake();
         enemies.Add(this);
+        enemyState = GetComponent<EnemyCombatState>();
         enemyController = GetComponent<EnemyController>();
     }
-    protected override void StartHitState(CharacterActionDefinition attack)
+    protected override void EndCharacter()
     {
-        enemyController.enemyGetHit(attack);
+        enemies.Remove(this);
+        enemyState.StartAction(EnemyActions.Death);
+    }
+    protected override void StartHitState()
+    {
+        enemyState.StartAction(EnemyActions.GetHit);
+        var agent = enemyController.aiController.agent;
+        agent.isStopped = true;
+        agent.updatePosition = false;            
+    }
+    protected override void endHitState()
+    {
+        var agent = enemyController.aiController.agent;
+        agent.nextPosition = transform.position; 
+        agent.updatePosition = true;
+        agent.isStopped = false;
     }
 }

@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
-using TMPro;
 
 public class BlockWall : MonoBehaviour
 {
@@ -25,6 +24,7 @@ public class BlockWall : MonoBehaviour
     [SerializeField] float decreasingInterval = 0.001f;
     [SerializeField] LayerMask groundMask;
     [SerializeField] GameObject golemPrefab;
+
    
     GolemStonesSlots golemStonesSlots;
     NavMeshObstacle obst;
@@ -51,7 +51,7 @@ public class BlockWall : MonoBehaviour
     }
 
     void Start()
-    { 
+    {
         StartCoroutine(buildWall());
     }
     public BlockWall instantiateWall(Transform playerTr)
@@ -124,6 +124,7 @@ public class BlockWall : MonoBehaviour
     }
   
     IEnumerator composeGolem() {
+        GolemMeneger.setGolem(golemStonesSlots);
         yield return new WaitForSeconds(timeToComposeGolem);
         for (int i = 0; i < total_pietre; i++)
             pietreDict[pietre[i].name] = pietre[i];
@@ -137,6 +138,7 @@ public class BlockWall : MonoBehaviour
             piatra.GetComponent<Collider>().enabled = false;
 
             StartCoroutine(placeStone(piatra, piatra.position, stone.position, speedOfComposeGolem, stone.rotation));
+            
             yield return new WaitForSeconds(Mathf.Max(timeBetweenStonesCompose, 0.001f));
             timeBetweenStonesCompose -= decreasingInterval;
         }
@@ -147,4 +149,5 @@ public class BlockWall : MonoBehaviour
         Destroy(gameObject);
 
     }
+    
 }

@@ -11,8 +11,13 @@ public class PlayerAtributes : HittableCharacter
         allys.Add(this);
         playerState = GetComponent<PlayerCombatState>();
     }
-    protected override void StartHitState(CharacterActionDefinition attack)
+    protected override void EndCharacter()
+    {
+        playerState.StartAction(PlayerActions.Death);
+    }
+    protected override void StartHitState()
     {
         playerState.StartAction(PlayerActions.GetHit);
     }
+    
 }

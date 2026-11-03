@@ -1,3 +1,4 @@
+using Alpha.Combat;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,10 @@ using UnityEngine;
 public class GolemStonesSlots : MonoBehaviour
 {
     [NonSerialized] public Transform[] stones;
+    EnemyCombatState golemState;
     void Awake()
     {
+        golemState = GetComponent<EnemyCombatState>();
         var list = new List<Transform>();
         foreach (MeshRenderer r in GetComponentsInChildren<MeshRenderer>(true))
             if (r.name.StartsWith("Wall"))
@@ -20,7 +23,11 @@ public class GolemStonesSlots : MonoBehaviour
     {
         this.gameObject.SetActive(true);
     }
+    public void Deactivate()
+    {
+        golemState.StartAction(EnemyActions.Death);
+        Destroy(this.gameObject,3.5f);
+    }
 
-    
-    
+
 }

@@ -11950,9 +11950,6 @@ PrefabInstance:
       addedObject: {fileID: 8625103462699477520}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c457091fc16f26b4580dd1d3aa78ccda, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 225192781566421722}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c457091fc16f26b4580dd1d3aa78ccda, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2648550262614050252}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c457091fc16f26b4580dd1d3aa78ccda, type: 3}
       insertIndex: -1
@@ -11960,6 +11957,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c457091fc16f26b4580dd1d3aa78ccda, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5004023254157078364}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c457091fc16f26b4580dd1d3aa78ccda, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1963491521993438125}
   m_SourcePrefab: {fileID: 100100000, guid: c457091fc16f26b4580dd1d3aa78ccda, type: 3}
 --- !u!1 &309245701529001033 stripped
 GameObject:
@@ -12039,6 +12039,7 @@ MonoBehaviour:
     comboWindow: 0.4
     activeStart: 0
     activeEnd: 0
+    damage: 0
     alwaysActive: 0
     nonDamaging: 0
     hasItsOwnMovement: 0
@@ -12055,6 +12056,7 @@ MonoBehaviour:
     comboWindow: 0.4
     activeStart: 0.2
     activeEnd: 0.945
+    damage: 5
     alwaysActive: 0
     nonDamaging: 0
     hasItsOwnMovement: 0
@@ -12072,10 +12074,28 @@ MonoBehaviour:
     comboWindow: 0.4
     activeStart: 0
     activeEnd: 1
+    damage: 0
     alwaysActive: 1
     nonDamaging: 1
     hasItsOwnMovement: 0
     action: 0
+    nextAction: 0
+    hitboxes: []
+  - name: Death
+    trigger: Death
+    layer: 0
+    mode: 2
+    coolDownTime: 0
+    knockBackPower: 0
+    hitboxScaleofWeapon: {x: 0, y: 0, z: 0}
+    comboWindow: 0.4
+    activeStart: 0
+    activeEnd: 1
+    damage: 0
+    alwaysActive: 1
+    nonDamaging: 1
+    hasItsOwnMovement: 0
+    action: 5
     nextAction: 0
     hitboxes: []
   animator: {fileID: 6476551385062988937}
@@ -12093,7 +12113,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -12125,6 +12145,7 @@ MonoBehaviour:
   distanceFromHome: 30
   attackRange: 2.65
   attackAngle: 70
+  timeToAskForTarget: 0.2
   runSpeed: 3
   walkSpeed: 0.53
   turnSpeed: 90
@@ -12137,19 +12158,6 @@ MonoBehaviour:
   hitMask:
     serializedVersion: 2
     m_Bits: 128
---- !u!114 &225192781566421722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 309245701529001033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98c2a81aea52af34e9a0b6579b0c8f16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAtributes
-  knockBackDuration: 0.5
 --- !u!114 &2648550262614050252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12162,11 +12170,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f20c1e23fb70b41a63be61a11e3b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShackleController
-  knockBackDuration: 0.5
+  aiController: {fileID: 0}
   rig: {fileID: 8485642500364942080}
   stompVFX: {fileID: 0}
-  stompImpactTime: 0.8
-  knockBackCooldown: 0.5
+  stompPoint: {fileID: 0}
 --- !u!114 &7430552216908173468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12182,6 +12189,8 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 384
+  hitbox: {fileID: 3381141813630055789}
+  hitParticlesPrefab: {fileID: 5945104609832717647, guid: c8b956f526c39a2499064f45eda98336, type: 3}
 --- !u!114 &5004023254157078364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12200,6 +12209,24 @@ MonoBehaviour:
   triggerColor: {r: 1, g: 0.2, b: 0.2, a: 0.35}
   solidColor: {r: 0.2, g: 0.6, b: 1, a: 0.3}
   disabledColor: {r: 0.6, g: 0.6, b: 0.6, a: 0.12}
+--- !u!114 &1963491521993438125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309245701529001033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c52f0c4022d4654fbc3cf19df67d396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAtributes
+  healthLight: {fileID: 6933861753348497528}
+  deathSmoke: {fileID: 5090510033141092306, guid: 3f0d972df7e917d4bb6d6ea6af11f09e, type: 3}
+  knockBackDuration: 0.5
+  knockBackCooldown: 0.48
+  armor: 1
+  Max_Health: 100
 --- !u!4 &3331009870839646845 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2788255206411430757, guid: c457091fc16f26b4580dd1d3aa78ccda, type: 3}

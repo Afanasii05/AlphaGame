@@ -28,6 +28,7 @@ namespace Alpha.Enemies
         [SerializeField] float distanceFromHome= 30f;
         [SerializeField] float attackRange = 2.65f;   //aici se opreste si anunta controllerul
         [SerializeField] float attackAngle = 70;
+        [SerializeField] float timeToAskForTarget = 0.2f;
 
         //Miscare
         [SerializeField] float runSpeed = 3f;
@@ -36,6 +37,7 @@ namespace Alpha.Enemies
         private static readonly int SpeedHash = Animator.StringToHash("Speed");
         private float sqrDistToPlayer;
         private float getCloserTimer;
+        private float lastTimeAskedForTarget;
         private float lastTimePatrulate;
         EnemyCombatState enemyCombatState;
 
@@ -51,6 +53,7 @@ namespace Alpha.Enemies
         [SerializeField] float randomDistanceFromHome = 5f;
         [SerializeField] float timeBetweenPatrulate = 10f;
         [SerializeField] LayerMask hitMask;
+        
         void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -69,6 +72,7 @@ namespace Alpha.Enemies
                 return;
             }
             sqrDistToPlayer = (target.position - transform.position).sqrMagnitude;
+
             if (enemyCombatState.IsBusy)
                 agent.isStopped = true;   //cat ruleaza o actiune nu ma misc
             else
@@ -95,8 +99,10 @@ namespace Alpha.Enemies
         }
         private void patrulate()
         {
-            if(Time.time - lastTimePatrulate < timeBetweenPatrulate) return;
+            if(Time.time - lastTimePatrulate - UnityEngine.Random.value * timeBetweenPatrulate < timeBetweenPatrulate) return;
             Vector3 randomPoint = homePosition + UnityEngine.Random.insideUnitSphere * randomDistanceFromHome;
+            agent.isStopped = false;
+            agent.speed = walkSpeed;
             agent.SetDestination(randomPoint);
             lastTimePatrulate = Time.time;
         }
@@ -110,6 +116,7 @@ namespace Alpha.Enemies
                 {
                     agent.isStopped = false;
                     agent.SetDestination(target.position);
+                    agent.speed = runSpeed;
                     getCloserTimer = Time.time;
                 }
                 if (canCutDistanceTwardsPlayer())
@@ -171,7 +178,9 @@ namespace Alpha.Enemies
 
         private void updateTarget()
         {
-            if(Ally)
+            if(Time.time - lastTimeAskedForTarget < timeToAskForTarget) return;
+            lastTimeAskedForTarget = Time.time;
+            if (Ally)
                 target = HittableCharacter.Closest(HittableCharacter.enemies, transform.position)?.transform;
             else
                 target = HittableCharacter.Closest(HittableCharacter.allys, transform.position)?.transform;
