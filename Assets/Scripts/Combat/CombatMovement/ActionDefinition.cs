@@ -34,7 +34,7 @@ namespace Alpha.Combat
     }
     public enum EnemyActions
     {
-        None = 0, Attack = 1, GetHit=2, Stomp=3, Roll = 4, Death=5
+        None = 0, Attack = 1, GetHit=2, Stomp=3, Roll = 4, Death=5, Special=6
     }
     [Serializable]
     public abstract class ActionDefinition<TAction> : CharacterActionDefinition

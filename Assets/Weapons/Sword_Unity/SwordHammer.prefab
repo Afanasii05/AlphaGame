@@ -2858,12 +2858,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
-  mirageSwordPrefab: {fileID: 5992397280399650864, guid: c630e664c76fac94fa4fb786d1ac157f, type: 3}
-  numberOfMirageSwords: 10
-  distanceFromImpactPoint: 5
-  swordsIntoGround: 0.75
-  swordsOutFromGround: -2
-  timeForMirageSwordsToStay: 2
+  mirageAttack: {fileID: -8536605522520918886, guid: c630e664c76fac94fa4fb786d1ac157f, type: 3}
 --- !u!114 &4148516941262547588
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7053,6 +7053,7 @@ GameObject:
   - component: {fileID: 5992397280399650864}
   - component: {fileID: 3255270079616590247}
   - component: {fileID: -8519372171871682644}
+  - component: {fileID: -8536605522520918886}
   m_Layer: 0
   m_Name: HeavyHitAnimationSword
   m_TagString: Untagged
@@ -7131,6 +7132,27 @@ MonoBehaviour:
     m_Bits: 128
   hitParticlesPrefab: {fileID: 5945104609832717647, guid: c8b956f526c39a2499064f45eda98336, type: 3}
   hitbox: {fileID: 3255270079616590247}
+--- !u!114 &-8536605522520918886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7751286249549929525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02279bbc8f952c44091f8b37c561c95a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MirageAttack
+  mirageSwordPrefab: {fileID: 5992397280399650864}
+  numberOfMirageSwords: 10
+  distanceFromImpactPoint: 5
+  swordsIntoGround: 0.75
+  swordsOutFromGround: -2
+  timeForMirageSwordsToStay: 2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &7760489972357989905
 GameObject:
   m_ObjectHideFlags: 0

@@ -9612,15 +9612,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 11d74315f16d5db48a20a7488899c375, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5000
+      value: 8.197983
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 11d74315f16d5db48a20a7488899c375, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.530002
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 11d74315f16d5db48a20a7488899c375, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5010
+      value: -10.010091
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 11d74315f16d5db48a20a7488899c375, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10441,6 +10441,23 @@ MonoBehaviour:
     action: 5
     nextAction: 0
     hitboxes: []
+  - name: Special
+    trigger: Special
+    layer: 0
+    mode: 2
+    coolDownTime: 4
+    knockBackPower: 5
+    hitboxScaleofWeapon: {x: 2, y: 2, z: 2}
+    comboWindow: 0
+    activeStart: 0.561
+    activeEnd: 0.908
+    damage: 0
+    alwaysActive: 0
+    nonDamaging: 0
+    hasItsOwnMovement: 0
+    action: 6
+    nextAction: 0
+    hitboxes: []
   animator: {fileID: 900254249417427866}
 --- !u!114 &2946276028494369186
 MonoBehaviour:
@@ -10495,6 +10512,8 @@ MonoBehaviour:
   rig: {fileID: 4160939497895330159}
   stompVFX: {fileID: 8458053550053554419, guid: a58d33bb681f016419083605f977ffef, type: 3}
   stompPoint: {fileID: 1791159814900595821}
+  mirageAttack: {fileID: -3324782091503726392, guid: 937a36a33800bf3408b9236d1eb7bf19, type: 3}
+  impactPoint: {fileID: 1791159814900595821}
 --- !u!114 &6422687907524188376
 MonoBehaviour:
   m_ObjectHideFlags: 0

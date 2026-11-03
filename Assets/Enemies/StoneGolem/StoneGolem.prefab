@@ -10525,6 +10525,23 @@ MonoBehaviour:
     action: 5
     nextAction: 0
     hitboxes: []
+  - name: Special
+    trigger: Special
+    layer: 0
+    mode: 2
+    coolDownTime: 5
+    knockBackPower: 5
+    hitboxScaleofWeapon: {x: 2, y: 2, z: 2}
+    comboWindow: 0
+    activeStart: 0.534
+    activeEnd: 0.969
+    damage: 50
+    alwaysActive: 0
+    nonDamaging: 0
+    hasItsOwnMovement: 0
+    action: 6
+    nextAction: 0
+    hitboxes: []
   animator: {fileID: 1814299390894549152}
 --- !u!114 &2363581574967836971
 MonoBehaviour:
@@ -10579,6 +10596,8 @@ MonoBehaviour:
   rig: {fileID: 3496911026708089858}
   stompVFX: {fileID: 8458053550053554419, guid: a58d33bb681f016419083605f977ffef, type: 3}
   stompPoint: {fileID: 975184944134315863}
+  mirageAttack: {fileID: -3324782091503726392, guid: 937a36a33800bf3408b9236d1eb7bf19, type: 3}
+  impactPoint: {fileID: 975184944134315863}
 --- !u!114 &831795359925539311
 MonoBehaviour:
   m_ObjectHideFlags: 0
