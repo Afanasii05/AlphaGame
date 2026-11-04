@@ -12116,6 +12116,23 @@ MonoBehaviour:
     nextAction: 0
     hitboxes:
     - {fileID: 3381141813630055789}
+  - name: Special
+    trigger: Ability
+    layer: 0
+    mode: 0
+    coolDownTime: 4
+    knockBackPower: 0
+    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
+    comboWindow: 0.4
+    activeStart: 0
+    activeEnd: 1
+    damage: 0
+    alwaysActive: 0
+    nonDamaging: 1
+    hasItsOwnMovement: 1
+    action: 6
+    nextAction: 0
+    hitboxes: []
   animator: {fileID: 6476551385062988937}
 --- !u!195 &5485472262029634160
 NavMeshAgent:
@@ -12167,15 +12184,10 @@ MonoBehaviour:
   runSpeed: 3
   walkSpeed: 0.53
   turnSpeed: 90
-  castRadius: 0.6
-  castDistance: 5
   minRollDistance: 3
   maxRollDistance: 10
   randomDistanceFromHome: 10
   timeBetweenPatrulate: 5
-  hitMask:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!114 &2648550262614050252
 MonoBehaviour:
   m_ObjectHideFlags: 0
