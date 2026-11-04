@@ -46,13 +46,11 @@ namespace Alpha.Enemies
         public event Action onTargetInLateralAttack; //Daca nu e in fata,dau stomp
         public event Action onCutDistanceToPlayer;
         //Pentru roll sau scurtre de distanta
-        [SerializeField] float castRadius = 0.6f;
-        [SerializeField] float castDistance = 5f;
         [SerializeField] float minRollDistance = 3f;
         [SerializeField] float maxRollDistance = 10f;
+        const float rollCheckDistance = 2.5f; //cat verific in fata pe NavMesh inainte de roll
         [SerializeField] float randomDistanceFromHome = 5f;
         [SerializeField] float timeBetweenPatrulate = 10f;
-        [SerializeField] LayerMask hitMask;
         
         void Awake()
         {
@@ -140,8 +138,8 @@ namespace Alpha.Enemies
         {
             float distFromTarget = Vector3.Distance(transform.position, target.position);
             if (distFromTarget <= minRollDistance || distFromTarget >= maxRollDistance || FaceTarget() >= attackAngle) return false;
-            Vector3 originalPos = transform.position + Vector3.up * 0.5f;
-            return !(Physics.SphereCast(originalPos, castRadius, transform.forward, out _, castDistance, hitMask, QueryTriggerInteraction.Ignore));
+            //true daca NavMesh-ul e liber in fata pe rollCheckDistance (fara margini/pereti)
+            return !NavMesh.Raycast(transform.position, transform.position + transform.forward * rollCheckDistance, out _, NavMesh.AllAreas);
                
         }
         private bool canChase()
