@@ -3,6 +3,7 @@ using UnityEngine;
 namespace Alpha.Combat
 {
 
+    [DefaultExecutionOrder(-50)] // calculez actiunea curenta inaintea celorlalte scripturi
     public class PlayerCombatState : CharacterCombatState <PlayerActions, PlayerActionDefinition>
     {
         WeaponSocket socket;
@@ -36,7 +37,7 @@ namespace Alpha.Combat
             
         }
 
-        public bool hasOwnMovement() => combatDef[CurrentAction()].hasItsOwnMovement;
-        public bool allowsJump() => combatDef[CurrentAction()].allowsJump;
+        public bool hasOwnMovement() => combatDef[currentAction].hasItsOwnMovement;
+        public bool allowsJump() => combatDef[currentAction].allowsJump;
     }
 }

@@ -32,7 +32,7 @@ namespace Alpha.Combat
             Destroy(gather);
 
             
-            if (combatState.CurrentAction() != PlayerActions.Charge)
+            if (combatState.currentAction != PlayerActions.Charge)
                 yield break;
 
          

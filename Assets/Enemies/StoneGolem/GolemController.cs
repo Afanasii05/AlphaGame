@@ -15,7 +15,7 @@ public class GolemController : EnemyController
     IEnumerator waitForMirage()
     {
         while (!enemyCombatState.inActiveWindow()) yield return null;
-        if (enemyCombatState.CurrentAction() != EnemyActions.Special) yield break;
+        if (enemyCombatState.currentAction != EnemyActions.Special) yield break;
         mirageAttack.mirageFromGround(impactPoint);
     }
 }

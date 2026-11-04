@@ -23,7 +23,7 @@ namespace Alpha.Combat {
         private void OnTriggerEnter(Collider other) //Orice colider cu Trigger pe care se afla scriptul.
         {
             if (playerState == null || (playerLayer.value & (1 << other.gameObject.layer)) != 0) return;
-            PlayerActions currentAction = playerState.CurrentAction();
+            PlayerActions currentAction = playerState.currentAction;
             if (currentAction == PlayerActions.None || currentAction == PlayerActions.NonSemiCombat || currentAction == PlayerActions.Block) return;
             if (SupportsClosestPoint(other)) // Daca coliderul suporta closest point, atunci instantiem particulele de hit.
             {

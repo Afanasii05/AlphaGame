@@ -13,7 +13,7 @@ public class EnemyHitPlayer : MonoBehaviour
     {
         if (enemyState == null) return;
         if ((enemyLayer.value & (1 << other.gameObject.layer)) == 0) return;
-        EnemyActions currentAction = enemyState.CurrentAction();
+        EnemyActions currentAction = enemyState.currentAction;
         if (currentAction == EnemyActions.None ) return;
         if (SupportsClosestPoint(other)) 
         {

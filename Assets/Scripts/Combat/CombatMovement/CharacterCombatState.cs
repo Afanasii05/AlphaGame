@@ -54,11 +54,8 @@ public abstract class CharacterCombatState<TAction , TDef>: MonoBehaviour
         return default;
     }
 
-    public TAction CurrentAction()
-    {
-        if (!IsNone(pending)) return pending;
-        return ActualStateInAnimation();
-    }
+    // Actiunea curenta, calculata o singura data pe frame in Update (si imediat in StartAction)
+    public TAction currentAction { get; private set; }
 
     public bool CanStart(TAction action)
     {
@@ -66,7 +63,7 @@ public abstract class CharacterCombatState<TAction , TDef>: MonoBehaviour
             return false;
         if(!OtherVerifications(combatDef[action]))
             return false;
-        TAction current = CurrentAction();
+        TAction current = currentAction;
         if (IsNone(current) || (Same(ValidNext(), action) && CanContinueCombo())) return true;
         return CanInterrupt(current, combatDef[action]);
         
@@ -85,6 +82,7 @@ public abstract class CharacterCombatState<TAction , TDef>: MonoBehaviour
     public void StartAction(TAction action)
     {
         pending = action;
+        currentAction = action; // vizibila imediat, nu abia din frame-ul urmator
         pendingSince = Time.time;
         lastTimePlayed[action] = pendingSince;
         if (!string.IsNullOrEmpty(combatDef[action].trigger))
@@ -105,8 +103,8 @@ public abstract class CharacterCombatState<TAction , TDef>: MonoBehaviour
         float t = s.normalizedTime;
         return t >= def.activeStart && t <= def.activeEnd;
     }
-    public bool inPlaceAction() { return combatDef[CurrentAction()].mode == MoveMode.InPlace; }
-    public bool inSlowDownAction() { return combatDef[CurrentAction()].mode == MoveMode.SlowDown; }
+    public bool inPlaceAction() { return combatDef[currentAction].mode == MoveMode.InPlace; }
+    public bool inSlowDownAction() { return combatDef[currentAction].mode == MoveMode.SlowDown; }
 
     protected virtual bool CanStartExtra(TDef def) => true;
     protected virtual bool CanContinueCombo() => true;
@@ -162,9 +160,10 @@ public abstract class CharacterCombatState<TAction , TDef>: MonoBehaviour
     protected void Update()
     {
 
-        if (IsNone(pending)) return;
-        if (Same(ActualStateInAnimation(), pending) || Time.time - pendingSince >= 0.3f)
+        TAction actual = ActualStateInAnimation();
+        if (!IsNone(pending) && (Same(actual, pending) || Time.time - pendingSince >= 0.3f))
             pending = default;
+        currentAction = IsNone(pending) ? actual : pending;
 
     }
 }

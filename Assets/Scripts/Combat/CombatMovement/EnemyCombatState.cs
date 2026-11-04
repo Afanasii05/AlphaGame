@@ -2,9 +2,10 @@ using Alpha.Combat;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+[DefaultExecutionOrder(-50)] // calculez actiunea curenta inaintea celorlalte scripturi
 public class EnemyCombatState : CharacterCombatState<EnemyActions, EnemyActionDefinition>
 {
-    public bool IsBusy => !IsNone(CurrentAction());
+    public bool IsBusy => !IsNone(currentAction);
     Dictionary<Collider, Vector3> colidersOriginalSize = new();
     EnemyActionDefinition hitboxDef;
     Coroutine hitboxRoutine;
@@ -32,7 +33,7 @@ public class EnemyCombatState : CharacterCombatState<EnemyActions, EnemyActionDe
     {
         while (!inWindow(def))
         {
-            if (!Same(CurrentAction(), def.action)) yield break;
+            if (!Same(currentAction, def.action)) yield break;
             yield return null;
         }
         setHitboxes(def, true);

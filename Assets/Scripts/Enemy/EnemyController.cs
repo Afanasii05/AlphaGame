@@ -41,7 +41,7 @@ public abstract class EnemyController : MonoBehaviour
 
     private void OnAnimatorMove()
     {
-        EnemyActions action = enemyCombatState.CurrentAction();
+        EnemyActions action = enemyCombatState.currentAction;
         if (action == EnemyActions.None || !enemyCombatState.combatDef[action].hasItsOwnMovement) return;
         Vector3 local = rigRestRotation * (Quaternion.Inverse(transform.rotation) * animator.deltaPosition);
         aiController.agent.Move(transform.rotation * local);
@@ -62,7 +62,7 @@ public abstract class EnemyController : MonoBehaviour
         if (stompVFX == null) yield break;
         while (!enemyCombatState.inActiveWindow())
         {
-            if (enemyCombatState.CurrentAction() != action) yield break;
+            if (enemyCombatState.currentAction != action) yield break;
             yield return null;
         }
         ParticleSystem fx = Instantiate(stompVFX, stompPoint.position, transform.rotation);

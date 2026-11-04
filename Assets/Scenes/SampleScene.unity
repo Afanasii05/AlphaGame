@@ -17861,7 +17861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveSpeed: 5
-  sprintMultiplier: 2.5
+  sprintMultiplier: 1.7
   crouchMultiplier: 0.2
   jumpForce: 13
   gravityMultiplier: 2

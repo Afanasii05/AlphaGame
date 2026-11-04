@@ -34,7 +34,7 @@ public class HeavyImpactDetection : MonoBehaviour
 
     void LateUpdate()
     {
-        if (wp.playerState == null || (wp.playerState.CurrentAction() != expected))
+        if (wp.playerState == null || (wp.playerState.currentAction != expected))
         {
             enabled = false;               
             return;
