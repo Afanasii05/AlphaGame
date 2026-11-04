@@ -12098,6 +12098,24 @@ MonoBehaviour:
     action: 5
     nextAction: 0
     hitboxes: []
+  - name: Spin
+    trigger: Spin
+    layer: 0
+    mode: 1
+    coolDownTime: 4
+    knockBackPower: 2
+    hitboxScaleofWeapon: {x: 1.2, y: 0, z: 1.3}
+    comboWindow: 0.4
+    activeStart: 0.189
+    activeEnd: 0.867
+    damage: 13
+    alwaysActive: 0
+    nonDamaging: 0
+    hasItsOwnMovement: 0
+    action: 8
+    nextAction: 0
+    hitboxes:
+    - {fileID: 3381141813630055789}
   animator: {fileID: 6476551385062988937}
 --- !u!195 &5485472262029634160
 NavMeshAgent:
