@@ -27,7 +27,7 @@ namespace Alpha.Combat
         //Momentan doar scalez hitboxurile pe arma
         protected override void OnActionStarted(PlayerActionDefinition def)
         {
-            intreruptContinuousStates();
+            intreruptContinuousStates(); //intrerupe starile care sunt activate prin bool dar nu ies singure, cum ar fi block.
             if (socket.HasWeapon)
             {
                 Weapon weapon = socket.CurrentWeapon;

@@ -1,7 +1,6 @@
 using Alpha.Combat;
 using System;
 using System.Collections.Generic;
-using Unity.AppUI.Redux;
 using UnityEngine;
 
 public abstract class CharacterCombatState<TAction , TDef>: MonoBehaviour
