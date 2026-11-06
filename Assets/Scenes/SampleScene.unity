@@ -17971,7 +17971,7 @@ MonoBehaviour:
     layer: 1
     mode: 1
     coolDownTime: 0
-    knockBackPower: 1.2
+    knockBackPower: 0.8
     hitboxScaleofWeapon: {x: 1.2, y: 1.1, z: 1.2}
     comboWindow: 0.4
     activeStart: 0.25
@@ -17990,7 +17990,7 @@ MonoBehaviour:
     layer: 1
     mode: 1
     coolDownTime: 0
-    knockBackPower: 1.5
+    knockBackPower: 1.4
     hitboxScaleofWeapon: {x: 1.2, y: 1.1, z: 1.2}
     comboWindow: 0.4
     activeStart: 0.2
@@ -18028,7 +18028,7 @@ MonoBehaviour:
     layer: 0
     mode: 1
     coolDownTime: 0
-    knockBackPower: 1.1
+    knockBackPower: 1
     hitboxScaleofWeapon: {x: 3, y: 1.2, z: 1.2}
     comboWindow: 0.4
     activeStart: 0.05
@@ -18047,7 +18047,7 @@ MonoBehaviour:
     layer: 1
     mode: 1
     coolDownTime: 0
-    knockBackPower: 3
+    knockBackPower: 2.5
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
     activeStart: 0.448
@@ -18085,7 +18085,7 @@ MonoBehaviour:
     layer: 0
     mode: 2
     coolDownTime: 10
-    knockBackPower: 5
+    knockBackPower: 4
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
     activeStart: 0.254
@@ -18256,7 +18256,7 @@ MonoBehaviour:
     layer: 0
     mode: 2
     coolDownTime: 4
-    knockBackPower: 5
+    knockBackPower: 4.5
     hitboxScaleofWeapon: {x: 1.5, y: 3, z: 2}
     comboWindow: 0.4
     activeStart: 0
@@ -18365,10 +18365,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAtributes
   healthLight: {fileID: 0}
   deathSmoke: {fileID: 0}
-  knockBackDuration: 0.5
-  knockBackCooldown: 1
+  knockBackDuration: 0.3
+  knockBackCooldown: 0.6
   armor: 10
   Max_Health: 10000
+  knockBackProtection: 1
 --- !u!114 &579590982
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@ namespace Alpha.Interfaces
         [SerializeField] float knockBackCooldown = 1f;
         [SerializeField] float armor = 1.0f;
         [SerializeField] float Max_Health = 100f;
+        [SerializeField] float knockBackProtection = 1.0f;
         float currentHealth;
         protected float lastKnockBackTime;
         protected bool isInKnockBack;
@@ -67,7 +68,7 @@ namespace Alpha.Interfaces
             Vector3 knowkBackDirection = -(attacker.transform.position - transform.position);
             knowkBackDirection.y = 0f;
             knowkBackDirection = knowkBackDirection.normalized;
-            Vector3 totalKnokback = knowkBackDirection * attack.knockBackPower;
+            Vector3 totalKnokback = knowkBackDirection * attack.knockBackPower / knockBackProtection;
             handleKnockbackLogic(totalKnokback);
         }
         protected abstract void StartHitState();

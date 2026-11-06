@@ -773,7 +773,7 @@ MonoBehaviour:
     layer: 0
     mode: 2
     coolDownTime: 1
-    knockBackPower: 2
+    knockBackPower: 1.5
     hitboxScaleofWeapon: {x: 1.2, y: 1.2, z: 1.2}
     comboWindow: 0.4
     activeStart: 0
@@ -791,7 +791,7 @@ MonoBehaviour:
     layer: 0
     mode: 2
     coolDownTime: 5
-    knockBackPower: 2
+    knockBackPower: 2.5
     hitboxScaleofWeapon: {x: 1.8, y: 1.2, z: 1.8}
     comboWindow: 0.4
     activeStart: 0.75
@@ -908,11 +908,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAtributes
   healthLight: {fileID: 541911401547167811}
   deathSmoke: {fileID: 5090510033141092306, guid: 3f0d972df7e917d4bb6d6ea6af11f09e, type: 3}
-  knockBackDuration: 0.5
-  knockBackCooldown: 0.65
+  knockBackDuration: 0.3
+  knockBackCooldown: 0.4
   armor: 1
   Max_Health: 100
-  delayForRecover: 0.3
+  knockBackProtection: 1.6
+  delayForRecover: 0.25
   isRecovering: 0
 --- !u!4 &6675694295656980032 stripped
 Transform:
