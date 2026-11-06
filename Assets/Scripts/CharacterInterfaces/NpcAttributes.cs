@@ -45,7 +45,9 @@ namespace Alpha.Interfaces
             Vector3 moved = Vector3.zero;
             for (float t = 0f; t < knockBackDuration; t += Time.deltaTime)
             {
-                Vector3 shouldBe = totalKnockback * (t / knockBackDuration);
+                float k = t / knockBackDuration;
+                k = 1f - (1f - k) * (1f - k);
+                Vector3 shouldBe = totalKnockback * k;
                 agent.Move(shouldBe - moved);
                 moved = shouldBe;
                 yield return null;

@@ -912,7 +912,7 @@ MonoBehaviour:
   knockBackCooldown: 0.4
   armor: 1
   Max_Health: 100
-  knockBackProtection: 1.6
+  knockBackProtection: 1.2
   delayForRecover: 0.25
   isRecovering: 0
 --- !u!4 &6675694295656980032 stripped
