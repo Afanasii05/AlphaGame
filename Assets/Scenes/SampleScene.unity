@@ -18220,10 +18220,10 @@ MonoBehaviour:
     knockBackPower: 0
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
-    activeStart: 0
+    activeStart: 1
     activeEnd: 1
     damage: 0
-    alwaysActive: 1
+    alwaysActive: 0
     nonDamaging: 1
     hasItsOwnMovement: 0
     action: 8

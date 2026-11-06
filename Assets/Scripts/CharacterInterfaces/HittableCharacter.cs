@@ -50,7 +50,7 @@ namespace Alpha.Interfaces
 
         public virtual void HandleGotHit(CharacterActionDefinition attack, HittableCharacter attacker)
         {
-            if (isInKnockBack || Time.time - lastKnockBackTime < knockBackCooldown) return;
+            
             if (attacker == null || rb == null) return;
             
             currentHealth -= attack.damage / armor;
@@ -61,14 +61,15 @@ namespace Alpha.Interfaces
                 return;
             }
             StartHitState();
+            StartCoroutine(colorPulse());
+
+            if (isInKnockBack || Time.time - lastKnockBackTime < knockBackCooldown) return;
             Vector3 knowkBackDirection = -(attacker.transform.position - transform.position);
             knowkBackDirection.y = 0f;
             knowkBackDirection = knowkBackDirection.normalized;
             Vector3 totalKnokback = knowkBackDirection * attack.knockBackPower;
-            StartCoroutine(colorPulse());
             StartCoroutine(handleKnockBack(totalKnokback));
         }
-
         protected abstract void StartHitState();
         protected virtual void endHitState() {}
         protected abstract void EndCharacter();
