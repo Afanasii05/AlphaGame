@@ -12104,7 +12104,7 @@ MonoBehaviour:
     mode: 1
     coolDownTime: 4
     knockBackPower: 2
-    hitboxScaleofWeapon: {x: 1.2, y: 0, z: 1.3}
+    hitboxScaleofWeapon: {x: 1.2, y: 1.1, z: 1.3}
     comboWindow: 0.4
     activeStart: 0.189
     activeEnd: 0.867
@@ -12121,18 +12121,19 @@ MonoBehaviour:
     layer: 0
     mode: 0
     coolDownTime: 4
-    knockBackPower: 0
+    knockBackPower: 2
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
-    activeStart: 0
-    activeEnd: 1
-    damage: 0
+    activeStart: 0.051
+    activeEnd: 0.974
+    damage: 16.8
     alwaysActive: 0
-    nonDamaging: 1
+    nonDamaging: 0
     hasItsOwnMovement: 1
     action: 6
     nextAction: 0
-    hitboxes: []
+    hitboxes:
+    - {fileID: 3381141813630055789}
   animator: {fileID: 6476551385062988937}
 --- !u!195 &5485472262029634160
 NavMeshAgent:
@@ -12179,7 +12180,7 @@ MonoBehaviour:
   loseDistance: 15
   distanceFromHome: 30
   attackRange: 2.65
-  attackAngle: 70
+  attackAngle: 15
   timeToAskForTarget: 0.2
   runSpeed: 3
   walkSpeed: 0.53

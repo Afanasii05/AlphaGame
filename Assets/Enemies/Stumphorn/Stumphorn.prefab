@@ -384,15 +384,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b6797c09dc282241b5aa27106ee4114, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.7759886
+      value: 45.73
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b6797c09dc282241b5aa27106ee4114, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.50048757
+      value: 11.12
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b6797c09dc282241b5aa27106ee4114, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12.960919
+      value: -29.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b6797c09dc282241b5aa27106ee4114, type: 3}
       propertyPath: m_LocalRotation.w
@@ -648,15 +648,10 @@ MonoBehaviour:
   runSpeed: 2.4
   walkSpeed: 0.53
   turnSpeed: 90
-  castRadius: 0.6
-  castDistance: 5
   minRollDistance: 5
   maxRollDistance: 10
-  randomDistanceFromHome: 5
-  timeBetweenPatrulate: 10
-  hitMask:
-    serializedVersion: 2
-    m_Bits: 8
+  randomDistanceFromHome: 10
+  timeBetweenPatrulate: 5
 --- !u!114 &6798458359114013405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -799,8 +794,8 @@ MonoBehaviour:
     knockBackPower: 2
     hitboxScaleofWeapon: {x: 1.8, y: 1.2, z: 1.8}
     comboWindow: 0.4
-    activeStart: 0.78
-    activeEnd: 0.91
+    activeStart: 0.75
+    activeEnd: 0.93
     damage: 25
     alwaysActive: 0
     nonDamaging: 0
@@ -818,7 +813,7 @@ MonoBehaviour:
     knockBackPower: 3
     hitboxScaleofWeapon: {x: 1.1, y: 1, z: 1.1}
     comboWindow: 0.4
-    activeStart: 0.85
+    activeStart: 0.75
     activeEnd: 0.95
     damage: 35
     alwaysActive: 0

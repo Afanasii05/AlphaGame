@@ -37,9 +37,10 @@ public class EnemyCombatState : CharacterCombatState<EnemyActions, EnemyActionDe
             yield return null;
         }
         setHitboxes(def, true);
-        while (!inActiveWindow()) yield return null;
-        setHitboxes(def, false);   //daca nu a fost intrerupta la final coliderele revin la normal
+        while (Same(currentAction, def.action) && inActiveWindow()) yield return null;
+        setHitboxes(def, false);
     }
+
     void setHitboxes(EnemyActionDefinition def, bool state)
     {
         foreach (Collider col in def.hitboxes)
