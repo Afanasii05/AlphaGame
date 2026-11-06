@@ -25,6 +25,7 @@ namespace Alpha.Interfaces
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void ResetLists() { allys.Clear(); enemies.Clear(); }
 
+        Color HealthColor() => Color.Lerp(Color.red, fullColor, Mathf.InverseLerp(0f, 0.6f, currentHealth / Max_Health));
         protected virtual void Awake()
         {
             rb = GetComponent<Rigidbody>();
@@ -73,22 +74,21 @@ namespace Alpha.Interfaces
         protected abstract void StartHitState();
         protected virtual void endHitState() {}
         protected abstract void EndCharacter();
-        Color HealthColor()=> Color.Lerp(Color.red, fullColor, Mathf.InverseLerp(0f, 0.6f, currentHealth / Max_Health));   
+          
 
         protected void HandleDeath()
         {
-            EndCharacter();
-            Destroy(gameObject, 3.5f);
+            EndCharacter();                   //Functie handled de clasele derivate
             StartCoroutine(spawnDeathSmoke());
+        }
+        protected void UpdateHealthLight()
+        {
+            if (healthLight != null) healthLight.color = HealthColor();
         }
         IEnumerator spawnDeathSmoke()
         {
             yield return new WaitForSeconds(2.2f);   
             if (deathSmoke) Instantiate(deathSmoke, transform.position + Vector3.up, Quaternion.identity);
-        }
-        protected void UpdateHealthLight()
-        {
-            if (healthLight != null) healthLight.color = HealthColor();
         }
         IEnumerator handleKnockBack(Vector3 totalKnockback)
         {
@@ -105,7 +105,6 @@ namespace Alpha.Interfaces
             isInKnockBack = false;
             endHitState();
         }
-
         IEnumerator colorPulse()
         {
             if (healthLight == null) yield break;

@@ -12,7 +12,7 @@ public class PlayerAtributes : HittableCharacter
         playerState = GetComponent<PlayerCombatState>();
     }
     protected override void EndCharacter()
-    {
+    { 
         playerState.StartAction(PlayerActions.Death);
     }
     protected override void StartHitState()
