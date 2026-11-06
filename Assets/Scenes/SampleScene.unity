@@ -17705,6 +17705,7 @@ GameObject:
   - component: {fileID: 579590978}
   - component: {fileID: 579590980}
   - component: {fileID: 579590981}
+  - component: {fileID: 579590982}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -17971,7 +17972,7 @@ MonoBehaviour:
     mode: 1
     coolDownTime: 0
     knockBackPower: 1.2
-    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
+    hitboxScaleofWeapon: {x: 1.2, y: 1.1, z: 1.2}
     comboWindow: 0.4
     activeStart: 0.25
     activeEnd: 0.8
@@ -17990,7 +17991,7 @@ MonoBehaviour:
     mode: 1
     coolDownTime: 0
     knockBackPower: 1.5
-    hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
+    hitboxScaleofWeapon: {x: 1.2, y: 1.1, z: 1.2}
     comboWindow: 0.4
     activeStart: 0.2
     activeEnd: 0.85
@@ -18368,6 +18369,20 @@ MonoBehaviour:
   knockBackCooldown: 1
   armor: 10
   Max_Health: 10000
+--- !u!114 &579590982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579590964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ece53ed9d8eb64742a33fada19d37742, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatAssist
+  maxDistanceAllowedToAssist: 3
+  angleToAssist: 270
 --- !u!1 &581135265
 GameObject:
   m_ObjectHideFlags: 0
@@ -22252,7 +22267,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5485472262029634160, guid: 09358440e56d2b44fb7ea294065e706f, type: 3}
       propertyPath: m_StoppingDistance
-      value: 1.5
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 5500846331652202538, guid: 09358440e56d2b44fb7ea294065e706f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -22448,7 +22463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8625103462699477520, guid: 09358440e56d2b44fb7ea294065e706f, type: 3}
       propertyPath: attackRange
-      value: 1.5
+      value: 1.85
       objectReference: {fileID: 0}
     - target: {fileID: 8759443346377354904, guid: 09358440e56d2b44fb7ea294065e706f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

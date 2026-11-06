@@ -232,6 +232,7 @@ public class TriggerAttack : MonoBehaviour
     void StartTurn()
     {
         if (turnRoutine != null) StopCoroutine(turnRoutine);
+        if (CombatAssist.inCombatAssist) return;
         turnRoutine = StartCoroutine(TurnToCamera());
     }
 }
