@@ -151,6 +151,16 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""Block"",
+                    ""type"": ""Button"",
+                    ""id"": ""1ba4879a-ae90-4fa5-a17d-b2c5eb7b273f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -274,6 +284,17 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
                     ""action"": ""TogglePerspective"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c0ca0df0-5fb7-4d12-a213-1da2691a0d27"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -325,6 +346,16 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
                     ""name"": ""RightClick"",
                     ""type"": ""Button"",
                     ""id"": ""b6aa6639-9092-4c10-9a0e-f8478778b87c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""Teleport"",
+                    ""type"": ""Button"",
+                    ""id"": ""06e22bf8-cd59-402d-8dc5-c3955421e4af"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -387,6 +418,17 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
                     ""action"": ""RightClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""648d0e6f-d8e6-46a2-a115-513c52c7f219"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Teleport"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -401,6 +443,7 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         m_Player_MovePlayer = m_Player.FindAction("MovePlayer", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_TogglePerspective = m_Player.FindAction("TogglePerspective", throwIfNotFound: true);
+        m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
         // Weapon
         m_Weapon = asset.FindActionMap("Weapon", throwIfNotFound: true);
         m_Weapon_Toggle = m_Weapon.FindAction("Toggle", throwIfNotFound: true);
@@ -408,6 +451,7 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         m_Weapon_Special = m_Weapon.FindAction("Special", throwIfNotFound: true);
         m_Weapon_Charge = m_Weapon.FindAction("Charge", throwIfNotFound: true);
         m_Weapon_RightClick = m_Weapon.FindAction("RightClick", throwIfNotFound: true);
+        m_Weapon_Teleport = m_Weapon.FindAction("Teleport", throwIfNotFound: true);
     }
 
     ~@ActionsHandler()
@@ -495,6 +539,7 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MovePlayer;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_TogglePerspective;
+    private readonly InputAction m_Player_Block;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -530,6 +575,10 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/TogglePerspective".
         /// </summary>
         public InputAction @TogglePerspective => m_Wrapper.m_Player_TogglePerspective;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Block".
+        /// </summary>
+        public InputAction @Block => m_Wrapper.m_Player_Block;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -574,6 +623,9 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
             @TogglePerspective.started += instance.OnTogglePerspective;
             @TogglePerspective.performed += instance.OnTogglePerspective;
             @TogglePerspective.canceled += instance.OnTogglePerspective;
+            @Block.started += instance.OnBlock;
+            @Block.performed += instance.OnBlock;
+            @Block.canceled += instance.OnBlock;
         }
 
         /// <summary>
@@ -603,6 +655,9 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
             @TogglePerspective.started -= instance.OnTogglePerspective;
             @TogglePerspective.performed -= instance.OnTogglePerspective;
             @TogglePerspective.canceled -= instance.OnTogglePerspective;
+            @Block.started -= instance.OnBlock;
+            @Block.performed -= instance.OnBlock;
+            @Block.canceled -= instance.OnBlock;
         }
 
         /// <summary>
@@ -645,6 +700,7 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
     private readonly InputAction m_Weapon_Special;
     private readonly InputAction m_Weapon_Charge;
     private readonly InputAction m_Weapon_RightClick;
+    private readonly InputAction m_Weapon_Teleport;
     /// <summary>
     /// Provides access to input actions defined in input action map "Weapon".
     /// </summary>
@@ -676,6 +732,10 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Weapon/RightClick".
         /// </summary>
         public InputAction @RightClick => m_Wrapper.m_Weapon_RightClick;
+        /// <summary>
+        /// Provides access to the underlying input action "Weapon/Teleport".
+        /// </summary>
+        public InputAction @Teleport => m_Wrapper.m_Weapon_Teleport;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -717,6 +777,9 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
             @RightClick.started += instance.OnRightClick;
             @RightClick.performed += instance.OnRightClick;
             @RightClick.canceled += instance.OnRightClick;
+            @Teleport.started += instance.OnTeleport;
+            @Teleport.performed += instance.OnTeleport;
+            @Teleport.canceled += instance.OnTeleport;
         }
 
         /// <summary>
@@ -743,6 +806,9 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
             @RightClick.started -= instance.OnRightClick;
             @RightClick.performed -= instance.OnRightClick;
             @RightClick.canceled -= instance.OnRightClick;
+            @Teleport.started -= instance.OnTeleport;
+            @Teleport.performed -= instance.OnTeleport;
+            @Teleport.canceled -= instance.OnTeleport;
         }
 
         /// <summary>
@@ -825,6 +891,13 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTogglePerspective(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Block" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnBlock(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Weapon" which allows adding and removing callbacks.
@@ -868,5 +941,12 @@ public partial class @ActionsHandler: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRightClick(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Teleport" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTeleport(InputAction.CallbackContext context);
     }
 }

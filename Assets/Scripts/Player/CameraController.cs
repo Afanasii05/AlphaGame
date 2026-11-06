@@ -6,15 +6,15 @@ namespace Alpha.Player
     public class CameraController : MonoBehaviour
     {
 
-        
+
         [SerializeField] private float mouseSensitivity = 0.1f;
-        [SerializeField] private float distance = 5f;
+        [SerializeField] public float distance = 5f;
         [SerializeField] private Transform playerTransform;
         [SerializeField] private InputHandler inputHandler;
 
-        public bool is3D { get; private set; } = true;
-        private float xAngle = 0f;
-        private float yAngle = 0f;
+        public bool is3D { get; private set;} = true;
+        public float xAngle;
+        public float yAngle;
         private float yShoulder = 1.5f;
         private float maxDownAngleDown= 80f;
         private Vector2 lookDelta;          // miscarea mouse-ului din frame-ul curent

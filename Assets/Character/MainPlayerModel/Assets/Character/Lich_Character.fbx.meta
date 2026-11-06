@@ -386,43 +386,43 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: Armature
       parentName: Lich_Character(Clone)
-      position: {x: -0, y: 0, z: 0}
-      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071067}
       scale: {x: 1, y: 1, z: 1}
     - name: mixamorig:Hips
       parentName: Armature
-      position: {x: -0, y: -0.015, z: 0.905}
-      rotation: {x: 0.712609, y: 0, z: -0, w: 0.70156145}
+      position: {x: 0, y: -0.015, z: 0.905}
+      rotation: {x: 0.712609, y: 0, z: 0, w: 0.70156145}
       scale: {x: 1, y: 1.0000001, z: 1.0000001}
     - name: mixamorig:Spine
       parentName: mixamorig:Hips
-      position: {x: -0, y: 0.12801564, z: 0.0000000011641532}
-      rotation: {x: -0.047975168, y: 0, z: -0, w: 0.99884856}
+      position: {x: 0, y: 0.12801564, z: 0.0000000011641532}
+      rotation: {x: -0.047975168, y: 0, z: 0, w: 0.99884856}
       scale: {x: 1, y: 0.99999994, z: 0.99999994}
     - name: mixamorig:Spine1
       parentName: mixamorig:Spine
-      position: {x: -0, y: 0.14948249, z: -0.0000000088475645}
-      rotation: {x: 0.0022430047, y: 0, z: -0, w: 0.9999975}
+      position: {x: 0, y: 0.14948249, z: -0.0000000088475645}
+      rotation: {x: 0.0022430047, y: 0, z: 0, w: 0.9999975}
       scale: {x: 1, y: 0.99999994, z: 1}
     - name: mixamorig:Spine2
       parentName: mixamorig:Spine1
-      position: {x: -0, y: 0.1714933, z: 0.000000007450581}
-      rotation: {x: 0.04053177, y: 0, z: -0, w: 0.9991783}
+      position: {x: 0, y: 0.1714933, z: 0.000000007450581}
+      rotation: {x: 0.04053177, y: 0, z: 0, w: 0.9991783}
       scale: {x: 1, y: 0.99999994, z: 1}
     - name: mixamorig:Neck
       parentName: mixamorig:Spine2
-      position: {x: -0, y: 0.19200255, z: -4.656613e-10}
-      rotation: {x: 0.012391034, y: 0, z: -0, w: 0.9999232}
+      position: {x: 0, y: 0.19200255, z: -4.656613e-10}
+      rotation: {x: 0.012391034, y: 0, z: 0, w: 0.9999232}
       scale: {x: 1, y: 0.99999994, z: 0.99999994}
     - name: mixamorig:Head
       parentName: mixamorig:Neck
-      position: {x: -0, y: 0.10004494, z: 9.313226e-10}
-      rotation: {x: -0.011889668, y: 0, z: -0, w: 0.9999293}
+      position: {x: 0, y: 0.10004494, z: 9.313226e-10}
+      rotation: {x: -0.011889668, y: 0, z: 0, w: 0.9999293}
       scale: {x: 1, y: 0.9999999, z: 0.99999994}
     - name: mixamorig:HeadTop_End
       parentName: mixamorig:Head
-      position: {x: -0, y: 0.16100308, z: 0}
-      rotation: {x: -0.0031055454, y: 0, z: -0, w: 0.9999952}
+      position: {x: 0, y: 0.16100308, z: 0}
+      rotation: {x: -0.0031055454, y: 0, z: 0, w: 0.9999952}
       scale: {x: 1, y: 0.99999994, z: 0.99999994}
     - name: mixamorig:LeftShoulder
       parentName: mixamorig:Spine2
@@ -486,7 +486,7 @@ ModelImporter:
       scale: {x: 0.99999994, y: 0.99999994, z: 1}
     - name: mixamorig:RightHandIndex1
       parentName: mixamorig:RightHand
-      position: {x: -0, y: 0.08714045, z: 0.000000065545464}
+      position: {x: 0, y: 0.08714045, z: 0.000000065545464}
       rotation: {x: 0.0646597, y: -0.004451994, z: -0.05108095, w: 0.9965892}
       scale: {x: 1, y: 1, z: 0.99999994}
     - name: mixamorig:RightHandIndex2
@@ -556,8 +556,8 @@ ModelImporter:
       scale: {x: 0.99999994, y: 1, z: 1}
     - name: Character_Body
       parentName: Lich_Character(Clone)
-      position: {x: -0, y: 0, z: 0}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5

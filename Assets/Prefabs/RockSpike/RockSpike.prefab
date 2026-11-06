@@ -1,0 +1,209 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7377092761713316987
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      propertyPath: m_Name
+      value: RockSpike
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5896061872647451434}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5041307963945223083}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3324782091503726392}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2376379246533262840}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3725199593171687278}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3781204910604385512}
+  m_SourcePrefab: {fileID: 100100000, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+--- !u!1 &7683663343534090538 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+  m_PrefabInstance: {fileID: 7377092761713316987}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &5896061872647451434
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683663343534090538}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7876724058815906469, guid: 3bc3f762d05172b4b9016db06d9e3b5e, type: 3}
+--- !u!114 &-5041307963945223083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683663343534090538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e232e14a43e050d489085604875a70fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HeavyHitSwordsTransition
+  transitionDuration: 0.5
+--- !u!114 &-3324782091503726392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683663343534090538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02279bbc8f952c44091f8b37c561c95a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MirageAttack
+  mirageSwordPrefab: {fileID: -5041307963945223083}
+  numberOfMirageSwords: 8
+  distanceFromImpactPoint: 3.5
+  swordsIntoGround: 0.1
+  swordsOutFromGround: 2
+  timeForMirageSwordsToStay: 3
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!65 &2376379246533262840
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683663343534090538}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7312531, y: 2.4342172, z: 0.88814914}
+  m_Center: {x: -0.022478621, y: 0.91710806, z: -0.035500567}
+--- !u!114 &3725199593171687278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683663343534090538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf30f8c5fba02734fb6cda5c65f85847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.PlayerHitEnemy
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 384
+  hitParticlesPrefab: {fileID: 5945104609832717647, guid: c8b956f526c39a2499064f45eda98336, type: 3}
+  hitbox: {fileID: 2376379246533262840}
+--- !u!114 &3781204910604385512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683663343534090538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f40b81aadf687c4483df51087d5052a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.HitboxGizmo
+  includeChildren: 1
+  onlyWhenSelected: 0
+  showDisabled: 1
+  triggerColor: {r: 1, g: 0.2, b: 0.2, a: 0.35}
+  solidColor: {r: 0.2, g: 0.6, b: 1, a: 0.3}
+  disabledColor: {r: 0.6, g: 0.6, b: 0.6, a: 0.12}

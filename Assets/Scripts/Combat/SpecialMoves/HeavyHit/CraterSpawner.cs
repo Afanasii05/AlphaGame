@@ -1,0 +1,50 @@
+using UnityEngine;
+namespace Alpha.Combat
+{
+    public class CraterSpawner : MonoBehaviour
+    {
+        [SerializeField] float SpawnOffsetFromGround = 0.05f;
+        [SerializeField] GameObject GroundCraterPrefab;
+        [SerializeField] Weapon wp;
+        [SerializeField] Collider headColider;
+        [SerializeField] LayerMask groundLayer;
+        private bool canSpawn = false;
+
+        private void OnEnable()
+        {
+            wp.onHeldChange += ChangeStateOfSpawn;
+        }
+        private void OnDisable()
+        {
+            wp.onHeldChange -= ChangeStateOfSpawn;
+        }
+        private void ChangeStateOfSpawn(bool held)
+        {
+            canSpawn = !held;
+        }
+        private void OnCollisionEnter(Collision collision)
+        {
+
+            if (wp.IsHeld || !canSpawn|| (groundLayer.value & (1 << collision.gameObject.layer)) == 0)
+                return;
+
+            ContactPoint cont = collision.GetContact(0);
+            if (cont.thisCollider != headColider)
+                return;
+            Vector3 point = cont.point;
+            Vector3 nr = cont.normal;
+            Quaternion rot = Quaternion.FromToRotation(Vector3.up, nr);
+            SpawnCrater(rot, point + nr * SpawnOffsetFromGround);
+            canSpawn = false;
+        }
+       
+        public void SpawnCrater(Quaternion rotation, Vector3 pozition)
+        {
+            if (Physics.Raycast(pozition, Vector3.down, out RaycastHit hit, 3f, groundLayer, QueryTriggerInteraction.Ignore))
+                pozition = hit.point;
+            GameObject cr = Instantiate(GroundCraterPrefab, pozition, rotation);
+            Destroy(cr, 5f);
+        }
+       
+    }
+}

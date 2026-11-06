@@ -5,44 +5,51 @@ using Alpha.Input;
 using Alpha.Combat;
 namespace Alpha.Player
 {
-    [SelectionBase] // click pe caracter in Scene selecteaza Player-ul (cel cu coliderul)
+    [SelectionBase] // ca sa mut playerul cu tot cu copii
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(InputHandler))]
     [RequireComponent(typeof(CapsuleCollider))]
     public class PlayerController : MonoBehaviour
     {
-
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float sprintMultiplier = 2.5f;
         [SerializeField] private float crouchMultiplier = 0.1f;
         [SerializeField] private float jumpForce = 15f;
         [SerializeField] private float gravityMultiplier = 40f;
-        [SerializeField] private CameraController cameraController;
         [SerializeField] private float AttackSlowness = 0.3f;
         [SerializeField] private float sprintFovBoost = 10f;
         [SerializeField] private float crouchFovBoost = -5f;   
         [SerializeField] private float fovBlendSpeed = 8f;
-        
+        [SerializeField] private float teleportFovBoost = 15;
+        [SerializeField] private float groundSnapDistance = 0.35f;
+        [SerializeField] private CameraController cameraController;
+
         private float baseFov;
         private float currentFovBoost;
         private float marginError = 0.5f;
-        private bool isGrounded = false;
-        private Vector3 wallNormal = Vector3.zero;
         private float maxVelocityY = 0f;
+        float speedMultiplier = 1f;
+        float fovTarget = 0f;
+
+        private bool isGrounded = false;
         private bool isJumping = false;
         private bool isSprinting = false;
         private bool isCrouching = false;
+        private bool isTeleporting = false;
         private Vector2 moveInput = Vector2.zero;
+        private Vector3 wallNormal = Vector3.zero;
+
         InputHandler inputHandler;
         Rigidbody rb;
         CapsuleCollider capsule;
         PlayerCombatState combState;
-        [SerializeField] private float groundSnapDistance = 0.35f; 
+        TeleportToWeapon teleporter;
         Animator anim;
-        private Camera cam;
+        Camera cam;
 
         private void Awake()
         {
+            teleporter = GetComponent<TeleportToWeapon>();
             anim = GetComponentInChildren<Animator>();
             inputHandler = GetComponent<InputHandler>();
             capsule = GetComponent<CapsuleCollider>();
@@ -51,13 +58,13 @@ namespace Alpha.Player
             cam = Camera.main;
             baseFov = cam.fieldOfView;
         }
-        
         private void OnEnable()
         {
             inputHandler.onCrouchHold += HandleCrouch;
             inputHandler.onSprintHold += HandleSprint;
             inputHandler.onJumpTriggered += HandleJump;
             inputHandler.onMoveUpdate += HandleMovementUpdate;
+            teleporter.onTriggerTeleport += UpdateTeleportStatus;
 
         }
         private void OnDisable()
@@ -66,12 +73,13 @@ namespace Alpha.Player
             inputHandler.onSprintHold -= HandleSprint;
             inputHandler.onJumpTriggered -= HandleJump;
             inputHandler.onMoveUpdate -= HandleMovementUpdate;
+            teleporter.onTriggerTeleport -= UpdateTeleportStatus;
 
         }
+
         void FixedUpdate()
         {
-            if (rb.isKinematic)
-                return;
+            if (rb.isKinematic) return;
             Vector3 moveDirectionAndMagnitude = GetMoveDirectionAndMagnitude();
             if (moveDirectionAndMagnitude != Vector3.zero || !cameraController.is3D)
                 RotatePlayer();
@@ -94,9 +102,7 @@ namespace Alpha.Player
                 velocity.y = 0;
 
             if (isGrounded)
-            {
                 maxVelocityY = 10000;
-            }
             else //In aer viteza in sus doar scade, nu ma mai ridica obiectele atinse
             {
                 velocity.y = Mathf.Min(velocity.y, maxVelocityY);
@@ -110,13 +116,8 @@ namespace Alpha.Player
         }
         private void LateUpdate()
         {
-            bool moving = moveInput.sqrMagnitude > 0.01f;
-            float target = 0f;
-            if (isCrouching)
-                target = crouchFovBoost;
-            else if (isSprinting && moving && isGrounded)
-                target = sprintFovBoost;
-            currentFovBoost = Mathf.Lerp(currentFovBoost, target, 1f - Mathf.Exp(-fovBlendSpeed * Time.deltaTime));
+            applyFovMultiplier();
+            currentFovBoost = Mathf.Lerp(currentFovBoost, fovTarget, 1f - Mathf.Exp(-fovBlendSpeed * Time.deltaTime));
             cam.fieldOfView = baseFov + currentFovBoost;
         }
         private void HandleMovementUpdate(Vector2 moveVector){ moveInput = moveVector;}
@@ -144,10 +145,9 @@ namespace Alpha.Player
         private void handleFall(){rb.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);}
         private void HandleJump()
         {
-            if (isGrounded && !isCrouching && !isJumping)
-            {
+            if (isGrounded && !isJumping && combState.allowsJump() && !isCrouching)
                 StartCoroutine(JumpRoutine());
-            }
+            
         }
         private IEnumerator JumpRoutine()
         {
@@ -161,7 +161,9 @@ namespace Alpha.Player
             isJumping = false;
 
         }
-        
+
+        private void UpdateTeleportStatus(bool status) => isTeleporting = status;
+
         private Vector3 GetMoveDirectionAndMagnitude()
         {
             if (moveInput.magnitude == 0 || combState.inPlaceAction())//Daca stau pe loc sau rulez o aniamtie care trebuie ea sa stea pe loc
@@ -169,21 +171,15 @@ namespace Alpha.Player
                 anim.SetFloat("Speed", 0f);
                 return Vector3.zero;
             } 
-
             Vector3 cameraForward = cam.transform.forward;//Directia camerei pentru a misca playerul relativ la rotatia camerei
             Vector3 cameraRight = cam.transform.right;
             cameraForward.y = 0;
             cameraRight.y = 0;
             cameraForward.Normalize();
             cameraRight.Normalize();
-            float speedMultiplier = 1f;
-            if (isSprinting && !isCrouching)
-                speedMultiplier *= sprintMultiplier;
-            else if(isCrouching)
-                speedMultiplier *= crouchMultiplier;
-            if (combState.inSlowDownAction())
-                speedMultiplier *= (1 - AttackSlowness);
-            Vector3 moveDirection = cameraForward * moveInput.y + cameraRight*moveInput.x;
+            applySpeedMultiplier();
+
+            Vector3 moveDirection = cameraForward * moveInput.y + cameraRight * moveInput.x;
             if (!combState.hasOwnMovement())
                 anim.SetFloat("Speed", moveInput.magnitude * moveSpeed * speedMultiplier);
             else
@@ -191,7 +187,26 @@ namespace Alpha.Player
             return moveDirection * speedMultiplier;
 
         }
-
+        private void applySpeedMultiplier()
+        {
+            speedMultiplier = 1f;
+            if (isSprinting && !isCrouching && isGrounded)
+                speedMultiplier *= sprintMultiplier;
+            else if (isCrouching)
+                speedMultiplier *= crouchMultiplier;
+            if (combState.inSlowDownAction())
+                speedMultiplier *= (1 - AttackSlowness);
+        }
+        private void applyFovMultiplier()
+        {
+            fovTarget = 0f;
+            if (isTeleporting)
+                fovTarget = teleportFovBoost;
+            else if (isCrouching)
+                fovTarget = crouchFovBoost;
+            else if (isSprinting && moveInput.sqrMagnitude > 0.01f && isGrounded)
+                fovTarget = sprintFovBoost;
+        }
         private void RotatePlayer()
         {
             float yAngle = cam.transform.eulerAngles.y;

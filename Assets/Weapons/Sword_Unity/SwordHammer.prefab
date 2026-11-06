@@ -2692,6 +2692,37 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 0
   m_ApplyActiveColorSpace: 1
+--- !u!1 &7419186704312572386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7085041167927937362}
+  m_Layer: 0
+  m_Name: ImpactPoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7085041167927937362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7419186704312572386}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.006, y: 1.285, z: 0.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6443517581085337187}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7451556787124628624
 GameObject:
   m_ObjectHideFlags: 0
@@ -2706,6 +2737,9 @@ GameObject:
   - component: {fileID: 5080109540319075397}
   - component: {fileID: -1207842287922276297}
   - component: {fileID: 4148516941262547588}
+  - component: {fileID: -5902401192750241319}
+  - component: {fileID: -7978453674252544977}
+  - component: {fileID: 8000020243769307150}
   m_Layer: 0
   m_Name: SwordHammer
   m_TagString: Untagged
@@ -2733,6 +2767,7 @@ Transform:
   - {fileID: 7591897599277846286}
   - {fileID: 8396949247120757245}
   - {fileID: 909963787353653081}
+  - {fileID: 7085041167927937362}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7111046321891618909
@@ -2749,11 +2784,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.Weapon
   gripRight: {fileID: 8580266622560501306}
   gripLeft: {fileID: 552344361336850084}
-  impactPoint: {fileID: 294970345071808183}
+  impactPoint1: {fileID: 294970345071808183}
+  impactPoint2: {fileID: 7085041167927937362}
   worldColliders:
   - {fileID: 5180495207324630999}
   - {fileID: 5257249009366138912}
   <headHitbox>k__BackingField: {fileID: 4710426715384107509}
+  HitboxOriginalSize: {x: 0, y: 0, z: 0}
 --- !u!54 &-5605198258658277503
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2797,6 +2834,9 @@ MonoBehaviour:
   GroundCraterPrefab: {fileID: 1204016311671959425, guid: 2f060899129d4c643a440a229b0eb0f7, type: 3}
   wp: {fileID: 7111046321891618909}
   headColider: {fileID: 4710426715384107509}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &-1207842287922276297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2812,9 +2852,13 @@ MonoBehaviour:
   wp: {fileID: 7111046321891618909}
   cr: {fileID: 5080109540319075397}
   impactRadius: 0.15
+  impactMask:
+    serializedVersion: 2
+    m_Bits: 72
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  mirageAttack: {fileID: -8536605522520918886, guid: c630e664c76fac94fa4fb786d1ac157f, type: 3}
 --- !u!114 &4148516941262547588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2829,6 +2873,61 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.WeaponTrail
   trail: {fileID: 5157067443764840243}
   minSpeed: 6
+--- !u!114 &-5902401192750241319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7451556787124628624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf30f8c5fba02734fb6cda5c65f85847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.EnemyHit
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  hitParticlesPrefab: {fileID: 5945104609832717647, guid: c8b956f526c39a2499064f45eda98336, type: 3}
+  hitbox: {fileID: 4710426715384107509}
+--- !u!114 &-7978453674252544977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7451556787124628624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f40b81aadf687c4483df51087d5052a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.Combat.HitboxGizmo
+  includeChildren: 1
+  onlyWhenSelected: 0
+  showDisabled: 1
+  triggerColor: {r: 1, g: 0.2, b: 0.2, a: 0.35}
+  solidColor: {r: 0.2, g: 0.6, b: 1, a: 0.3}
+  disabledColor: {r: 0.6, g: 0.6, b: 0.6, a: 0.12}
+--- !u!114 &8000020243769307150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7451556787124628624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165b2a21e7ce99f42b890e9096e43fc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThrowDetection
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  hitParticlesPrefab: {fileID: 5945104609832717647, guid: c8b956f526c39a2499064f45eda98336, type: 3}
+  speedRequiredForThrowToCount: 10
 --- !u!1 &8616346014121455367
 GameObject:
   m_ObjectHideFlags: 0
