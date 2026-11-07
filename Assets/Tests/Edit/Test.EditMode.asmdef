@@ -3,6 +3,9 @@
   "optionalUnityReferences": [
     "TestAssemblies"
   ],
+  "references": [
+    "Unity.InputSystem"
+  ],
   "includePlatforms": [
     "Editor"
   ],
