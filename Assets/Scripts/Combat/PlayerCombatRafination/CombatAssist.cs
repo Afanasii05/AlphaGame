@@ -46,6 +46,8 @@ public class CombatAssist : MonoBehaviour
         forwardCameraDirection.Normalize();
         foreach (HittableCharacter c in HittableCharacter.enemies)
         {
+            if (c == null || !c.isActiveAndEnabled) continue;
+
             Vector3 directionTwardsEnemy = c.transform.position - transform.position;
             directionTwardsEnemy.y = 0;
             float directionDistanceSqrd = directionTwardsEnemy.sqrMagnitude;
