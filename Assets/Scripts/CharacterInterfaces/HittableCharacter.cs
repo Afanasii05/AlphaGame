@@ -99,10 +99,11 @@ namespace Alpha.Interfaces
         {
             isInKnockBack = true;
             lastKnockBackTime = Time.time;
-            Vector3 start = rb.position;
-            for (float step = 0; step < 1f; step += Time.fixedDeltaTime / knockBackDuration)
+            Vector3 knockbackVelocity = totalKnockback / knockBackDuration;
+            for (float step = 0; step < knockBackDuration; step += Time.fixedDeltaTime )
             {
-                Vector3 target = Vector3.Lerp(start, start + totalKnockback, step);
+                Vector3 stepVector = knockbackVelocity * Time.fixedDeltaTime;
+                Vector3 target = rb.position + stepVector;
                 target.y = rb.position.y;
                 rb.MovePosition(target);
                 yield return new WaitForFixedUpdate();
