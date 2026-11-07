@@ -78,21 +78,35 @@ jobs:
             Library-Unity-
             Library-
 
+      # unity-test-runner@v4 emits `--no-coverageEnabled`, which game-ci CLI
+      # v0.1.72 rejects. Call the CLI directly so coverage can be disabled
+      # with the supported `--coverageEnabled=false` form.
+      - name: Install game-ci CLI
+        run: |
+          curl -fsSL \
+            https://github.com/game-ci/cli/releases/download/v0.1.72/game-ci-linux-x64.tar.gz \
+            -o "$RUNNER_TEMP/game-ci.tar.gz"
+          mkdir -p "$RUNNER_TEMP/game-ci"
+          tar -xzf "$RUNNER_TEMP/game-ci.tar.gz" -C "$RUNNER_TEMP/game-ci"
+          chmod +x "$RUNNER_TEMP/game-ci/game-ci"
+          echo "$RUNNER_TEMP/game-ci" >> "$GITHUB_PATH"
+
       - name: Run Unity tests
-        id: tests
-        uses: game-ci/unity-test-runner@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          projectPath: .
-          unityVersion: auto
-          testMode: ${{ matrix.testMode }}
-          artifactsPath: ${{ matrix.testMode }}-artifacts
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          checkName: Unity ${{ matrix.testMode }} results
-          coverageEnabled: false
+        run: |
+          game-ci test \
+            --docker \
+            --dockerShmSize=1025m \
+            --engine=unity \
+            . \
+            --testPlatforms=${{ matrix.testMode }} \
+            --coverageEnabled=false \
+            --artifactsPath=${{ matrix.testMode }}-artifacts \
+            --containerRegistryRepository=unityci/editor \
+            --containerRegistryImageVersion=3
 
       - name: Upload test results
         if: always()
