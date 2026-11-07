@@ -21,7 +21,7 @@ namespace Alpha.Combat
         void Update()
         {
             if (playerState == null || !IsHeld) return;
-            headHitbox.enabled = playerState.inActiveWindow();
+            headHitbox.enabled = playerState.inActiveWindow() && !playerState.combatDef[playerState.currentAction].nonDamaging;
 
         }
         private void Awake()

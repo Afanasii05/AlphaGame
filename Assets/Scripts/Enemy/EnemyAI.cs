@@ -40,6 +40,7 @@ namespace Alpha.Enemies
         private float lastTimeAskedForTarget;
         private float lastTimePatrulate;
         EnemyCombatState enemyCombatState;
+        NpcAttributes npcAtrib;
 
         //Trimise catre controller:
         public event Action onTargetInAttackRange;   //tinta e in raza si in fata
@@ -58,6 +59,7 @@ namespace Alpha.Enemies
             if (animator == null) animator = GetComponentInChildren<Animator>();
             homePosition = transform.position;
             enemyCombatState = GetComponent<EnemyCombatState>();
+            npcAtrib = GetComponent<NpcAttributes>();
         }
         void Update()
         {
@@ -71,8 +73,8 @@ namespace Alpha.Enemies
             }
             sqrDistToPlayer = (target.position - transform.position).sqrMagnitude;
 
-            if (enemyCombatState.IsBusy)
-                agent.isStopped = true;   //cat ruleaza o actiune nu ma misc
+            if (enemyCombatState.IsBusy || npcAtrib.isRecovering)
+                agent.isStopped = true;   //cat ruleaza o actiune nu ma misc sau cat e in starea de recover
             else
             {
                 switch (State)

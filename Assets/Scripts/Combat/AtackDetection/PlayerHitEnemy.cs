@@ -24,7 +24,7 @@ namespace Alpha.Combat {
         {
             if (playerState == null || (playerLayer.value & (1 << other.gameObject.layer)) != 0) return;
             PlayerActions currentAction = playerState.currentAction;
-            if (currentAction == PlayerActions.None || currentAction == PlayerActions.NonSemiCombat || currentAction == PlayerActions.Block) return;
+            if (playerState.combatDef[currentAction].nonDamaging) return;
             if (SupportsClosestPoint(other)) // Daca coliderul suporta closest point, atunci instantiem particulele de hit.
             {
                 Vector3 punct = other.ClosestPoint(hitbox.bounds.center);

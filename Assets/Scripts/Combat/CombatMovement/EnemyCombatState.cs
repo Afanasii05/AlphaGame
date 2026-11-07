@@ -5,7 +5,7 @@ using System.Collections;
 [DefaultExecutionOrder(-50)] // calculez actiunea curenta inaintea celorlalte scripturi
 public class EnemyCombatState : CharacterCombatState<EnemyActions, EnemyActionDefinition>
 {
-    public bool IsBusy => !IsNone(currentAction);
+    public bool IsBusy => !IsNone(currentAction); //orice stare din enemy action definition intrerupe enemy ai 
     Dictionary<Collider, Vector3> colidersOriginalSize = new();
     EnemyActionDefinition hitboxDef;
     Coroutine hitboxRoutine;
@@ -22,7 +22,7 @@ public class EnemyCombatState : CharacterCombatState<EnemyActions, EnemyActionDe
     protected override void OnActionStarted(EnemyActionDefinition def)
     {
         if (hitboxRoutine != null) StopCoroutine(hitboxRoutine);
-        if (hitboxDef != null) setHitboxes(hitboxDef, false);
+        if (hitboxDef != null) setHitboxes(hitboxDef, false); // logica de anulare a coliderelor fostei stari daca aceasta a fost intrerupta
         hitboxDef = def;
         hitboxRoutine = StartCoroutine(collidersDisabler(def));
     }
@@ -31,20 +31,16 @@ public class EnemyCombatState : CharacterCombatState<EnemyActions, EnemyActionDe
 
     IEnumerator collidersDisabler(EnemyActionDefinition def)
     {
-        while (!inWindow(def))
+        while (!inActiveWindow())
         {
             if (!Same(currentAction, def.action)) yield break;
             yield return null;
         }
         setHitboxes(def, true);
-        while (inWindow(def)) yield return null;
+        while (Same(currentAction, def.action) && inActiveWindow()) yield return null;
         setHitboxes(def, false);
     }
-    bool inWindow(EnemyActionDefinition def)
-    {
-        float t = NormalizedTime(def.action);
-        return t > 0f && t >= def.activeStart && t <= def.activeEnd;
-    }
+
     void setHitboxes(EnemyActionDefinition def, bool state)
     {
         foreach (Collider col in def.hitboxes)

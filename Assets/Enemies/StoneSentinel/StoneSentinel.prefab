@@ -10487,15 +10487,10 @@ MonoBehaviour:
   runSpeed: 3
   walkSpeed: 0.53
   turnSpeed: 1
-  castRadius: 0.6
-  castDistance: 5
   minRollDistance: 3
   maxRollDistance: 10
   randomDistanceFromHome: 5
   timeBetweenPatrulate: 10
-  hitMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &4061712674843779921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10545,10 +10540,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AllyAtributes
   healthLight: {fileID: 4583048202868358240}
   deathSmoke: {fileID: 5090510033141092306, guid: 3f0d972df7e917d4bb6d6ea6af11f09e, type: 3}
-  knockBackDuration: 0.4
-  knockBackCooldown: 1.2
+  knockBackDuration: 0.3
+  knockBackCooldown: 0.6
   armor: 1
   Max_Health: 100
+  knockBackProtection: 2.5
+  delayForRecover: 0.2
+  isRecovering: 0
 --- !u!4 &5968544920491051837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1134988650885135670, guid: 11d74315f16d5db48a20a7488899c375, type: 3}
