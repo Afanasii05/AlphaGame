@@ -1,0 +1,117 @@
+name: Unity CI
+
+on:
+  pull_request:
+    branches: [main, testing_scripts]
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+
+concurrency:
+  group: unity-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+jobs:
+  validate:
+    name: Validate project
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      unity_license: ${{ steps.license.outputs.available }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate Unity project metadata
+        run: python3 .github/scripts/validate_project.py
+
+      - name: Detect Unity license secrets
+        id: license
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        run: |
+          if [ -n "$UNITY_LICENSE" ] && [ -n "$UNITY_EMAIL" ] && [ -n "$UNITY_PASSWORD" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+            echo "Unity license secrets found; EditMode and PlayMode tests will run."
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Unity tests skipped::Add UNITY_LICENSE, UNITY_EMAIL and UNITY_PASSWORD repository secrets to enable the Unity EditMode and PlayMode jobs."
+          fi
+
+  unity-tests:
+    name: Unity ${{ matrix.testMode }} tests
+    needs: validate
+    if: needs.validate.outputs.unity_license == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        testMode: [editmode, playmode]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Cache Unity Library
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-Unity-${{ hashFiles('Packages/packages-lock.json') }}
+          restore-keys: |
+            Library-Unity-
+            Library-
+
+      # unity-test-runner@v4 emits `--no-coverageEnabled`, which game-ci CLI
+      # v0.1.72 rejects. Call the CLI directly so coverage can be disabled
+      # with the supported `--coverageEnabled=false` form.
+      - name: Install game-ci CLI
+        run: |
+          curl -fsSL \
+            https://github.com/game-ci/cli/releases/download/v0.1.72/game-ci-linux-x64.tar.gz \
+            -o "$RUNNER_TEMP/game-ci.tar.gz"
+          mkdir -p "$RUNNER_TEMP/game-ci"
+          tar -xzf "$RUNNER_TEMP/game-ci.tar.gz" -C "$RUNNER_TEMP/game-ci"
+          chmod +x "$RUNNER_TEMP/game-ci/game-ci"
+          echo "$RUNNER_TEMP/game-ci" >> "$GITHUB_PATH"
+
+      - name: Run Unity tests
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        run: |
+          game-ci test \
+            --docker \
+            --dockerShmSize=1025m \
+            --engine=unity \
+            . \
+            --testPlatforms=${{ matrix.testMode }} \
+            --coverageEnabled=false \
+            --artifactsPath=${{ matrix.testMode }}-artifacts \
+            --containerRegistryRepository=unityci/editor \
+            --containerRegistryImageVersion=3
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unity-${{ matrix.testMode }}-results
+          path: ${{ matrix.testMode }}-artifacts
+          if-no-files-found: ignore
