@@ -1,0 +1,75 @@
+{
+ "terrain": {
+  "origin": [
+   -64.0,
+   -10.0,
+   -62.0
+  ],
+  "size": [
+   128.0,
+   100.0,
+   128.0
+  ],
+  "heightmap": 257,
+  "alphamap": 256,
+  "layers": [
+   "Grass007",
+   "Ground037",
+   "Gravel043",
+   "Rock064",
+   "Moss002",
+   "Ground068"
+  ]
+ },
+ "spawn": {
+  "pos": [
+   0.0,
+   34.5
+  ],
+  "yaw": 180.0
+ },
+ "zones": [
+  {
+   "id": 1,
+   "name": "Entry Nook",
+   "at": [
+    0,
+    33
+   ]
+  },
+  {
+   "id": 2,
+   "name": "Tollgate Court",
+   "at": [
+    0,
+    18
+   ]
+  },
+  {
+   "id": 3,
+   "name": "Cinder Amphitheater",
+   "at": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": 4,
+   "name": "Sanctuary Gate",
+   "at": [
+    0,
+    -24
+   ]
+  }
+ ],
+ "tiers": [
+  0,
+  30,
+  120,
+  150,
+  180,
+  210,
+  330
+ ],
+ "prop_count": 96
+}
