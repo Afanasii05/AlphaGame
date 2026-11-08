@@ -28,6 +28,8 @@ namespace Alpha.Combat
         protected override void OnActionStarted(PlayerActionDefinition def)
         {
             intreruptContinuousStates(); //intrerupe starile care sunt activate prin bool dar nu ies singure, cum ar fi block.
+            if (def.action == PlayerActions.GetHit) 
+                animator.CrossFadeInFixedTime("New State", 0.1f, 1);
             if (socket.HasWeapon)
             {
                 Weapon weapon = socket.CurrentWeapon;

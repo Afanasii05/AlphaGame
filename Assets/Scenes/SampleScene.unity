@@ -17996,7 +17996,7 @@ MonoBehaviour:
     knockBackPower: 3
     hitboxScaleofWeapon: {x: 1.5, y: 3, z: 2}
     comboWindow: 0.4
-    activeStart: 0.35
+    activeStart: 0.45
     activeEnd: 0.9
     damage: 30
     alwaysActive: 0
@@ -18034,10 +18034,10 @@ MonoBehaviour:
     knockBackPower: 2.5
     hitboxScaleofWeapon: {x: 1, y: 1, z: 1}
     comboWindow: 0.4
-    activeStart: 0.448
+    activeStart: 0.229
     activeEnd: 1
     damage: 25
-    alwaysActive: 1
+    alwaysActive: 0
     nonDamaging: 0
     hasItsOwnMovement: 0
     action: 3
@@ -43537,6 +43537,10 @@ PrefabInstance:
     - target: {fileID: 1579773880844565592, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
       propertyPath: actionsDetails.Array.data[1].hitboxScaleofWeapon.z
       value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5040467390763332016, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
+      propertyPath: Max_Health
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 6336287852905366778, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
       propertyPath: m_Name

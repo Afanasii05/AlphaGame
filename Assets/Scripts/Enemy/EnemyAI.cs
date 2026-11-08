@@ -86,8 +86,11 @@ namespace Alpha.Enemies
                         UpdateChase();
                         break;
                     case EnemyState.Return:
-                        if (determineIddle()) SetState(EnemyState.Idle);
-                        else determineChaseFromNonAggro();
+                        // Nu patrulez cat ma intorc: patrulate() suprascria destinatia de acasa
+                        // si inamicul nu mai ajungea niciodata in Idle.
+                        if (canChase()) SetState(EnemyState.Chase);
+                        else if (determineIddle()) SetState(EnemyState.Idle);
+                        else if (!agent.hasPath && !agent.pathPending) agent.SetDestination(homePosition);
                         break;
                 }
             }
@@ -95,6 +98,8 @@ namespace Alpha.Enemies
         }
         public void Aggro()
         {
+            if (target == null) updateTargetNow();
+            if (target == null) return;
             if (State != EnemyState.Dead && State != EnemyState.Chase) SetState(EnemyState.Chase);
         }
         private void patrulate()
@@ -179,6 +184,10 @@ namespace Alpha.Enemies
         private void updateTarget()
         {
             if(Time.time - lastTimeAskedForTarget < timeToAskForTarget) return;
+            updateTargetNow();
+        }
+        private void updateTargetNow()
+        {
             lastTimeAskedForTarget = Time.time;
             if (Ally)
                 target = HittableCharacter.Closest(HittableCharacter.enemies, transform.position)?.transform;

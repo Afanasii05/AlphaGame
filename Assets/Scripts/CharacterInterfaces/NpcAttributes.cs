@@ -22,6 +22,7 @@ namespace Alpha.Interfaces
         protected override void StartHitState()
         {
             npcState.StartAction(EnemyActions.GetHit);
+            npcController.aiController.Aggro(); // daca il lovesc, ma vede indiferent de unghi/distanta
             
         }
         protected override void handleKnockbackLogic(Vector3 totalKnockback)

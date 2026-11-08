@@ -1602,7 +1602,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: HeavyHitSword
-  m_Speed: 1.6
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 5752647319878386366}
@@ -1684,10 +1684,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Intrerupt
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5627766263038040418}
   m_Solo: 0
