@@ -86,8 +86,6 @@ namespace Alpha.Enemies
                         UpdateChase();
                         break;
                     case EnemyState.Return:
-                        // Nu patrulez cat ma intorc: patrulate() suprascria destinatia de acasa
-                        // si inamicul nu mai ajungea niciodata in Idle.
                         if (canChase()) SetState(EnemyState.Chase);
                         else if (determineIddle()) SetState(EnemyState.Idle);
                         else if (!agent.hasPath && !agent.pathPending) agent.SetDestination(homePosition);
@@ -145,7 +143,6 @@ namespace Alpha.Enemies
         {
             float distFromTarget = Vector3.Distance(transform.position, target.position);
             if (distFromTarget <= minRollDistance || distFromTarget >= maxRollDistance || FaceTarget() >= attackAngle) return false;
-            //true daca NavMesh-ul e liber in fata pe rollCheckDistance (fara margini/pereti)
             return !NavMesh.Raycast(transform.position, transform.position + transform.forward * rollCheckDistance, out _, NavMesh.AllAreas);
                
         }
