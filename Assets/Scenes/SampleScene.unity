@@ -17930,7 +17930,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579590964}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8850cc27cd8c6f74aa3977fd0520c326, type: 3}
   m_Name: 
@@ -18351,8 +18351,8 @@ MonoBehaviour:
   deathSmoke: {fileID: 0}
   knockBackDuration: 0.5
   knockBackCooldown: 0.6
-  armor: 10
-  Max_Health: 10000
+  armor: 1
+  Max_Health: 100
   knockBackProtection: 1
 --- !u!114 &579590982
 MonoBehaviour:
@@ -43540,7 +43540,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5040467390763332016, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
       propertyPath: Max_Health
-      value: 1000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6336287852905366778, guid: 7173abbef1c89d0418d26c1b9a60a89a, type: 3}
       propertyPath: m_Name
@@ -50817,7 +50817,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1963491521993438125, guid: 09358440e56d2b44fb7ea294065e706f, type: 3}
       propertyPath: Max_Health
-      value: 1000
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

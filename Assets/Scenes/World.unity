@@ -8190,6 +8190,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4269790186641556045, guid: 8ef845541d16cc540bbd58357415cfe3, type: 3}
+      propertyPath: armor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269790186641556045, guid: 8ef845541d16cc540bbd58357415cfe3, type: 3}
+      propertyPath: Max_Health
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 4806431624493634792, guid: 8ef845541d16cc540bbd58357415cfe3, type: 3}
       propertyPath: m_RendererIndex
       value: 1
