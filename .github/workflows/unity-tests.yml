@@ -97,6 +97,10 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         run: |
+          # The GitHub runner has 16 GB. Unity's llvmpipe graphics device can
+          # push the PlayMode job over that limit while it reloads assemblies,
+          # which the runner reports as exit code 137. These tests do not need
+          # a graphics device, so run the editor headless.
           game-ci test \
             --docker \
             --dockerShmSize=1025m \
@@ -104,6 +108,7 @@ jobs:
             . \
             --testPlatforms=${{ matrix.testMode }} \
             --coverageEnabled=false \
+            --customParameters=-nographics \
             --artifactsPath=${{ matrix.testMode }}-artifacts \
             --containerRegistryRepository=unityci/editor \
             --containerRegistryImageVersion=3
