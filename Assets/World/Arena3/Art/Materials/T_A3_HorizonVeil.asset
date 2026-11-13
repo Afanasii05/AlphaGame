@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!28 &2800000
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: T_A3_HorizonVeil
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 4
+  m_Width: 4
+  m_Height: 64
+  m_CompleteImageSize: 1024
+  m_MipsStripped: 0
+  m_TextureFormat: 4
+  m_MipCount: 1
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMipmapLimit: 1
+  m_MipmapLimitGroupName: 
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 0
+    m_WrapV: 1
+    m_WrapW: 0
+  m_LightmapFormat: 0
+  m_ColorSpace: 1
+  m_PlatformBlob: 
+  image data: 1024
+  _typelessdata: fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffffefffffffefffffffefffffffcfffffffcfffffffcfffffffcfffffffafffffffafffffffafffffffafffffff8fffffff8fffffff8fffffff8fffffff5fffffff5fffffff5fffffff5fffffff2fffffff2fffffff2fffffff2ffffffefffffffefffffffefffffffefffffffebffffffebffffffebffffffebffffffe7ffffffe7ffffffe7ffffffe7ffffffe2ffffffe2ffffffe2ffffffe2ffffffdeffffffdeffffffdeffffffdeffffffd9ffffffd9ffffffd9ffffffd9ffffffd4ffffffd4ffffffd4ffffffd4ffffffcfffffffcfffffffcfffffffcfffffffcaffffffcaffffffcaffffffcaffffffc4ffffffc4ffffffc4ffffffc4ffffffbfffffffbfffffffbfffffffbfffffffbaffffffbaffffffbaffffffbaffffffb5ffffffb5ffffffb5ffffffb5ffffffb0ffffffb0ffffffb0ffffffb0ffffffabffffffabffffffabffffffabffffffa6ffffffa6ffffffa6ffffffa6ffffffa1ffffffa1ffffffa1ffffffa1ffffff9cffffff9cffffff9cffffff9cffffff98ffffff98ffffff98ffffff98ffffff94ffffff94ffffff94ffffff94ffffff90ffffff90ffffff90ffffff90ffffff8cffffff8cffffff8cffffff8cffffff89ffffff89ffffff89ffffff89ffffff87ffffff87ffffff87ffffff87ffffff84ffffff84ffffff84ffffff84ffffff82ffffff82ffffff82ffffff82ffffff81ffffff81ffffff81ffffff81ffffff80ffffff80ffffff80ffffff80ffffff80ffffff80ffffff80ffffff80ffffff80ffffff80ffffff80ffffff80ffffff80ffffff80ffffff80ffffff80ffffff80ffffff80ffffff80ffffff80ffffff7effffff7effffff7effffff7effffff78ffffff78ffffff78ffffff78ffffff70ffffff70ffffff70ffffff70ffffff66ffffff66ffffff66ffffff66ffffff5affffff5affffff5affffff5affffff4dffffff4dffffff4dffffff4dffffff40ffffff40ffffff40ffffff40ffffff32ffffff32ffffff32ffffff32ffffff25ffffff25ffffff25ffffff25ffffff19ffffff19ffffff19ffffff19ffffff0fffffff0fffffff0fffffff0fffffff07ffffff07ffffff07ffffff07ffffff02ffffff02ffffff02ffffff02ffffff00ffffff00ffffff00ffffff00
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 

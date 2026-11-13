@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2564702494571174821
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7055464640389215120, guid: 937a36a33800bf3408b9236d1eb7bf19, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055464640389215120, guid: 937a36a33800bf3408b9236d1eb7bf19, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055464640389215120, guid: 937a36a33800bf3408b9236d1eb7bf19, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055464640389215120, guid: 937a36a33800bf3408b9236d1eb7bf19, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055464640389215120, guid: 937a36a33800bf3408b9236d1eb7bf19, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055464640389215120, guid: 937a36a33800bf3408b9236d1eb7bf19, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055464640389215120, guid: 937a36a33800bf3408b9236d1eb7bf19, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055464640389215120, guid: 937a36a33800bf3408b9236d1eb7bf19, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055464640389215120, guid: 937a36a33800bf3408b9236d1eb7bf19, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055464640389215120, guid: 937a36a33800bf3408b9236d1eb7bf19, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7683663343534090538, guid: 937a36a33800bf3408b9236d1eb7bf19, type: 3}
+      propertyPath: m_Name
+      value: RockSpike_Boss
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3725199593171687278, guid: 937a36a33800bf3408b9236d1eb7bf19, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7683663343534090538, guid: 937a36a33800bf3408b9236d1eb7bf19, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8896933945114872785}
+  m_SourcePrefab: {fileID: 100100000, guid: 937a36a33800bf3408b9236d1eb7bf19, type: 3}
+--- !u!1 &5275540685585592975 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7683663343534090538, guid: 937a36a33800bf3408b9236d1eb7bf19, type: 3}
+  m_PrefabInstance: {fileID: 2564702494571174821}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8896933945114872785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5275540685585592975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f63d1435bf6347dbae7d1b217537575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alpha.World.GolemSpikeDamage
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 384
+  hitParticlesPrefab: {fileID: 5945104609832717647, guid: c8b956f526c39a2499064f45eda98336, type: 3}
+  attackAction: 6
