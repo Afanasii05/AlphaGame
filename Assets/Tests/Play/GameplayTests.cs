@@ -1,15 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
 public class GameplayTests
 {
+    private const string EnemyPrefabPath = "Assets/Enemies/Stumphorn/Stumphorn.prefab";
+
     [UnityTest]
     public IEnumerator FirstBuildSceneLoads()
     {
@@ -107,41 +109,55 @@ public class GameplayTests
     {
         yield return LoadFirstScene();
 
-        Type hittableType = Type.GetType(
-            "Alpha.Interfaces.HittableCharacter, Assembly-CSharp"
-        );
-        Assert.IsNotNull(hittableType, "Could not find HittableCharacter runtime type.");
-
-        IList enemies = GetStaticField(hittableType, "enemies") as IList;
-        IList allies = GetStaticField(hittableType, "allys") as IList;
-        Assert.IsNotNull(enemies, "HittableCharacter.enemies is missing.");
-        Assert.IsNotNull(allies, "HittableCharacter.allys is missing.");
-
-        List<object> livingEnemies = AliveObjects(enemies);
-        List<object> livingAllies = AliveObjects(allies);
-
-        Assert.Greater(livingEnemies.Count, 0, "The scene registered no enemies.");
-        Assert.Greater(livingAllies.Count, 0, "The scene registered no allies.");
-
-        int enemiesWithLight = 0;
-        foreach (object enemy in livingEnemies)
+        GameObject spawnedEnemy = SpawnRegisteredEnemy();
+        try
         {
-            Light light = GetFieldValue(enemy, "healthLight") as Light;
-            if (light == null)
-                continue;
+            Type hittableType = Type.GetType(
+                "Alpha.Interfaces.HittableCharacter, Assembly-CSharp"
+            );
+            Assert.IsNotNull(hittableType, "Could not find HittableCharacter runtime type.");
 
-            enemiesWithLight++;
-            Assert.IsTrue(
-                light.color.r > 0f || light.color.g > 0f || light.color.b > 0f,
-                "Enemy health light is black at full health."
+            IList enemies = GetStaticField(hittableType, "enemies") as IList;
+            IList allies = GetStaticField(hittableType, "allys") as IList;
+            Assert.IsNotNull(enemies, "HittableCharacter.enemies is missing.");
+            Assert.IsNotNull(allies, "HittableCharacter.allys is missing.");
+
+            List<object> livingEnemies = AliveObjects(enemies);
+            List<object> livingAllies = AliveObjects(allies);
+
+            Assert.Greater(livingEnemies.Count, 0, "No enemy registered at runtime.");
+            Assert.Greater(livingAllies.Count, 0, "The scene registered no allies.");
+            Assert.Contains(
+                spawnedEnemy.GetComponent(hittableType),
+                livingEnemies,
+                "The spawned test enemy did not register with HittableCharacter."
+            );
+
+            int enemiesWithLight = 0;
+            foreach (object enemy in livingEnemies)
+            {
+                Light light = GetFieldValue(enemy, "healthLight") as Light;
+                if (light == null)
+                    continue;
+
+                enemiesWithLight++;
+                Assert.IsTrue(
+                    light.color.r > 0f || light.color.g > 0f || light.color.b > 0f,
+                    "Enemy health light is black at full health."
+                );
+            }
+
+            Assert.Greater(
+                enemiesWithLight,
+                0,
+                "No enemy has a health light assigned."
             );
         }
-
-        Assert.Greater(
-            enemiesWithLight,
-            0,
-            "No enemy has a health light assigned."
-        );
+        finally
+        {
+            if (spawnedEnemy != null)
+                UnityEngine.Object.Destroy(spawnedEnemy);
+        }
     }
 
     [UnityTest]
@@ -149,47 +165,55 @@ public class GameplayTests
     {
         yield return LoadFirstScene();
 
-        Type hittableType = Type.GetType(
-            "Alpha.Interfaces.HittableCharacter, Assembly-CSharp"
-        );
-        Assert.IsNotNull(hittableType, "Could not find HittableCharacter runtime type.");
+        GameObject spawnedEnemy = SpawnRegisteredEnemy();
+        try
+        {
+            Type hittableType = Type.GetType(
+                "Alpha.Interfaces.HittableCharacter, Assembly-CSharp"
+            );
+            Assert.IsNotNull(hittableType, "Could not find HittableCharacter runtime type.");
 
-        IList enemies = GetStaticField(hittableType, "enemies") as IList;
-        object enemy = AliveObjects(enemies).FirstOrDefault();
-        Assert.IsNotNull(enemy, "The scene has no living enemy to test.");
+            object enemy = spawnedEnemy.GetComponent(hittableType);
+            Assert.IsNotNull(enemy, "The spawned test enemy has no HittableCharacter.");
 
-        Light healthLight = GetFieldValue(enemy, "healthLight") as Light;
-        Assert.IsNotNull(healthLight, "The test enemy has no health light.");
+            Light healthLight = GetFieldValue(enemy, "healthLight") as Light;
+            Assert.IsNotNull(healthLight, "The test enemy has no health light.");
 
-        GameObject player = GameObject.FindWithTag("Player");
-        Assert.IsNotNull(player, "The scene has no Player.");
-        Component playerAttributes = player.GetComponent("PlayerAtributes");
-        Assert.IsNotNull(playerAttributes, "The Player has no PlayerAtributes.");
+            GameObject player = GameObject.FindWithTag("Player");
+            Assert.IsNotNull(player, "The scene has no Player.");
+            Component playerAttributes = player.GetComponent("PlayerAtributes");
+            Assert.IsNotNull(playerAttributes, "The Player has no PlayerAtributes.");
 
-        Type attackType = Type.GetType(
-            "Alpha.Combat.PlayerActionDefinition, Assembly-CSharp"
-        );
-        Assert.IsNotNull(attackType, "Could not find PlayerActionDefinition type.");
-        object attack = Activator.CreateInstance(attackType);
-        SetFieldValue(attack, "damage", 50f);
-        SetFieldValue(attack, "knockBackPower", 0f);
+            Type attackType = Type.GetType(
+                "Alpha.Combat.PlayerActionDefinition, Assembly-CSharp"
+            );
+            Assert.IsNotNull(attackType, "Could not find PlayerActionDefinition type.");
+            object attack = Activator.CreateInstance(attackType);
+            SetFieldValue(attack, "damage", 1000f); // lethal, so the glow change is deterministic
+            SetFieldValue(attack, "knockBackPower", 0f);
 
-        // Make sure the cooldown from a previous scene cannot swallow the hit.
-        SetFieldValue(enemy, "lastKnockBackTime", Time.time - 10f);
-        SetFieldValue(enemy, "isInKnockBack", false);
+            // Make sure the cooldown from a previous scene cannot swallow the hit.
+            SetFieldValue(enemy, "lastKnockBackTime", Time.time - 10f);
+            SetFieldValue(enemy, "isInKnockBack", false);
 
-        Color before = healthLight.color;
-        MethodInfo handleGotHit = hittableType.GetMethod("HandleGotHit");
-        Assert.IsNotNull(handleGotHit, "HittableCharacter.HandleGotHit is missing.");
+            Color before = healthLight.color;
+            MethodInfo handleGotHit = hittableType.GetMethod("HandleGotHit");
+            Assert.IsNotNull(handleGotHit, "HittableCharacter.HandleGotHit is missing.");
 
-        handleGotHit.Invoke(enemy, new[] { attack, playerAttributes });
-        yield return null;
+            handleGotHit.Invoke(enemy, new[] { attack, playerAttributes });
+            yield return null;
 
-        Assert.AreNotEqual(
-            before,
-            healthLight.color,
-            "Health light colour did not change after damage."
-        );
+            Assert.AreNotEqual(
+                before,
+                healthLight.color,
+                "Health light colour did not change after damage."
+            );
+        }
+        finally
+        {
+            if (spawnedEnemy != null)
+                UnityEngine.Object.Destroy(spawnedEnemy);
+        }
     }
 
     [UnityTest]
@@ -245,11 +269,14 @@ public class GameplayTests
         Assert.IsNotNull(trigger, "The Player has no TriggerAttack.");
         Assert.IsNotNull(combatState, "The Player has no PlayerCombatState.");
 
-        Component socket = FindComponent(player, "WeaponSocket");
-        Assert.IsNotNull(socket, "The Player has no WeaponSocket.");
+        Component socket = GetFieldValue(trigger, "socket") as Component;
+        Assert.IsNotNull(socket, "TriggerAttack has no WeaponSocket reference.");
+        if (!(bool)GetPropertyValue(socket, "HasWeapon"))
+            EquipTestWeapon(player);
+
         Assert.IsTrue(
             (bool)GetPropertyValue(socket, "HasWeapon"),
-            "The debug start weapon was not equipped."
+            "The test scene could not equip a weapon."
         );
 
         InvokePrivate(trigger, "HandleRightClickTrigger");
@@ -261,6 +288,75 @@ public class GameplayTests
             action.ToString(),
             "Right click should start the grounded Heavy attack."
         );
+    }
+
+    private static GameObject SpawnRegisteredEnemy()
+    {
+        GameObject prefab = LoadPrefab(EnemyPrefabPath);
+        Assert.IsNotNull(
+            prefab,
+            $"Could not load the test enemy prefab at {EnemyPrefabPath}."
+        );
+
+        GameObject player = GameObject.FindWithTag("Player");
+        Vector3 position = player != null ? player.transform.position : Vector3.zero;
+        if (NavMesh.SamplePosition(position, out NavMeshHit hit, 20f, NavMesh.AllAreas))
+            position = hit.position;
+
+        GameObject enemy = UnityEngine.Object.Instantiate(
+            prefab,
+            position,
+            Quaternion.identity
+        );
+
+        // The prefab only needs to register and expose its health light in these
+        // tests; stop the AI before its first Update so it does not need a navmesh.
+        Component ai = enemy.GetComponent("EnemyAI");
+        if (ai is Behaviour behaviour)
+            behaviour.enabled = false;
+
+        NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+        if (agent != null)
+            agent.enabled = false;
+
+        return enemy;
+    }
+
+    private static GameObject LoadPrefab(string path)
+    {
+        Type assetDatabaseType = Type.GetType(
+            "UnityEditor.AssetDatabase, UnityEditor"
+        );
+        if (assetDatabaseType == null)
+            return null;
+
+        MethodInfo loadAsset = assetDatabaseType.GetMethod(
+            "LoadAssetAtPath",
+            new[] { typeof(string), typeof(Type) }
+        );
+        if (loadAsset == null)
+            return null;
+
+        return loadAsset.Invoke(
+            null,
+            new object[] { path, typeof(GameObject) }
+        ) as GameObject;
+    }
+
+    private static void EquipTestWeapon(GameObject player)
+    {
+        Component debug = FindComponent(player, "DebugingScript");
+        Assert.IsNotNull(
+            debug,
+            "The Player has no DebugingScript to source the test weapon from."
+        );
+
+        object weaponPrefab = GetFieldValue(debug, "weaponP");
+        Assert.IsNotNull(weaponPrefab, "DebugingScript.weaponP is not assigned.");
+
+        Component equip = FindComponent(player, "EnquipWeapon");
+        Assert.IsNotNull(equip, "The Player has no EnquipWeapon component.");
+        InvokePrivate(equip, "UnlockAndEnquip", weaponPrefab);
     }
 
     private static IEnumerator LoadFirstScene()
