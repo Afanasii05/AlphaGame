@@ -16,8 +16,26 @@
 You can use the release build or do the following if it doesnt work: (sorry, i don't have a windows machine)
 1. Clone the repo.
 2. Open the project in Unity Hub using the version listed above.
-3. Open the scene at `Assets/Scenes/SampleScene`.
-4. Press Play.
+3. Open `Assets/Scenes/Death Valley` and press Play to start with the cinematic, or open `Assets/Scenes/World` to skip straight to the game.
+4. The Death Valley cinematic loads the World scene automatically when it ends.
+
+---
+
+## Building a Release
+
+The release build starts with the Death Valley cinematic and then loads the World scene:
+
+1. Open **File > Build Profiles** (or **Build Settings**).
+2. Use this **Scene List** order:
+   - `Assets/Scenes/Death Valley.unity` (enabled)
+   - `Assets/Scenes/World.unity` (enabled)
+   - `Assets/Scenes/SampleScene.unity` (disabled)
+3. `Battlefield_Cutscene` has a `CutsceneSceneLoader` component. It loads `World` after the timeline ends.
+4. Build for Windows or Linux.
+5. Zip the **entire build folder** before uploading it to GitHub Releases.
+
+You can re-apply the release scene flow and build order from:
+`Tools > Alpha > World > Setup Release Scene Flow`
 
 ---
 

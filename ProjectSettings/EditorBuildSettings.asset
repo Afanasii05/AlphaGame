@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Death Valley.unity
+    guid: 894db668b03eaa041aa8131ab0c7db51
+  - enabled: 1
+    path: Assets/Scenes/World.unity
+    guid: 5cd3624cf8c987041b6b39198af05f6a
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
