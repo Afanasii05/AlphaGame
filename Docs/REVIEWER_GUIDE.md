@@ -21,23 +21,6 @@ You can use the release build or do the following if it doesnt work: (sorry, i d
 
 ---
 
-## Building a Release
-
-The release build starts with the Death Valley cinematic and then loads the World scene:
-
-1. Open **File > Build Profiles** (or **Build Settings**).
-2. Use this **Scene List** order:
-   - `Assets/Scenes/Death Valley.unity` (enabled)
-   - `Assets/Scenes/World.unity` (enabled)
-   - `Assets/Scenes/SampleScene.unity` (disabled)
-3. `Battlefield_Cutscene` has a `CutsceneSceneLoader` component. It loads `World` after the timeline ends.
-4. Build for Windows or Linux.
-5. Zip the **entire build folder** before uploading it to GitHub Releases.
-
-You can re-apply the release scene flow and build order from:
-`Tools > Alpha > World > Setup Release Scene Flow`
-
----
 
 ## Controls
 
