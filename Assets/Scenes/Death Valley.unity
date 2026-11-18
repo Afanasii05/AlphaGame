@@ -784,7 +784,7 @@ GameObject:
   - component: {fileID: 172498909}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7891,6 +7891,7 @@ GameObject:
   - component: {fileID: 1758728194}
   - component: {fileID: 1758728193}
   - component: {fileID: 1758728192}
+  - component: {fileID: 1758728196}
   m_Layer: 0
   m_Name: Battlefield_Cutscene
   m_TagString: Untagged
@@ -8013,6 +8014,20 @@ Transform:
   - {fileID: 1531573077}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1758728196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758728191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bea77f65276c4b4aab5f15e4afb59ddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CutsceneSceneLoader
+  nextScene: World
+  delay: 0.5
 --- !u!1001 &1800865020
 PrefabInstance:
   m_ObjectHideFlags: 0

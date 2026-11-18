@@ -9,11 +9,14 @@ using UnityEditor.Animations;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 public class ProjectHealthTests
 {
     private const string SampleScenePath = "Assets/Scenes/SampleScene.unity";
+    private const string DeathValleyScenePath = "Assets/Scenes/Death Valley.unity";
+    private const string WorldScenePath = "Assets/Scenes/World.unity";
     private const string InputActionsPath =
         "Assets/PlayerInputActions/PlayerActions.inputactions";
     private const string WallPrefabPath =
@@ -52,6 +55,60 @@ public class ProjectHealthTests
                 File.Exists(scene.path),
                 $"Build scene does not exist: {scene.path}"
             );
+        }
+    }
+
+    [Test]
+    public void BuildStartsWithDeathValleyThenWorld()
+    {
+        EditorBuildSettingsScene[] enabled = EditorBuildSettings
+            .scenes.Where(scene => scene.enabled)
+            .ToArray();
+
+        Assert.GreaterOrEqual(
+            enabled.Length,
+            2,
+            "The release needs Death Valley and World in Build Settings."
+        );
+        Assert.AreEqual(DeathValleyScenePath, enabled[0].path);
+        Assert.AreEqual(WorldScenePath, enabled[1].path);
+    }
+
+    [Test]
+    public void DeathValleyLoadsWorldAfterCutscene()
+    {
+        Scene scene = OpenScene(DeathValleyScenePath);
+        try
+        {
+            PlayableDirector director = UnityEngine.Object.FindAnyObjectByType<PlayableDirector>(
+                FindObjectsInactive.Include
+            );
+            Assert.IsNotNull(director, "Death Valley needs a PlayableDirector.");
+
+            MonoBehaviour loader = director
+                .GetComponents<MonoBehaviour>()
+                .FirstOrDefault(component =>
+                    component != null && component.GetType().Name == "CutsceneSceneLoader"
+                );
+            Assert.IsNotNull(
+                loader,
+                "Death Valley needs a CutsceneSceneLoader on its PlayableDirector."
+            );
+
+            SerializedObject serialized = new SerializedObject(loader);
+            Assert.AreEqual(
+                "World",
+                serialized.FindProperty("nextScene").stringValue,
+                "Death Valley must load the World scene after the cutscene."
+            );
+            Assert.IsTrue(
+                Camera.allCameras.Any(camera => camera.CompareTag("MainCamera")),
+                "Death Valley needs a MainCamera for Camera.main."
+            );
+        }
+        finally
+        {
+            CloseScene(scene);
         }
     }
 

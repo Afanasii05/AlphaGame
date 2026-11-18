@@ -11,6 +11,7 @@ using UnityEngine.TestTools;
 public class GameplayTests
 {
     private const string EnemyPrefabPath = "Assets/Enemies/Stumphorn/Stumphorn.prefab";
+    private const string WorldScenePath = "Assets/Scenes/World.unity";
 
     [UnityTest]
     public IEnumerator FirstBuildSceneLoads()
@@ -61,7 +62,7 @@ public class GameplayTests
     [UnityTest]
     public IEnumerator PlayerCombatDefinitionsAreLoaded()
     {
-        yield return LoadFirstScene();
+        yield return LoadWorldScene();
 
         GameObject player = GameObject.Find("Player");
         Assert.IsNotNull(player, "The build scene has no Player object.");
@@ -107,7 +108,7 @@ public class GameplayTests
     [UnityTest]
     public IEnumerator EnemiesAndAlliesRegisterAndHaveHealthLights()
     {
-        yield return LoadFirstScene();
+        yield return LoadWorldScene();
 
         GameObject spawnedEnemy = SpawnRegisteredEnemy();
         try
@@ -163,7 +164,7 @@ public class GameplayTests
     [UnityTest]
     public IEnumerator EnemyTakesHitAndHealthGlowChanges()
     {
-        yield return LoadFirstScene();
+        yield return LoadWorldScene();
 
         GameObject spawnedEnemy = SpawnRegisteredEnemy();
         try
@@ -219,7 +220,7 @@ public class GameplayTests
     [UnityTest]
     public IEnumerator BlockSpawnsWall()
     {
-        yield return LoadFirstScene();
+        yield return LoadWorldScene();
         yield return WaitForGrounded();
 
         GameObject player = GameObject.Find("Player");
@@ -258,7 +259,7 @@ public class GameplayTests
     [UnityTest]
     public IEnumerator RightClickStartsHeavyAttack()
     {
-        yield return LoadFirstScene();
+        yield return LoadWorldScene();
         yield return WaitForGrounded();
 
         GameObject player = GameObject.Find("Player");
@@ -359,15 +360,14 @@ public class GameplayTests
         InvokePrivate(equip, "UnlockAndEnquip", weaponPrefab);
     }
 
-    private static IEnumerator LoadFirstScene()
+    private static IEnumerator LoadWorldScene()
     {
-        Assert.Greater(
-            SceneManager.sceneCountInBuildSettings,
-            0,
-            "Add at least one scene to Build Settings."
+        Assert.IsTrue(
+            Application.CanStreamedLevelBeLoaded(WorldScenePath),
+            $"{WorldScenePath} is missing from Build Settings."
         );
 
-        yield return SceneManager.LoadSceneAsync(0);
+        yield return SceneManager.LoadSceneAsync(WorldScenePath);
         yield return null;
         yield return new WaitForSeconds(0.5f);
     }
