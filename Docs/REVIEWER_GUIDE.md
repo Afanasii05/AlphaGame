@@ -8,13 +8,13 @@
 
 - Unity 6000.6.4f1 
 - Git
-
+- Git LFS
 ---
 
 ## Getting Started
 
 You can use the release build or do the following if it doesnt work: (sorry, i don't have a windows machine)
-1. Clone the repo.
+1. Clone the repo. (you need `git lfs` installed, to ensure you got all files you can execute `git lfs pull` in the cloned repo folder)
 2. Open the project in Unity Hub using the version listed above.
 3. Open `Assets/Scenes/Death Valley` and press Play to start with the cinematic, or open `Assets/Scenes/World` to skip straight to the game.
 4. The Death Valley cinematic loads the World scene automatically when it ends.
